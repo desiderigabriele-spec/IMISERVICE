@@ -1,0 +1,60 @@
+# IMI Service – sito web
+
+Sito statico (HTML, CSS, JS) per IMI Service, impresa di pulizie, sanificazioni e manutenzioni di Sesto San Giovanni.
+Non serve nessuna build: su Vercel basta collegare il repository (Framework preset: **Other**, nessun comando di build, cartella di output: la radice).
+
+- `index.html`: versione italiana
+- `ar/index.html`: versione araba (RTL), raggiungibile da `/ar/` e dal selettore lingua nell'header
+- `privacy.html`: bozza dell'informativa privacy, **da completare** con i dati societari
+
+## Cosa c'è nella pagina
+
+- **Intro 3D**: lo schermo parte "sporco" e un tergivetro 3D lo pulisce a passate, con contatore 0–100%. Si può saltare, e non viene mostrata a chi ha attivato la riduzione del movimento.
+- **Spruzzino 3D** che accompagna lo scroll: si aggancia alle sezioni, segue il mouse e spruzza quando arriva, quando si modifica il configuratore o si invia un form.
+- **Configuratore** "La tua richiesta in 30 secondi": compone un riepilogo da inviare su WhatsApp o da portare nel modulo.
+- **Form rapido** (hero) e **form completo**, **verifica zona**, FAQ, barra contatti fissa su mobile, pulsante WhatsApp.
+
+## Da completare prima della pubblicazione
+
+Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`.
+
+| Campo | Cosa inserire |
+|---|---|
+| `phoneDisplay` | numero come deve apparire, es. `+39 02 1234 5678` |
+| `phone` | stesso numero senza spazi, es. `+390212345678` |
+| `whatsapp` | numero WhatsApp solo cifre con prefisso, es. `393331234567` |
+| `email`, `piva` | email aziendale e partita IVA |
+| `formEndpoint` | (consigliato) endpoint per ricevere i form via email, vedi sotto |
+
+Poi:
+1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` e `ar/index.html` (serve a Google).
+2. Se il dominio non è `www.imiservice.it`, sostituiscilo nei tag `canonical`, `hreflang` e `og:url` delle due pagine.
+3. Completa `privacy.html`.
+
+### Ricevere i form via email
+
+Senza `formEndpoint`, il pulsante "Invia richiesta" apre il programma email dell'utente e il pulsante WhatsApp apre la chat già compilata.
+Per ricevere le richieste direttamente in casella, crea un modulo gratuito su [Formspree](https://formspree.io) e incolla l'URL (es. `https://formspree.io/f/abcdwxyz`) in `formEndpoint`.
+
+## Usare il tuo modello 3D (tergivetro / spruzzino)
+
+Il tergivetro e lo spruzzino sono modellati via codice (Three.js, incluso in `assets/vendor/three`). Per sostituirli con modelli tuoi:
+
+1. Esporta il modello in **.glb** (consigliato) o .gltf, possibilmente sotto 2–3 MB.
+2. Mettilo in `assets/models/`, es. `assets/models/tergivetro.glb`.
+3. In `assets/js/config.js`:
+   ```js
+   models: {
+     squeegee: { url: 'assets/models/tergivetro.glb', rotation: [0, 0, 0] },
+     bottle:   { url: 'assets/models/spruzzino.glb',  rotation: [0, 0, 0] }
+   }
+   ```
+   Il modello viene centrato e scalato automaticamente. Per il tergivetro la lama deve essere verticale (asse Y): se arriva ruotato, correggilo con `rotation` (in gradi).
+
+## Provarlo in locale
+
+```bash
+python3 -m http.server 8000
+```
+
+Poi apri http://localhost:8000 (serve un server: aprendo il file direttamente i moduli JS non si caricano).

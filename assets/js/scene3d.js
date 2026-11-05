@@ -10,6 +10,7 @@ import { RoomEnvironment } from '../vendor/three/jsm/environments/RoomEnvironmen
 const C = Object.assign({ models: {} }, window.IMI_CONFIG || {});
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas = document.getElementById('scene3d');
+const RTL = document.documentElement.dir === 'rtl';
 
 const fail = (why) => {
   if (canvas) canvas.classList.add('is-off');
@@ -230,6 +231,8 @@ async function init() {
     tip.position.set(-0.7, 0.2, 0);
     head.add(tip);
     head.position.y = 1.61;
+    // Versione araba: lo spruzzino sta a sinistra e spruzza verso destra
+    if (RTL) head.rotation.y = Math.PI;
 
     root.add(liquid, tube, body, label, collar, head);
     root.userData = { head, trigger: trigPivot, tip, local: true };
@@ -241,7 +244,9 @@ async function init() {
     if (!cfg || !cfg.url) return null;
     try {
       const { GLTFLoader } = await import('../vendor/three/jsm/loaders/GLTFLoader.js');
-      const gltf = await new GLTFLoader().loadAsync(cfg.url);
+      // I percorsi in config.js sono relativi alla radice del sito (funzionano anche da /ar/)
+      const url = new URL(cfg.url, new URL('../../', import.meta.url)).href;
+      const gltf = await new GLTFLoader().loadAsync(url);
       const obj = gltf.scene;
       if (Array.isArray(cfg.rotation)) obj.rotation.set(...cfg.rotation.map((d) => THREE.MathUtils.degToRad(d)));
       return obj;
@@ -322,7 +327,7 @@ async function init() {
     const tip = bottle.userData.tip;
     if (!tip) return;
     tip.getWorldPosition(tmpV);
-    bottle.getWorldQuaternion(tmpQ);
+    (bottle.userData.head || bottle).getWorldQuaternion(tmpQ);
     tmpDir.set(-1, 0, 0).applyQuaternion(tmpQ).normalize();
     for (let i = 0; i < count; i++) {
       const k = pCursor;
@@ -485,7 +490,7 @@ async function init() {
         const spin = THREE.MathUtils.clamp(scrollVel * 0.0004, -0.6, 0.6);
         bottle.rotation.set(
           0.08 + pointer.sy * 0.12 + spin * 0.3,
-          -0.55 + Math.sin(t * 0.7) * 0.28 + pointer.sx * 0.35 + spin,
+          (RTL ? 0.55 : -0.55) + Math.sin(t * 0.7) * 0.28 + pointer.sx * 0.35 + spin,
           THREE.MathUtils.clamp(-vx, -0.35, 0.35) + Math.sin(t * 1.1) * 0.04
         );
       }
