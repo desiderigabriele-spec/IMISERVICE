@@ -26,6 +26,20 @@ window.IMI_CONFIG = {
     durationMs: 2300
   },
 
+  // Video di presentazione. Compila UNO dei tre campi:
+  //   youtube: ID del video YouTube (es. per https://youtu.be/AbCdEf12345 -> 'AbCdEf12345')
+  //   vimeo:   ID numerico del video Vimeo (es. '123456789')
+  //   mp4:     file caricato nel sito (es. 'assets/video/presentazione.mp4')
+  // poster: immagine di copertina opzionale (es. 'assets/video/copertina.jpg')
+  // vertical: true se il video è girato in verticale (formato telefono 9:16)
+  video: {
+    youtube: '',
+    vimeo: '',
+    mp4: '',
+    poster: '',
+    vertical: false
+  },
+
   // Modelli 3D personalizzati (.glb / .gltf). Se null viene usato il modello 3D generato dal codice.
   // Esempio:
   //   squeegee: { url: 'assets/models/tergivetro.glb', rotation: [0, 0, 0] },

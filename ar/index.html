@@ -80,6 +80,7 @@
       <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
         <ul>
           <li><a href="#servizi">الخدمات</a></li>
+          <li><a href="#video">فيديو</a></li>
           <li><a href="#configuratore">جهّز طلبك</a></li>
           <li><a href="#perche-noi">لماذا IMI</a></li>
           <li><a href="#zone">المناطق</a></li>
@@ -90,6 +91,7 @@
         <a class="btn btn--yellow nav__cta" href="#preventivo">معاينة مجانية</a>
       </nav>
 
+      <a class="lang-switch lang-switch--mobile" href="../" hreflang="it" lang="it" title="Versione italiana">Italiano</a>
       <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">
         <span class="sr-only">فتح القائمة</span>
         <span class="nav-toggle__bar"></span>
@@ -103,6 +105,7 @@
 
     <!-- ============ الواجهة ============ -->
     <section class="hero">
+      <div class="hero__brandmark" aria-hidden="true"><span>IMI</span></div>
       <div class="container hero__inner">
         <div class="hero__copy">
           <p class="kicker">سيستو سان جوفاني · ميلانو · مونزا</p>
@@ -170,6 +173,39 @@
           <div class="stat"><strong>24/7</strong><span>تغطية بنظام النوبات، حتى في العطل</span></div>
           <div class="stat"><strong>4</strong><span>مجالات خدمة، ومسؤول واحد للتواصل</span></div>
           <div class="stat"><strong dir="ltr">MI · MB</strong><span>ميلانو ومونزا والضواحي القريبة</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ فيديو تعريفي ============ -->
+    <section class="section video-sec" id="video" aria-labelledby="video-title">
+      <div class="container">
+        <div class="section__head section__head--split reveal">
+          <div>
+            <p class="kicker">فيديو تعريفي</p>
+            <h2 id="video-title">نظافة <mark class="hl">ترى الفرق فيها.</mark></h2>
+          </div>
+          <p>من نحن، كيف نعمل، وبأي معدات نصل إليك. في أقل من دقيقتين.</p>
+        </div>
+
+        <div class="video" id="videoBox" data-state="empty">
+          <span class="anchor3d anchor3d--video" data-anchor data-scale="0.95" aria-hidden="true"></span>
+          <div class="video__frame">
+            <div class="video__poster" aria-hidden="true">
+              <span class="video__wm">IMI</span>
+              <span class="video__wipe"></span>
+            </div>
+            <button class="video__play" type="button" aria-label="شاهد الفيديو التعريفي">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
+            </button>
+            <div class="video__caption">
+              <p class="video__title">IMI Service<span>تنظيف · تعقيم · صيانة</span></p>
+              <p class="video__soon">الفيديو قريباً</p>
+            </div>
+            <ul class="video__chips" role="list">
+              <li>الفريق</li><li>المعدات</li><li>طريقة العمل</li><li>النتائج</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

@@ -418,6 +418,73 @@
   }
 
   /* ------------------------------------------------------------------
+     6b. Video presentazione
+     ------------------------------------------------------------------ */
+  function initVideo() {
+    const box = $('#videoBox');
+    if (!box) return;
+    const v = C.video || {};
+    const frame = $('.video__frame', box);
+    const play = $('.video__play', box);
+    // percorsi relativi alla radice del sito (validi anche da /ar/)
+    const root = (document.querySelector('script[src$="config.js"]') || {}).src || location.href;
+    const fromRoot = (p) => new URL(p, new URL('../../', root)).href;
+
+    if (v.vertical) box.classList.add('video--vertical');
+    if (v.poster) $('.video__poster', box).style.backgroundImage = `url("${fromRoot(v.poster)}")`;
+    const hasVideo = !!(v.youtube || v.vimeo || v.mp4);
+    box.dataset.state = hasVideo ? 'ready' : 'empty';
+    if (v.poster) box.classList.add('has-poster');
+
+    play.addEventListener('click', () => {
+      if (!hasVideo) {
+        box.classList.remove('nudge');
+        void box.offsetWidth;
+        box.classList.add('nudge');
+        return;
+      }
+      let el;
+      if (v.mp4) {
+        el = document.createElement('video');
+        el.src = fromRoot(v.mp4);
+        el.controls = true;
+        el.autoplay = true;
+        el.playsInline = true;
+        if (v.poster) el.poster = fromRoot(v.poster);
+      } else {
+        el = document.createElement('iframe');
+        el.src = v.youtube
+          ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.youtube)}?autoplay=1&rel=0&modestbranding=1`
+          : `https://player.vimeo.com/video/${encodeURIComponent(v.vimeo)}?autoplay=1&title=0&byline=0`;
+        el.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
+        el.allowFullscreen = true;
+        el.title = play.getAttribute('aria-label');
+      }
+      el.className = 'video__media';
+      frame.append(el);
+      box.dataset.state = 'playing';
+      spray();
+    });
+
+    // Effetto 3D: il riquadro si "raddrizza" mentre entra nello schermo
+    if (reduced) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = box.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.85)));
+      const e = 1 - Math.pow(1 - p, 3);
+      box.style.setProperty('--vx', `${(1 - e) * 22}deg`);
+      box.style.setProperty('--vs', String(0.88 + e * 0.12));
+      box.style.setProperty('--vy', `${(1 - e) * 60}px`);
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  /* ------------------------------------------------------------------
      7. INTRO – vetro sporco pulito dal tergivetro
      ------------------------------------------------------------------ */
   function finishIntro(intro) {
@@ -661,5 +728,6 @@
   initConfigurator();
   initForms();
   initZoneCheck();
+  initVideo();
   runIntro();
 })();

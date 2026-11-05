@@ -91,6 +91,7 @@
       <nav class="nav" id="nav" aria-label="Navigazione principale">
         <ul>
           <li><a href="#servizi">Servizi</a></li>
+          <li><a href="#video">Video</a></li>
           <li><a href="#configuratore">Configura</a></li>
           <li><a href="#perche-noi">Perché IMI</a></li>
           <li><a href="#zone">Zone</a></li>
@@ -101,6 +102,7 @@
         <a class="btn btn--yellow nav__cta" href="#preventivo">Sopralluogo gratuito</a>
       </nav>
 
+      <a class="lang-switch lang-switch--mobile" href="ar/" hreflang="ar" lang="ar" title="النسخة العربية">العربية</a>
       <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">
         <span class="sr-only">Apri menu</span>
         <span class="nav-toggle__bar"></span>
@@ -114,6 +116,7 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero">
+      <div class="hero__brandmark" aria-hidden="true"><span>IMI</span></div>
       <div class="container hero__inner">
         <div class="hero__copy">
           <p class="kicker"><span class="kicker__dots" aria-hidden="true"></span>Sesto San Giovanni · Milano · Monza</p>
@@ -183,6 +186,39 @@
           <div class="stat"><strong>H24</strong><span>Copertura su turni, anche festivi</span></div>
           <div class="stat"><strong>4</strong><span>Aree di servizio, un solo referente</span></div>
           <div class="stat"><strong>MI · MB</strong><span>Milano, Monza e prima cintura</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO PRESENTAZIONE ============ -->
+    <section class="section video-sec" id="video" aria-labelledby="video-title">
+      <div class="container">
+        <div class="section__head section__head--split reveal">
+          <div>
+            <p class="kicker">Video presentazione</p>
+            <h2 id="video-title">Il pulito <mark class="hl">che si vede.</mark></h2>
+          </div>
+          <p>Chi siamo, come lavoriamo e con quali attrezzature arriviamo da te. In meno di due minuti.</p>
+        </div>
+
+        <div class="video" id="videoBox" data-state="empty">
+          <span class="anchor3d anchor3d--video" data-anchor data-scale="0.95" aria-hidden="true"></span>
+          <div class="video__frame">
+            <div class="video__poster" aria-hidden="true">
+              <span class="video__wm">IMI</span>
+              <span class="video__wipe"></span>
+            </div>
+            <button class="video__play" type="button" aria-label="Guarda il video di presentazione">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
+            </button>
+            <div class="video__caption">
+              <p class="video__title">IMI Service<span>Pulizie · Sanificazioni · Manutenzioni</span></p>
+              <p class="video__soon">Video in arrivo</p>
+            </div>
+            <ul class="video__chips" role="list">
+              <li>La squadra</li><li>Le attrezzature</li><li>Il metodo</li><li>I risultati</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -683,7 +719,7 @@
     </div>
     <div class="container footer__legal">
       <p>© <span data-year>2026</span> IMI Service · P.IVA <span data-imi="piva">00000000000</span></p>
-      <p><a href="privacy.html">Privacy policy</a></p>
+      <p><a href="privacy.html">Privacy policy</a> · <a href="ar/" hreflang="ar" lang="ar">العربية</a></p>
     </div>
   </footer>
 

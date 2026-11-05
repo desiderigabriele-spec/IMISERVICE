@@ -12,6 +12,7 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 - **Intro 3D**: lo schermo parte "sporco" e un tergivetro 3D lo pulisce a passate, con contatore 0–100%. Si può saltare, e non viene mostrata a chi ha attivato la riduzione del movimento.
 - **Spruzzino 3D** che accompagna lo scroll: si aggancia alle sezioni, segue il mouse e spruzza quando arriva, quando si modifica il configuratore o si invia un form.
 - **Configuratore** "La tua richiesta in 30 secondi": compone un riepilogo da inviare su WhatsApp o da portare nel modulo.
+- **Video di presentazione** con riquadro 3D che si raddrizza allo scroll (configurabile, vedi sotto).
 - **Form rapido** (hero) e **form completo**, **verifica zona**, FAQ, barra contatti fissa su mobile, pulsante WhatsApp.
 
 ## Da completare prima della pubblicazione
@@ -35,6 +36,23 @@ Poi:
 
 Senza `formEndpoint`, il pulsante "Invia richiesta" apre il programma email dell'utente e il pulsante WhatsApp apre la chat già compilata.
 Per ricevere le richieste direttamente in casella, crea un modulo gratuito su [Formspree](https://formspree.io) e incolla l'URL (es. `https://formspree.io/f/abcdwxyz`) in `formEndpoint`.
+
+## Video di presentazione
+
+La sezione "Il pulito che si vede" (subito dopo l'hero) mostra un riquadro con il marchio e la scritta "Video in arrivo" finché il video non c'è.
+Per attivarlo compila **uno** dei campi `video` in `assets/js/config.js`:
+
+```js
+video: {
+  youtube: 'AbCdEf12345',   // ID YouTube (consigliato: non pesa sul sito)
+  vimeo: '',                // oppure ID Vimeo
+  mp4: '',                  // oppure file nel sito, es. 'assets/video/presentazione.mp4'
+  poster: 'assets/video/copertina.jpg', // copertina (consigliata)
+  vertical: false           // true se girato in verticale 9:16
+}
+```
+
+Il video si carica solo quando l'utente preme play, così la pagina resta veloce. Per YouTube usa il dominio senza cookie (youtube-nocookie.com).
 
 ## Usare il tuo modello 3D (tergivetro / spruzzino)
 
