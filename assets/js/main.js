@@ -574,10 +574,9 @@
     el.className = 'intro__tool';
     el.innerHTML = `<svg viewBox="0 0 150 400" width="150" height="400" aria-hidden="true">
       <rect x="0" y="0" width="9" height="400" rx="3" fill="#111418"/>
-      <rect x="8" y="2" width="16" height="396" rx="4" fill="#cfd5dc"/>
-      <rect x="8" y="2" width="5" height="396" fill="#eef1f4"/>
+      <rect x="8" y="2" width="16" height="396" rx="4" fill="#ffd23c"/>
       <rect x="20" y="180" width="26" height="40" rx="8" fill="#0e1a2b"/>
-      <g transform="rotate(22 40 200)"><rect x="40" y="186" width="110" height="28" rx="14" fill="#ffd23c"/>
+      <g transform="rotate(22 40 200)"><rect x="40" y="186" width="110" height="28" rx="14" fill="#f6f3ec"/>
       <rect x="128" y="186" width="22" height="28" rx="11" fill="#0e1a2b"/></g></svg>`;
     el.style.opacity = '0';
     container.append(el);

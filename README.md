@@ -15,6 +15,21 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 - **Video di presentazione** con riquadro 3D che si raddrizza allo scroll (configurabile, vedi sotto).
 - **Form rapido** (hero) e **form completo**, **verifica zona**, FAQ, barra contatti fissa su mobile, pulsante WhatsApp.
 
+## Logo
+
+I file del logo sono in `assets/img/logo/` (kit originale e istruzioni in `docs/brand/`):
+
+| File | Dove si usa |
+|---|---|
+| `logo.svg` | header (fondo crema) |
+| `logo-negativo.svg` | footer e fondi scuri: stessa forma, scritta crema e bordo sottile del riquadro |
+| `logo-animato.svg` | apertura del sito (una sola animazione, rispetta la riduzione del movimento) |
+| `simbolo.svg` | favicon, filigrana nell'hero, etichetta dello spruzzino 3D |
+| `logo-crema.svg`, `logo-monocromatico.svg` | stampa e materiali esterni |
+
+In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.png` e `og-image.png` (anteprima 1200×630 dei link condivisi su WhatsApp e social).
+Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image` nelle due pagine.
+
 ## Da completare prima della pubblicazione
 
 Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`.

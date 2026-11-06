@@ -86,7 +86,8 @@ async function init() {
       transparent: true, opacity: 0.38, depthWrite: false, side: THREE.DoubleSide
     }),
     liquid: new THREE.MeshPhysicalMaterial({ color: 0xffcc1f, roughness: 0.15, transparent: true, opacity: 0.88, clearcoat: 0.5 }),
-    tube: new THREE.MeshStandardMaterial({ color: 0xdfe3e8, roughness: 0.4, transparent: true, opacity: 0.7 })
+    tube: new THREE.MeshStandardMaterial({ color: 0xdfe3e8, roughness: 0.4, transparent: true, opacity: 0.7 }),
+    cream: new THREE.MeshPhysicalMaterial({ color: 0xf6f3ec, roughness: 0.4, clearcoat: 0.5 })
   };
   const mesh = (geo, mat) => { const m = new THREE.Mesh(geo, mat); return m; };
 
@@ -96,10 +97,9 @@ async function init() {
     const root = new THREE.Group();
     const rubber = mesh(new THREE.BoxGeometry(0.028, 1.0, 0.07), M.rubber);
     rubber.position.z = -0.065;
-    const channel = mesh(new THREE.BoxGeometry(0.08, 1.02, 0.075), M.chrome);
-    const shine = mesh(new THREE.BoxGeometry(0.02, 1.0, 0.078), M.chrome);
-    shine.position.x = -0.03;
-    root.add(rubber, channel, shine);
+    // Colori del logo: lama gialla, manico crema
+    const channel = mesh(new THREE.BoxGeometry(0.08, 1.02, 0.075), M.yellow);
+    root.add(rubber, channel);
     for (const s of [-1, 1]) {
       const cap = mesh(new THREE.BoxGeometry(0.1, 0.035, 0.1), M.navy);
       cap.position.y = s * 0.515;
@@ -109,7 +109,7 @@ async function init() {
     const clip = mesh(new THREE.CylinderGeometry(0.06, 0.075, 0.14, 28), M.navy);
     clip.rotation.x = Math.PI / 2;
     clip.position.z = 0.09;
-    const shaft = mesh(new THREE.CylinderGeometry(0.045, 0.052, 0.62, 32), M.yellow);
+    const shaft = mesh(new THREE.CylinderGeometry(0.045, 0.052, 0.62, 32), M.cream);
     shaft.rotation.x = Math.PI / 2;
     shaft.position.z = 0.46;
     handle.add(clip, shaft);
@@ -133,25 +133,41 @@ async function init() {
     c.width = 1024; c.height = 512;
     const g = c.getContext('2d');
     const t = new THREE.CanvasTexture(c);
+    let mark = null;
     const draw = () => {
     g.fillStyle = '#0e1a2b';
     g.fillRect(0, 0, 1024, 512);
     g.fillStyle = '#ffd23c';
-    g.fillRect(0, 430, 1024, 22);
-    g.textAlign = 'center';
-    g.fillStyle = '#ffffff';
-    g.font = '800 210px Manrope, system-ui, sans-serif';
-    g.fillText('IMI', 512, 250);
-    g.fillStyle = '#ffd23c';
-    g.font = '800 74px Manrope, system-ui, sans-serif';
-    g.fillText('S E R V I C E', 512, 345);
-    g.fillStyle = 'rgba(255,255,255,.7)';
-    g.font = '600 34px Manrope, system-ui, sans-serif';
-    g.fillText('pulizie · sanificazioni', 512, 405);
+    g.fillRect(0, 440, 1024, 20);
+    if (mark) {
+      // Simbolo del logo + scritta
+      g.drawImage(mark, 190, 70, 300, 320);
+      g.textAlign = 'left';
+      g.fillStyle = '#f6f3ec';
+      g.font = '800 190px Manrope, system-ui, sans-serif';
+      g.fillText('IMI', 520, 270);
+      g.font = '600 76px Manrope, system-ui, sans-serif';
+      g.fillText('Service', 526, 360);
+    } else {
+      g.textAlign = 'center';
+      g.fillStyle = '#ffffff';
+      g.font = '800 210px Manrope, system-ui, sans-serif';
+      g.fillText('IMI', 512, 270);
+    }
     t.needsUpdate = true;
     };
     draw();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+    // Carica il simbolo del logo (SVG) e ridisegna l'etichetta
+    fetch(new URL('../img/logo/simbolo.svg', import.meta.url))
+      .then((r) => r.text())
+      .then((svg) => {
+        const sized = svg.replace('<svg ', '<svg width="300" height="320" ');
+        const img = new Image();
+        img.onload = () => { mark = img; draw(); };
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(sized);
+      })
+      .catch(() => {});
     t.colorSpace = THREE.SRGBColorSpace;
     t.anisotropy = 4;
     return t;
