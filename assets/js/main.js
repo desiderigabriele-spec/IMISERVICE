@@ -9,7 +9,63 @@
   const finePointer = window.matchMedia('(pointer: fine)').matches;
 
   const waLink = (text) => `https://wa.me/${C.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
-  const DEFAULT_WA = 'Buongiorno IMI Service, vorrei richiedere un sopralluogo gratuito.';
+
+  /* Testi dinamici nelle due lingue del sito */
+  const I18N = {
+    it: {
+      defaultWa: 'Buongiorno IMI Service, vorrei richiedere un sopralluogo gratuito.',
+      keys: { Cliente: 'Cliente', Servizio: 'Servizio', Superficie: 'Superficie', Frequenza: 'Frequenza', Orario: 'Orario', Extra: 'Extra', Zona: 'Zona' },
+      over: (n) => `oltre ${n} m²`,
+      none: 'Nessuno',
+      toDefine: 'Da indicare',
+      configWa: (sum) => `Buongiorno IMI Service, vorrei un preventivo:\n${sum}\n\nGrazie!`,
+      configMsg: (sum) => `Richiesta dal configuratore:\n${sum}\n\n`,
+      labels: { nome: 'Nome', telefono: 'Telefono', email: 'Email', servizio: 'Servizio', localita: 'Località', messaggio: 'Dettagli' },
+      invalid: 'Completa i campi evidenziati, per favore.',
+      introQuick: 'Buongiorno IMI Service, vorrei essere ricontattato per un sopralluogo gratuito.',
+      introFull: 'Buongiorno IMI Service, ecco la mia richiesta di preventivo.',
+      waReady: 'WhatsApp è pronto con il messaggio compilato: premi Invia per completare.',
+      sending: 'Invio in corso…',
+      sent: 'Richiesta inviata. Ti ricontattiamo al più presto per fissare il sopralluogo.',
+      sendFail: 'Invio non riuscito. Riprova, oppure scrivici su WhatsApp o chiamaci.',
+      subject: 'Richiesta preventivo dal sito',
+      mailOpened: 'Si è aperto il tuo programma email con la richiesta pronta da inviare.',
+      zoneYes: (z) => `✓ Sì, operiamo in zona ${z}. `,
+      zoneYesLink: 'Prenota il sopralluogo gratuito →',
+      zoneMaybe: 'Fuori dalle zone abituali? Nessun problema: organizziamo trasferte su richiesta. ',
+      zoneAsk: (z) => `Buongiorno IMI Service, operate anche a ${z}?`,
+      zoneAskLink: 'Chiedi su WhatsApp →',
+      grime: 'pulisci qui…'
+    },
+    ar: {
+      defaultWa: 'مرحباً IMI Service، أرغب في طلب معاينة مجانية.',
+      keys: { Cliente: 'العميل', Servizio: 'الخدمة', Superficie: 'المساحة', Frequenza: 'التكرار', Orario: 'التوقيت', Extra: 'إضافات', Zona: 'المنطقة' },
+      over: (n) => `أكثر من ${n} م²`,
+      none: 'لا يوجد',
+      toDefine: 'غير محددة',
+      configWa: (sum) => `مرحباً IMI Service، أرغب في الحصول على عرض سعر:\n${sum}\n\nشكراً!`,
+      configMsg: (sum) => `طلب من أداة تجهيز الطلب:\n${sum}\n\n`,
+      labels: { nome: 'الاسم', telefono: 'الهاتف', email: 'البريد الإلكتروني', servizio: 'الخدمة', localita: 'المنطقة', messaggio: 'التفاصيل' },
+      invalid: 'يرجى إكمال الحقول المحددة.',
+      introQuick: 'مرحباً IMI Service، أرغب في أن تتصلوا بي لتحديد موعد معاينة مجانية.',
+      introFull: 'مرحباً IMI Service، هذا طلبي للحصول على عرض سعر.',
+      waReady: 'واتساب جاهز والرسالة مكتوبة: اضغط "إرسال" لإتمام الطلب.',
+      sending: 'جارٍ الإرسال…',
+      sent: 'تم إرسال طلبك. سنتواصل معك في أقرب وقت لتحديد موعد المعاينة.',
+      sendFail: 'تعذّر الإرسال. حاول مرة أخرى، أو راسلنا عبر واتساب أو اتصل بنا.',
+      subject: 'طلب عرض سعر من الموقع',
+      mailOpened: 'تم فتح برنامج البريد الإلكتروني والطلب جاهز للإرسال.',
+      zoneYes: (z) => `✓ نعم، نعمل في منطقة ${z}. `,
+      zoneYesLink: 'احجز المعاينة المجانية ←',
+      zoneMaybe: 'خارج مناطق عملنا المعتادة؟ لا مشكلة: ننظّم تنقلات خاصة عند الطلب. ',
+      zoneAsk: (z) => `مرحباً IMI Service، هل تعملون أيضاً في ${z}؟`,
+      zoneAskLink: 'اسألنا عبر واتساب ←',
+      grime: 'نظّفني…'
+    }
+  };
+  const LANG = (document.documentElement.lang || 'it').slice(0, 2) === 'ar' ? 'ar' : 'it';
+  const T = I18N[LANG];
+  const DEFAULT_WA = T.defaultWa;
   const spray = () => window.dispatchEvent(new CustomEvent('imi:spray'));
 
   /* ------------------------------------------------------------------
@@ -115,11 +171,11 @@
       return {
         Cliente: val('c-tipo'),
         Servizio: val('c-servizio'),
-        Superficie: mq >= Number(range.max) ? `oltre ${mq} m²` : `${mq} m²`,
+        Superficie: mq >= Number(range.max) ? T.over(mq) : `${mq} m²`,
         Frequenza: val('c-freq'),
         Orario: val('c-orario'),
-        Extra: extras.length ? extras.join(', ') : 'Nessuno',
-        Zona: zona.value.trim() || 'Da indicare'
+        Extra: extras.length ? extras.join(LANG === 'ar' ? '، ' : ', ') : T.none,
+        Zona: zona.value.trim() || T.toDefine
       };
     };
 
@@ -134,7 +190,7 @@
         const row = document.createElement('div');
         const dt = document.createElement('dt');
         const dd = document.createElement('dd');
-        dt.textContent = k;
+        dt.textContent = T.keys[k] || k;
         dd.textContent = v;
         if (animate && prev[k] !== v) dd.classList.add('flash');
         row.append(dt, dd);
@@ -143,8 +199,8 @@
       prev = data;
 
       config.data = data;
-      config.summaryText = Object.entries(data).map(([k, v]) => `• ${k}: ${v}`).join('\n');
-      wa.href = waLink(`Buongiorno IMI Service, vorrei un preventivo:\n${config.summaryText}\n\nGrazie!`);
+      config.summaryText = Object.entries(data).map(([k, v]) => `• ${T.keys[k] || k}: ${v}`).join('\n');
+      wa.href = waLink(T.configWa(config.summaryText));
     };
 
     let sprayT = 0;
@@ -162,8 +218,8 @@
       const sel = $('#f-servizio', full);
       const opt = Array.from(sel.options).find((o) => o.text === d.Servizio);
       if (opt) sel.value = opt.text;
-      if (d.Zona !== 'Da indicare') $('#f-localita', full).value = d.Zona;
-      $('#f-msg', full).value = `Richiesta dal configuratore:\n${config.summaryText}\n\n`;
+      if (d.Zona !== T.toDefine) $('#f-localita', full).value = d.Zona;
+      $('#f-msg', full).value = T.configMsg(config.summaryText);
       setTimeout(() => $('#f-nome', full).focus({ preventScroll: true }), 650);
     });
 
@@ -190,10 +246,7 @@
   /* ------------------------------------------------------------------
      5. Form contatto
      ------------------------------------------------------------------ */
-  const LABELS = {
-    nome: 'Nome', telefono: 'Telefono', email: 'Email', servizio: 'Servizio',
-    localita: 'Località', messaggio: 'Dettagli'
-  };
+  const LABELS = T.labels;
 
   function validate(form) {
     let first = null;
@@ -241,7 +294,7 @@
         e.preventDefault();
         const invalid = validate(form);
         if (invalid) {
-          setStatus(form, 'Completa i campi evidenziati, per favore.', 'error');
+          setStatus(form, T.invalid, 'error');
           invalid.focus();
           return;
         }
@@ -250,14 +303,12 @@
         if (!channel) channel = C.formEndpoint ? 'form' : 'whatsapp';
 
         const body = compose(form);
-        const intro = form.dataset.form === 'quick'
-          ? 'Buongiorno IMI Service, vorrei essere ricontattato per un sopralluogo gratuito.'
-          : 'Buongiorno IMI Service, ecco la mia richiesta di preventivo.';
+        const intro = form.dataset.form === 'quick' ? T.introQuick : T.introFull;
         const text = `${intro}\n\n${body}`;
 
         if (channel === 'whatsapp') {
           window.open(waLink(text), '_blank', 'noopener');
-          setStatus(form, 'WhatsApp è pronto con il messaggio compilato: premi Invia per completare.', 'ok');
+          setStatus(form, T.waReady, 'ok');
           spray();
           return;
         }
@@ -265,10 +316,10 @@
         if (C.formEndpoint) {
           const btn = e.submitter;
           if (btn) btn.disabled = true;
-          setStatus(form, 'Invio in corso…');
+          setStatus(form, T.sending);
           try {
             const payload = Object.fromEntries(new FormData(form).entries());
-            payload._subject = 'Nuova richiesta dal sito IMI Service';
+            payload._subject = `IMI Service – ${T.subject} (${LANG.toUpperCase()})`;
             payload.riepilogo = text;
             const res = await fetch(C.formEndpoint, {
               method: 'POST',
@@ -277,10 +328,10 @@
             });
             if (!res.ok) throw new Error(String(res.status));
             form.reset();
-            setStatus(form, 'Richiesta inviata. Ti ricontattiamo al più presto per fissare il sopralluogo.', 'ok');
+            setStatus(form, T.sent, 'ok');
             spray();
           } catch (err) {
-            setStatus(form, 'Invio non riuscito. Riprova, oppure scrivici su WhatsApp o chiamaci.', 'error');
+            setStatus(form, T.sendFail, 'error');
           } finally {
             if (btn) btn.disabled = false;
           }
@@ -288,9 +339,9 @@
         }
 
         // Nessun endpoint configurato: apre il client email
-        const subject = encodeURIComponent('Richiesta preventivo dal sito');
+        const subject = encodeURIComponent(T.subject);
         window.location.href = `mailto:${C.email}?subject=${subject}&body=${encodeURIComponent(text)}`;
-        setStatus(form, 'Si è aperto il tuo programma email con la richiesta pronta da inviare.', 'ok');
+        setStatus(form, T.mailOpened, 'ok');
       });
     });
   }
@@ -298,10 +349,11 @@
   /* ------------------------------------------------------------------
      6. Verifica zona
      ------------------------------------------------------------------ */
-  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f\u064b-\u065f]/g, '').replace(/[^a-z0-9\u0600-\u06ff ]/g, ' ').replace(/\s+/g, ' ').trim();
 
   const ZONES = [
     'milano', 'sesto san giovanni', 'sesto', 'monza',
+    'ميلانو', 'مونزا', 'سيستو', 'سيستو سان جوفاني', 'سيستو سان جيوفاني',
     // Milano – quartieri
     'centro storico', 'centro', 'duomo', 'brera', 'porta nuova', 'garibaldi', 'isola', 'citta studi', 'loreto', 'nolo',
     'bicocca', 'niguarda', 'greco', 'lambrate', 'porta romana', 'navigli', 'citylife', 'city life', 'san siro', 'bovisa',
@@ -345,24 +397,91 @@
         chips.forEach((c) => { if (norm(c.textContent).includes(q) || q.includes(norm(c.textContent))) c.classList.add('is-match'); });
         out.classList.add('is-yes');
         out.innerHTML = '';
-        out.append(`✓ Sì, operiamo in zona ${input.value.trim()}. `);
+        out.append(T.zoneYes(input.value.trim()));
         const a = document.createElement('a');
         a.href = '#preventivo';
-        a.textContent = 'Prenota il sopralluogo gratuito →';
+        a.textContent = T.zoneYesLink;
         out.append(a);
         spray();
       } else {
         out.classList.add('is-maybe');
         out.innerHTML = '';
-        out.append('Fuori dalle zone abituali? Nessun problema: organizziamo trasferte su richiesta. ');
+        out.append(T.zoneMaybe);
         const a = document.createElement('a');
-        a.href = waLink(`Buongiorno IMI Service, operate anche a ${input.value.trim()}?`);
+        a.href = waLink(T.zoneAsk(input.value.trim()));
         a.target = '_blank';
         a.rel = 'noopener';
-        a.textContent = 'Chiedi su WhatsApp →';
+        a.textContent = T.zoneAskLink;
         out.append(a);
       }
     });
+  }
+
+  /* ------------------------------------------------------------------
+     6b. Video presentazione
+     ------------------------------------------------------------------ */
+  function initVideo() {
+    const box = $('#videoBox');
+    if (!box) return;
+    const v = C.video || {};
+    const frame = $('.video__frame', box);
+    const play = $('.video__play', box);
+    // percorsi relativi alla radice del sito (validi anche da /ar/)
+    const root = (document.querySelector('script[src$="config.js"]') || {}).src || location.href;
+    const fromRoot = (p) => new URL(p, new URL('../../', root)).href;
+
+    if (v.vertical) box.classList.add('video--vertical');
+    if (v.poster) $('.video__poster', box).style.backgroundImage = `url("${fromRoot(v.poster)}")`;
+    const hasVideo = !!(v.youtube || v.vimeo || v.mp4);
+    box.dataset.state = hasVideo ? 'ready' : 'empty';
+    if (v.poster) box.classList.add('has-poster');
+
+    play.addEventListener('click', () => {
+      if (!hasVideo) {
+        box.classList.remove('nudge');
+        void box.offsetWidth;
+        box.classList.add('nudge');
+        return;
+      }
+      let el;
+      if (v.mp4) {
+        el = document.createElement('video');
+        el.src = fromRoot(v.mp4);
+        el.controls = true;
+        el.autoplay = true;
+        el.playsInline = true;
+        if (v.poster) el.poster = fromRoot(v.poster);
+      } else {
+        el = document.createElement('iframe');
+        el.src = v.youtube
+          ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.youtube)}?autoplay=1&rel=0&modestbranding=1`
+          : `https://player.vimeo.com/video/${encodeURIComponent(v.vimeo)}?autoplay=1&title=0&byline=0`;
+        el.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
+        el.allowFullscreen = true;
+        el.title = play.getAttribute('aria-label');
+      }
+      el.className = 'video__media';
+      frame.append(el);
+      box.dataset.state = 'playing';
+      spray();
+    });
+
+    // Effetto 3D: il riquadro si "raddrizza" mentre entra nello schermo
+    if (reduced) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = box.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.85)));
+      const e = 1 - Math.pow(1 - p, 3);
+      box.style.setProperty('--vx', `${(1 - e) * 22}deg`);
+      box.style.setProperty('--vs', String(0.88 + e * 0.12));
+      box.style.setProperty('--vy', `${(1 - e) * 60}px`);
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   }
 
   /* ------------------------------------------------------------------
@@ -440,12 +559,12 @@
 
     // scritta nella polvere
     ctx.save();
-    ctx.font = `800 ${Math.round(Math.min(w, h) * 0.05)}px Manrope, system-ui, sans-serif`;
+    ctx.font = `800 ${Math.round(Math.min(w, h) * 0.05)}px ${LANG === 'ar' ? 'Cairo' : 'Manrope'}, system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.fillStyle = 'rgba(255,255,255,0.28)';
     ctx.translate(w * 0.5, h * 0.22);
     ctx.rotate(-0.04);
-    ctx.fillText('pulisci qui…', 0, 0);
+    ctx.fillText(T.grime, 0, 0);
     ctx.restore();
   }
 
@@ -609,5 +728,6 @@
   initConfigurator();
   initForms();
   initZoneCheck();
+  initVideo();
   runIntro();
 })();
