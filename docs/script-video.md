@@ -15,11 +15,11 @@ Tono: calmo, diretto, come se Stefano fosse al primo sopralluogo dal cliente.
 
 | Tempo | Cosa si vede | Cosa dice Stefano |
 |---|---|---|
-| 0–8 s | Stefano sul green screen, piano medio, sorride. In sovrimpressione: «Stefano · IMI Service». | «Ciao, sono Stefano di IMI Service. Ci occupiamo di pulizie, sanificazioni e manutenzioni per aziende, condomini e privati, a Milano, Monza e Sesto San Giovanni, dove abbiamo la sede.» |
+| 0–8 s | Stefano sul green screen, piano medio, sorride. In sovrimpressione: «Stefano · IMI Service». | «Ciao, sono Stefano di IMI Service. Dal 2008 ci occupiamo di pulizie, sanificazioni e manutenzioni per aziende, condomini e privati, a Milano, Monza e Sesto San Giovanni, dove abbiamo la sede.» |
 | 8–18 s | Squadra al completo, in divisa, davanti al furgone. | «Il nostro lavoro è semplice da spiegare: quando ci affidi i tuoi spazi, non devi più pensarci. Arriviamo quando dobbiamo, facciamo quello che abbiamo concordato, e lo facciamo bene.» |
 | 18–30 s | Riprese della squadra al lavoro, volti sorridenti. | «Lavoriamo con una squadra nostra, esperta: personale italiano, filippino ed egiziano. Questo ci permette di coprire ogni orario, anche la sera, la notte e nel weekend, senza mai lasciare un turno scoperto.» |
 | 30–42 s | Monospazzola su marmo, lavasciuga, tergivetro su una vetrata alta. | «Arriviamo con attrezzature industriali e prodotti professionali certificati: uffici, scale di condominio, fine cantiere, vetrate in altezza, moquette, marmo e parquet.» |
-| 42–52 s | Prima/dopo a schermo diviso, poi Stefano che stringe la mano a un cliente o consegna le chiavi. | «Prima di tutto veniamo a vedere di persona. Il sopralluogo è gratuito, e il preventivo è scritto, voce per voce: sai sempre cosa paghi.» |
+| 42–52 s | Prima/dopo a schermo diviso, poi Stefano che stringe la mano a un cliente o consegna le chiavi. | «Siamo un'impresa regolare, con partita IVA attiva dal 2008. Prima di tutto veniamo a vedere di persona. Il sopralluogo è gratuito, e il preventivo è scritto, voce per voce: sai sempre cosa paghi.» |
 | 52–65 s | Stefano sul green screen, sguardo in camera; compaiono WhatsApp e il modulo. | «Se vuoi conoscerci, scrivici su WhatsApp, anche con una foto degli ambienti, oppure lascia i tuoi dati nel modulo qui sotto. Ti richiamo io. Il resto lo vedi dal risultato.» |
 | 65–70 s | Logo, «Il pulito che si vede.», numero WhatsApp. | (solo musica) |
 
@@ -37,7 +37,7 @@ Struttura: **gancio → problema → chi siamo → prove → offerta → chiamat
 | Tempo | Cosa si vede | Cosa si dice |
 |---|---|---|
 | 0–5 s | **Gancio.** Primo piano sul green screen; dietro, lo schermo "sporco" del sito che il tergivetro pulisce. | «Se l'impresa di pulizie salta i turni, lascia aloni e ogni volta devi richiamarla… non è un problema di pulizia. È un problema di affidabilità.» |
-| 5–12 s | Piano medio, sorriso. Scritta in sovrimpressione: nome e ruolo. | «Sono [Nome], titolare di IMI Service. Da Sesto San Giovanni puliamo uffici, condomini e cantieri in tutta Milano e Monza.» |
+| 5–12 s | Piano medio, sorriso. Scritta in sovrimpressione: nome e ruolo. | «Sono [Nome], titolare di IMI Service. Dal 2008, da Sesto San Giovanni, puliamo uffici, condomini e cantieri in tutta Milano e Monza.» |
 | 12–25 s | Green screen; dietro, scale di condominio o un open space. | «Chi gestisce un'azienda o un condominio non ha tempo di controllare chi pulisce. Ti serve una squadra che arrivi quando deve, faccia quello che ha promesso e non ti faccia fare brutta figura con clienti, dipendenti o condòmini.» |
 | 25–50 s | **Immagini reali (B-roll)** a ritmo veloce, la voce continua sopra. Sulla parola "Uno / Due / Tre" compare il numero in giallo. | «Per questo lavoriamo così. **Uno:** squadra nostra e formata. Personale italiano, filippino ed egiziano: se qualcuno manca, il turno è coperto lo stesso. Anche la sera, la notte e nel weekend. **Due:** attrezzature industriali. Monospazzole, lavasciuga, prodotti professionali certificati: risultati da impresa, non da pulizia di casa. **Tre:** un solo referente e un preventivo scritto, voce per voce. Nessuna sorpresa in fattura.» |
 | 50–62 s | Prima/dopo a schermo diviso: pavimento in marmo, vetrata, fine cantiere. | «Fine cantiere, trasloco, vetrate in altezza, marmo o parquet da rimettere a nuovo: veniamo a vedere di persona, gratis, e ti diamo un preventivo chiaro in tempi rapidi.» |
@@ -55,7 +55,7 @@ Struttura: **gancio → problema → chi siamo → prove → offerta → chiamat
 
 ## 2. Taglio da 30 secondi (social e annunci)
 
-«Uffici, condomini, cantieri: la tua impresa di pulizie salta i turni? Con IMI Service no.
+«Uffici, condomini, cantieri: la tua impresa di pulizie salta i turni? Con IMI Service no. Lavoriamo dal 2008.
 Squadra nostra, turni coperti anche di notte e nel weekend, macchinari industriali e un preventivo scritto, senza sorprese.
 Siamo a Sesto San Giovanni e copriamo tutta Milano e Monza.
 Sopralluogo gratuito: scrivici su WhatsApp, anche solo con una foto.»
