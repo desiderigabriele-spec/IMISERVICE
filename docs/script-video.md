@@ -7,7 +7,30 @@ Chi parla: **il titolare**, in prima persona. Metti la persona che ci mette la f
 
 ---
 
-## 1. Script principale (75–90 s)
+## 0. Versione per il SITO WEB – presenta Stefano (60–75 s) ✅ consigliata per il sito
+
+Sul sito chi preme play ti ha già cercato: non serve un gancio aggressivo sul problema, serve **fiducia**.
+I primi secondi dicono subito chi parla, cosa fa l'azienda e dove; poi prove concrete, il metodo e un invito semplice.
+Tono: calmo, diretto, come se Stefano fosse al primo sopralluogo dal cliente.
+
+| Tempo | Cosa si vede | Cosa dice Stefano |
+|---|---|---|
+| 0–8 s | Stefano sul green screen, piano medio, sorride. In sovrimpressione: «Stefano · IMI Service». | «Ciao, sono Stefano di IMI Service. Ci occupiamo di pulizie, sanificazioni e manutenzioni per aziende, condomini e privati, a Milano, Monza e Sesto San Giovanni, dove abbiamo la sede.» |
+| 8–18 s | Squadra al completo, in divisa, davanti al furgone. | «Il nostro lavoro è semplice da spiegare: quando ci affidi i tuoi spazi, non devi più pensarci. Arriviamo quando dobbiamo, facciamo quello che abbiamo concordato, e lo facciamo bene.» |
+| 18–30 s | Riprese della squadra al lavoro, volti sorridenti. | «Lavoriamo con una squadra nostra, esperta: personale italiano, filippino ed egiziano. Questo ci permette di coprire ogni orario, anche la sera, la notte e nel weekend, senza mai lasciare un turno scoperto.» |
+| 30–42 s | Monospazzola su marmo, lavasciuga, tergivetro su una vetrata alta. | «Arriviamo con attrezzature industriali e prodotti professionali certificati: uffici, scale di condominio, fine cantiere, vetrate in altezza, moquette, marmo e parquet.» |
+| 42–52 s | Prima/dopo a schermo diviso, poi Stefano che stringe la mano a un cliente o consegna le chiavi. | «Prima di tutto veniamo a vedere di persona. Il sopralluogo è gratuito, e il preventivo è scritto, voce per voce: sai sempre cosa paghi.» |
+| 52–65 s | Stefano sul green screen, sguardo in camera; compaiono WhatsApp e il modulo. | «Se vuoi conoscerci, scrivici su WhatsApp, anche con una foto degli ambienti, oppure lascia i tuoi dati nel modulo qui sotto. Ti richiamo io. Il resto lo vedi dal risultato.» |
+| 65–70 s | Logo, «Il pulito che si vede.», numero WhatsApp. | (solo musica) |
+
+**Note**
+- Se Stefano è il titolare, all'inizio può dire «sono Stefano, titolare di IMI Service»: aumenta la fiducia.
+- «Ti richiamo io» funziona solo se poi è davvero Stefano a richiamare: se no usa «ti richiamiamo noi».
+- Lo script da 75–90 s qui sotto, con il gancio sul problema, resta utile per **annunci e social**.
+
+---
+
+## 1. Script per annunci e social, con gancio (75–90 s)
 
 Struttura: **gancio → problema → chi siamo → prove → offerta → chiamata all'azione**.
 
