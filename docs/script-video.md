@@ -156,7 +156,6 @@ Gira ogni scena **8–10 secondi**, ferma, senza zoom: i movimenti si aggiungono
 - Un taglio ogni 2–3 secondi nel B-roll.
 - Musica bassa sotto la voce.
 - Programmi gratuiti con scontorno del verde: **CapCut** (più semplice) o **DaVinci Resolve** (più professionale).
-- Versione con **sottotitoli in arabo** per la pagina araba del sito: posso tradurre io il testo.
 
 ## 7. Pubblicarlo sul sito
 

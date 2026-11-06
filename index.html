@@ -7,10 +7,13 @@
   <meta name="description" content="Impresa di pulizie a Sesto San Giovanni: uffici, condomini, post-ristrutturazione, sgomberi, vetrate, moquette e trattamento pavimenti. Milano, Monza e provincia. Sopralluogo gratuito e preventivo rapido.">
   <meta name="theme-color" content="#0e1a2b">
   <link rel="canonical" href="https://www.imiservice.it/">
-  <link rel="alternate" hreflang="it" href="https://www.imiservice.it/">
-  <link rel="alternate" hreflang="ar" href="https://www.imiservice.it/ar/">
-  <link rel="alternate" hreflang="x-default" href="https://www.imiservice.it/">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/logo/simbolo.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/icon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <meta property="og:image" content="https://imiservice-mu.vercel.app/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -67,14 +70,16 @@
   <!-- ============ INTRO: il tergivetro pulisce lo schermo ============ -->
   <div class="intro" id="intro" aria-hidden="true">
     <canvas class="intro__grime" id="grime"></canvas>
-    <div class="intro__badge" id="introBadge">
+    <div class="intro__center">
+      <img class="intro__logo" src="assets/img/logo/logo-animato.svg" alt="IMI Service" width="720" height="320">
+      <div class="intro__badge" id="introBadge">
       <svg viewBox="0 0 100 100" class="intro__ring">
         <circle cx="50" cy="50" r="44" class="intro__ring-bg"/>
         <circle cx="50" cy="50" r="44" class="intro__ring-fg" id="introRing"/>
       </svg>
       <span class="intro__pct"><span id="introPct">0</span>%</span>
+      </div>
     </div>
-    <p class="intro__brand"><strong>IMI</strong> Service</p>
     <button class="intro__skip" type="button" id="introSkip">Salta intro</button>
   </div>
 
@@ -84,9 +89,8 @@
   <!-- ============ HEADER ============ -->
   <header class="header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="#top" aria-label="IMI Service, torna all'inizio">
-        <span class="brand__mark" aria-hidden="true">IMI</span>
-        <span class="brand__text">IMI Service<small>Pulizie · Sanificazioni · Manutenzioni</small></span>
+      <a class="brand" href="#top">
+        <img class="brand__logo" src="assets/img/logo/logo.svg" alt="IMI Service – torna all'inizio" width="720" height="320">
       </a>
 
       <nav class="nav" id="nav" aria-label="Navigazione principale">
@@ -98,12 +102,10 @@
           <li><a href="#zone">Zone</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <a class="lang-switch" href="ar/" hreflang="ar" lang="ar" title="النسخة العربية">العربية</a>
         <a class="nav__phone" href="tel:+390000000000" data-imi="tel">+39 000 000 0000</a>
         <a class="btn btn--yellow nav__cta" href="#preventivo">Sopralluogo gratuito</a>
       </nav>
 
-      <a class="lang-switch lang-switch--mobile" href="ar/" hreflang="ar" lang="ar" title="النسخة العربية">العربية</a>
       <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">
         <span class="sr-only">Apri menu</span>
         <span class="nav-toggle__bar"></span>
@@ -117,7 +119,7 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero">
-      <div class="hero__brandmark" aria-hidden="true"><span>IMI</span></div>
+      <div class="hero__brandmark" aria-hidden="true"><img src="assets/img/logo/simbolo.svg" alt=""></div>
       <div class="container hero__inner">
         <div class="hero__copy">
           <p class="kicker"><span class="kicker__dots" aria-hidden="true"></span>Dal 2008 · Sesto San Giovanni · Milano · Monza</p>
@@ -207,7 +209,7 @@
           <span class="anchor3d anchor3d--video" data-anchor data-scale="0.95" aria-hidden="true"></span>
           <div class="video__frame">
             <div class="video__poster" aria-hidden="true">
-              <span class="video__wm">IMI</span>
+              <img class="video__wm" src="assets/img/logo/logo-negativo.svg" alt="">
               <span class="video__wipe"></span>
             </div>
             <button class="video__play" type="button" aria-label="Guarda il video di presentazione">
@@ -695,8 +697,7 @@
     <div class="container footer__inner">
       <div>
         <a class="brand brand--light" href="#top">
-          <span class="brand__mark" aria-hidden="true">IMI</span>
-          <span class="brand__text">IMI Service<small>Pulizie · Sanificazioni · Manutenzioni</small></span>
+          <img class="brand__logo" src="assets/img/logo/logo-negativo.svg" alt="IMI Service – torna all'inizio" width="720" height="320" loading="lazy">
         </a>
         <p class="footer__claim">Impresa di pulizie attiva dal 2008, con sede operativa a Sesto San Giovanni. Al servizio di aziende, condomini e privati a Milano, Monza e provincia.</p>
       </div>
@@ -721,7 +722,7 @@
     </div>
     <div class="container footer__legal">
       <p>© <span data-year>2026</span> IMI Service · P.IVA <span data-imi="piva">00000000000</span></p>
-      <p><a href="privacy.html">Privacy policy</a> · <a href="ar/" hreflang="ar" lang="ar">العربية</a></p>
+      <p><a href="privacy.html">Privacy policy</a></p>
     </div>
   </footer>
 
