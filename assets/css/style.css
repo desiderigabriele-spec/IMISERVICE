@@ -197,12 +197,6 @@ html.js body:not(.intro-done) .hero mark.hl { background-size: 0% 100%; }
 .nav ul a:hover { background: rgba(14, 26, 43, .06); }
 .nav__phone { font-weight: 800; text-decoration: none; font-size: .95rem; white-space: nowrap; }
 .nav__cta { padding: .75em 1.2em; }
-.lang-switch {
-  font-weight: 800; font-size: .9rem; text-decoration: none; white-space: nowrap;
-  padding: .45em .85em; border-radius: 999px; border: 1.5px solid var(--line);
-}
-.lang-switch:hover { border-color: var(--ink); }
-.lang-switch--mobile { display: none; }
 
 .nav-toggle { display: none; width: 46px; height: 46px; border: 0; border-radius: 12px; background: var(--ink); cursor: pointer; padding: 13px 12px; flex-direction: column; justify-content: space-between; }
 .nav-toggle__bar { display: block; height: 2px; background: #fff; border-radius: 2px; transition: transform .3s, opacity .2s; }
@@ -317,7 +311,6 @@ html.js body:not(.intro-done) .hero mark.hl { background-size: 0% 100%; }
 }
 .video__play:hover { transform: translate(-50%, -50%) scale(1.08); }
 .video__play svg { width: 40%; height: 40%; fill: currentColor; margin-inline-start: 8%; }
-[dir="rtl"] .video__play svg { margin-inline-start: 0; margin-inline-end: 8%; transform: none; }
 @keyframes playPulse { 0% { box-shadow: 0 0 0 0 rgba(255, 210, 60, .55), 0 20px 40px -12px rgba(0, 0, 0, .5); } 70%, 100% { box-shadow: 0 0 0 28px rgba(255, 210, 60, 0), 0 20px 40px -12px rgba(0, 0, 0, .5); } }
 .video__caption { position: absolute; inset-inline-start: clamp(18px, 3vw, 40px); bottom: clamp(16px, 3vw, 36px); color: #fff; }
 .video__title { margin: 0; font-weight: 800; font-size: clamp(1.1rem, 2.2vw, 1.7rem); line-height: 1.1; }
@@ -589,8 +582,6 @@ html.js .hero__card.reveal { transition-delay: .2s; }
 @media (max-width: 920px) {
   :root { --header-h: 68px; }
   .nav-toggle { display: flex; }
-  .lang-switch--mobile { display: inline-block; margin-inline-start: auto; background: var(--paper); }
-  .nav .lang-switch { display: none; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
     flex-direction: column; align-items: stretch; gap: 12px;
@@ -651,30 +642,3 @@ html.js .hero__card.reveal { transition-delay: .2s; }
   .intro, html.js .intro { display: none; }
 }
 
-/* ==========================================================================
-   VERSIONE ARABA (RTL)
-   ========================================================================== */
-html[lang="ar"] body { font-family: "Cairo", "Manrope", system-ui, sans-serif; }
-html[lang="ar"] body * { letter-spacing: 0 !important; }
-html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { line-height: 1.35; }
-html[lang="ar"] .kicker, html[lang="ar"] .tag, html[lang="ar"] .hero__card-tag,
-html[lang="ar"] .summary__label, html[lang="ar"] .zone__group h3, html[lang="ar"] .footer h3 { text-transform: none; font-size: .9rem; }
-[dir="rtl"] mark.hl { background-position: 100% 0; }
-[dir="rtl"] .link-arrow::after { content: "←"; }
-[dir="rtl"] .link-arrow:hover::after { transform: translateX(-4px); }
-[dir="rtl"] .step::after { transform-origin: right; }
-[dir="rtl"] .marquee__track { animation-name: marquee-rtl; }
-@keyframes marquee-rtl { to { transform: translateX(50%); } }
-[dir="rtl"] .anchor3d--hero { left: auto; right: -40px; }
-[dir="rtl"] .anchor3d--right { right: auto; left: -40px; }
-[dir="rtl"] .anchor3d--summary { right: auto; left: 40px; }
-[dir="rtl"] .anchor3d--footer { right: auto; left: 8%; }
-[dir="rtl"] .sparkle::before { left: auto; right: -.5em; }
-[dir="rtl"] .sparkle::after { right: auto; left: -.6em; }
-[dir="rtl"] .range input[type="range"] { background: linear-gradient(270deg, var(--yellow-deep) var(--p, 5%), var(--line) var(--p, 5%)); }
-[dir="rtl"] input[type="tel"], [dir="rtl"] input[type="email"] { text-align: right; }
-@media (max-width: 920px) {
-  [dir="rtl"] .anchor3d--hero { right: auto; left: 12px; }
-  [dir="rtl"] .anchor3d--summary { left: 10px; }
-  [dir="rtl"] .anchor3d--right { left: 12px; }
-}

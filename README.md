@@ -4,7 +4,6 @@ Sito statico (HTML, CSS, JS) per IMI Service, impresa di pulizie, sanificazioni 
 Non serve nessuna build: su Vercel basta collegare il repository (Framework preset: **Other**, nessun comando di build, cartella di output: la radice).
 
 - `index.html`: versione italiana
-- `ar/index.html`: versione araba (RTL), raggiungibile da `/ar/` e dal selettore lingua nell'header
 - `privacy.html`: bozza dell'informativa privacy, **da completare** con i dati societari
 
 ## Cosa c'è nella pagina

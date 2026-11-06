@@ -36,35 +36,9 @@
       zoneAsk: (z) => `Buongiorno IMI Service, operate anche a ${z}?`,
       zoneAskLink: 'Chiedi su WhatsApp →',
       grime: 'pulisci qui…'
-    },
-    ar: {
-      defaultWa: 'مرحباً IMI Service، أرغب في طلب معاينة مجانية.',
-      keys: { Cliente: 'العميل', Servizio: 'الخدمة', Superficie: 'المساحة', Frequenza: 'التكرار', Orario: 'التوقيت', Extra: 'إضافات', Zona: 'المنطقة' },
-      over: (n) => `أكثر من ${n} م²`,
-      none: 'لا يوجد',
-      toDefine: 'غير محددة',
-      configWa: (sum) => `مرحباً IMI Service، أرغب في الحصول على عرض سعر:\n${sum}\n\nشكراً!`,
-      configMsg: (sum) => `طلب من أداة تجهيز الطلب:\n${sum}\n\n`,
-      labels: { nome: 'الاسم', telefono: 'الهاتف', email: 'البريد الإلكتروني', servizio: 'الخدمة', localita: 'المنطقة', messaggio: 'التفاصيل' },
-      invalid: 'يرجى إكمال الحقول المحددة.',
-      introQuick: 'مرحباً IMI Service، أرغب في أن تتصلوا بي لتحديد موعد معاينة مجانية.',
-      introFull: 'مرحباً IMI Service، هذا طلبي للحصول على عرض سعر.',
-      waReady: 'واتساب جاهز والرسالة مكتوبة: اضغط "إرسال" لإتمام الطلب.',
-      sending: 'جارٍ الإرسال…',
-      sent: 'تم إرسال طلبك. سنتواصل معك في أقرب وقت لتحديد موعد المعاينة.',
-      sendFail: 'تعذّر الإرسال. حاول مرة أخرى، أو راسلنا عبر واتساب أو اتصل بنا.',
-      subject: 'طلب عرض سعر من الموقع',
-      mailOpened: 'تم فتح برنامج البريد الإلكتروني والطلب جاهز للإرسال.',
-      zoneYes: (z) => `✓ نعم، نعمل في منطقة ${z}. `,
-      zoneYesLink: 'احجز المعاينة المجانية ←',
-      zoneMaybe: 'خارج مناطق عملنا المعتادة؟ لا مشكلة: ننظّم تنقلات خاصة عند الطلب. ',
-      zoneAsk: (z) => `مرحباً IMI Service، هل تعملون أيضاً في ${z}؟`,
-      zoneAskLink: 'اسألنا عبر واتساب ←',
-      grime: 'نظّفني…'
     }
   };
-  const LANG = (document.documentElement.lang || 'it').slice(0, 2) === 'ar' ? 'ar' : 'it';
-  const T = I18N[LANG];
+  const T = I18N.it;
   const DEFAULT_WA = T.defaultWa;
   const spray = () => window.dispatchEvent(new CustomEvent('imi:spray'));
 
@@ -174,7 +148,7 @@
         Superficie: mq >= Number(range.max) ? T.over(mq) : `${mq} m²`,
         Frequenza: val('c-freq'),
         Orario: val('c-orario'),
-        Extra: extras.length ? extras.join(LANG === 'ar' ? '، ' : ', ') : T.none,
+        Extra: extras.length ? extras.join(', ') : T.none,
         Zona: zona.value.trim() || T.toDefine
       };
     };
@@ -319,7 +293,7 @@
           setStatus(form, T.sending);
           try {
             const payload = Object.fromEntries(new FormData(form).entries());
-            payload._subject = `IMI Service – ${T.subject} (${LANG.toUpperCase()})`;
+            payload._subject = `IMI Service – ${T.subject}`;
             payload.riepilogo = text;
             const res = await fetch(C.formEndpoint, {
               method: 'POST',
@@ -349,11 +323,10 @@
   /* ------------------------------------------------------------------
      6. Verifica zona
      ------------------------------------------------------------------ */
-  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f\u064b-\u065f]/g, '').replace(/[^a-z0-9\u0600-\u06ff ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 
   const ZONES = [
     'milano', 'sesto san giovanni', 'sesto', 'monza',
-    'ميلانو', 'مونزا', 'سيستو', 'سيستو سان جوفاني', 'سيستو سان جيوفاني',
     // Milano – quartieri
     'centro storico', 'centro', 'duomo', 'brera', 'porta nuova', 'garibaldi', 'isola', 'citta studi', 'loreto', 'nolo',
     'bicocca', 'niguarda', 'greco', 'lambrate', 'porta romana', 'navigli', 'citylife', 'city life', 'san siro', 'bovisa',
@@ -559,7 +532,7 @@
 
     // scritta nella polvere
     ctx.save();
-    ctx.font = `800 ${Math.round(Math.min(w, h) * 0.05)}px ${LANG === 'ar' ? 'Cairo' : 'Manrope'}, system-ui, sans-serif`;
+    ctx.font = `800 ${Math.round(Math.min(w, h) * 0.05)}px Manrope, system-ui, sans-serif`;
     ctx.textAlign = 'center';
     ctx.fillStyle = 'rgba(255,255,255,0.28)';
     ctx.translate(w * 0.5, h * 0.22);

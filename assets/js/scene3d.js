@@ -10,7 +10,6 @@ import { RoomEnvironment } from '../vendor/three/jsm/environments/RoomEnvironmen
 const C = Object.assign({ models: {} }, window.IMI_CONFIG || {});
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas = document.getElementById('scene3d');
-const RTL = document.documentElement.dir === 'rtl';
 
 const fail = (why) => {
   if (canvas) canvas.classList.add('is-off');
@@ -247,8 +246,6 @@ async function init() {
     tip.position.set(-0.7, 0.2, 0);
     head.add(tip);
     head.position.y = 1.61;
-    // Versione araba: lo spruzzino sta a sinistra e spruzza verso destra
-    if (RTL) head.rotation.y = Math.PI;
 
     root.add(liquid, tube, body, label, collar, head);
     root.userData = { head, trigger: trigPivot, tip, local: true };
@@ -506,7 +503,7 @@ async function init() {
         const spin = THREE.MathUtils.clamp(scrollVel * 0.0004, -0.6, 0.6);
         bottle.rotation.set(
           0.08 + pointer.sy * 0.12 + spin * 0.3,
-          (RTL ? 0.55 : -0.55) + Math.sin(t * 0.7) * 0.28 + pointer.sx * 0.35 + spin,
+          -0.55 + Math.sin(t * 0.7) * 0.28 + pointer.sx * 0.35 + spin,
           THREE.MathUtils.clamp(-vx, -0.35, 0.35) + Math.sin(t * 1.1) * 0.04
         );
       }
