@@ -399,11 +399,12 @@
     const v = C.video || {};
     const frame = $('.video__frame', box);
     const play = $('.video__play', box);
-    // percorsi relativi alla radice del sito (validi anche da /ar/)
+    // percorsi relativi alla radice del sito
     const root = (document.querySelector('script[src$="config.js"]') || {}).src || location.href;
     const fromRoot = (p) => new URL(p, new URL('../../', root)).href;
 
-    if (v.vertical) box.classList.add('video--vertical');
+    if (v.square) box.classList.add('video--square');
+    else if (v.vertical) box.classList.add('video--vertical');
     if (v.poster) $('.video__poster', box).style.backgroundImage = `url("${fromRoot(v.poster)}")`;
     const hasVideo = !!(v.youtube || v.vimeo || v.mp4);
     box.dataset.state = hasVideo ? 'ready' : 'empty';

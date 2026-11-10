@@ -288,6 +288,19 @@ html.js body:not(.intro-done) .hero mark.hl { background-size: 0% 100%; }
   will-change: transform;
 }
 .video--vertical .video__frame { aspect-ratio: 9 / 16; max-width: 420px; margin-inline: auto; }
+/* Formato quadrato: video affiancato da testo e pulsanti */
+.video__side { display: none; }
+.video--square { display: grid; grid-template-columns: minmax(0, 560px) 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.video--square .video__frame { aspect-ratio: 1 / 1; }
+.video--square .video__side { display: block; }
+.video--square .video__chips, .video--square.has-poster .video__caption { display: none; }
+.video__side h3 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: .6em; }
+.video__side .ticks { margin-bottom: 28px; font-weight: 600; }
+.video__side-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 920px) {
+  .video--square { grid-template-columns: 1fr; }
+  .video--square .video__frame { max-width: 560px; margin-inline: auto; width: 100%; }
+}
 .video__poster { position: absolute; inset: 0; background-size: cover; background-position: center; }
 .has-poster .video__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14, 26, 43, .8), rgba(14, 26, 43, .1) 60%); }
 .video__wm {

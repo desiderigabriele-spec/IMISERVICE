@@ -31,12 +31,14 @@ window.IMI_CONFIG = {
   //   vimeo:   ID numerico del video Vimeo (es. '123456789')
   //   mp4:     file caricato nel sito (es. 'assets/video/presentazione.mp4')
   // poster: immagine di copertina opzionale (es. 'assets/video/copertina.jpg')
+  // square: true per il formato quadrato 1:1 (video affiancato da testo e pulsanti)
   // vertical: true se il video è girato in verticale (formato telefono 9:16)
   video: {
     youtube: '',
     vimeo: '',
-    mp4: '',
-    poster: '',
+    mp4: 'assets/video/presentazione.mp4',
+    poster: 'assets/video/copertina.jpg',
+    square: true,
     vertical: false
   },
 
