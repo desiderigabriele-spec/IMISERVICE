@@ -294,6 +294,8 @@ html.js body:not(.intro-done) .hero mark.hl { background-size: 0% 100%; }
 .video--square .video__frame { aspect-ratio: 1 / 1; }
 .video--square .video__side { display: block; }
 .video--square .video__chips, .video--square.has-poster .video__caption { display: none; }
+.video--square .video__play { top: 76%; }
+.video--square .anchor3d--video { top: 86%; }
 .video__side h3 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: .6em; }
 .video__side .ticks { margin-bottom: 28px; font-weight: 600; }
 .video__side-actions { display: flex; flex-wrap: wrap; gap: 12px; }
