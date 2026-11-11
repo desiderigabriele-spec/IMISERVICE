@@ -67,7 +67,7 @@ video: {
 }
 ```
 
-Il video attuale (`assets/video/presentazione.mp4`, quadrato 1080×1080) è montato dagli spezzoni di Stefano: colori convertiti da HDR, audio uniformato, nome in sovrimpressione, simbolo del logo nell'angolo e schermata finale. Copertina: `assets/video/copertina.jpg`.
+Il video attuale (`assets/video/presentazione.mp4`, quadrato 1080×1080) è montato dagli spezzoni di Stefano: sfondo sfocato (effetto ritratto), colori convertiti da HDR, audio uniformato, nome in sovrimpressione, simbolo del logo nell'angolo e schermata finale. Copertina: `assets/video/copertina.jpg`.
 
 Il video si carica solo quando l'utente preme play, così la pagina resta veloce. Per YouTube usa il dominio senza cookie (youtube-nocookie.com).
 
