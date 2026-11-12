@@ -15,6 +15,11 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 - **Per chi** (aziende, amministratori, privati), **come lavoriamo** (schede da scorrere), **zone** (un furgone parte da Sesto e percorre la strada mentre scorri; il comune raggiunto si illumina e compare il pulsante WhatsApp), **preventivo in 3 domande** che apre WhatsApp col messaggio già scritto, **FAQ** e footer con i contatti.
 - **Barra fissa in basso sul telefono** con Chiama, WhatsApp ed Email (presi da `config.js`).
 
+## Furgone 3D
+
+Il furgone della sezione zone è un modello 3D vero (`docs/brand/furgone-imi.glb`, fatto in Blender, 32.000 triangoli) con il logo applicato sui fianchi. Per non appesantire la pagina non viene caricato in 3D: è stato fotografato da 16 direzioni e le immagini sono in un unico file, `assets/img/furgone.webp` (78 KB). Il sito mostra quella giusta in base alla curva della strada.
+Il modello si può riusare per altre immagini (social, preventivi, biglietti da visita).
+
 ## Logo
 
 I file del logo sono in `assets/img/logo/` (kit originale e istruzioni in `docs/brand/`):
