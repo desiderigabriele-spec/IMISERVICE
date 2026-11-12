@@ -195,6 +195,9 @@ section { scroll-margin-top: 72px; }
 .road svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .road button { position: absolute; transform: translate(-50%, -50%); font: 800 13px var(--font); padding: 5px 10px; border-radius: 999px; border: 1.5px solid var(--navy); background: var(--paper); color: var(--navy); cursor: pointer; white-space: nowrap; }
 .road button.home { background: var(--yellow); font-size: 14px; }
+.road button { z-index: 1; }
+/* furgone 3D: 16 direzioni in un'unica immagine, si mostra quella giusta per la curva */
+.road .van { position: absolute; z-index: 2; width: 24%; aspect-ratio: 1 / 1; transform: translate(-50%, -56%); background: url(assets/img/furgone.webp) 0 0 / 1600% 100% no-repeat; pointer-events: none; }
 .road button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
 .zres { background: var(--paper); border: 2px solid var(--green); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-weight: 800; }
 .zres .ok { color: var(--green); font-size: 17px; }
@@ -362,8 +365,8 @@ section { scroll-margin-top: 72px; }
       <svg viewBox="0 0 100 125" aria-hidden="true">
         <path id="rpath" d="M50 8 C 90 18, 92 40, 55 48 S 10 62, 30 82 S 85 98, 60 118" fill="none" stroke="#E3DCCD" stroke-width="7" stroke-linecap="round"/>
         <path d="M50 8 C 90 18, 92 40, 55 48 S 10 62, 30 82 S 85 98, 60 118" fill="none" stroke="#fff" stroke-width=".8" stroke-dasharray="3 3"/>
-        <g id="van"><rect x="-7" y="-4.5" width="10" height="9" rx="1.5" fill="#0E1A2B"/><path d="M3 -3.5h2.5l2 3v4.5H3z" fill="#0E1A2B"/><rect x="-6" y="-1.5" width="8" height="2.2" fill="#FFD23C"/><circle cx="-4" cy="5" r="1.6" fill="#0E1A2B" stroke="#fff" stroke-width=".5"/><circle cx="5" cy="5" r="1.6" fill="#0E1A2B" stroke="#fff" stroke-width=".5"/></g>
       </svg>
+      <div class="van" id="van" aria-hidden="true"></div>
     </div>
     <div class="zres" id="zres" role="status"></div>
     <p class="zmore">Il tuo comune non c'è? <a data-act="wa" href="#">Chiedici lo stesso</a>: organizziamo anche trasferte.</p>
@@ -686,21 +689,22 @@ section { scroll-margin-top: 72px; }
   const road = document.getElementById('road'), rpath = document.getElementById('rpath'), van = document.getElementById('van'), zres = document.getElementById('zres'), RL = rpath.getTotalLength();
   const STOPS = [['Sesto San Giovanni', 0, 'home'], ['Monza', .16], ['Brugherio', .3], ['Cologno Monzese', .45], ['Cinisello Balsamo', .58], ['Bresso', .7], ['Segrate', .84], ['Milano', 1]];
   const stopBtns = STOPS.map(([n, t, c]) => { const pt = rpath.getPointAtLength(RL * t), b = document.createElement('button'); b.type = 'button'; b.className = c || ''; b.textContent = n; b.style.left = pt.x + '%'; b.style.top = (pt.y / 125 * 100) + '%'; b.style.transform = pt.x >= 50 ? 'translate(calc(-100% - 14px), -50%)' : 'translate(14px, -50%)'; b.addEventListener('click', () => setTown(n)); road.appendChild(b);
-    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); dot.setAttribute('r', 2.4); dot.setAttribute('fill', '#fff'); dot.setAttribute('stroke', '#0E1A2B'); dot.setAttribute('stroke-width', '1'); rpath.parentNode.insertBefore(dot, van); return b; });
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); dot.setAttribute('r', 2.4); dot.setAttribute('fill', '#fff'); dot.setAttribute('stroke', '#0E1A2B'); dot.setAttribute('stroke-width', '1'); rpath.parentNode.appendChild(dot); return b; });
   let townNow = '';
   function setTown(n) {
     if (n === townNow) return; townNow = n;
     stopBtns.forEach(b => b.setAttribute('aria-pressed', b.textContent === n));
     zres.innerHTML = `<span class="ok">✓ Sì, arriviamo a ${n}.</span><a class="btn btn-w" href="${waLinkTo(`Ciao IMI Service, vorrei informazioni per una pulizia a ${n}.`)}" target="_blank" rel="noopener">Scrivici da ${n}</a>`;
   }
-  let lastStop = '';
+  let lastStop = '', lastA = 90;
   function drive() {
     const r = road.getBoundingClientRect(), visTop = topBar ? topBar.getBoundingClientRect().bottom : 0;
     const mb = mbar && getComputedStyle(mbar).display !== 'none' ? mbar.getBoundingClientRect().top : innerHeight;
     const start = mb - r.height * .3, end = visTop + (mb - visTop) * .6 - r.height;
     const k = reduce ? 1 : Math.max(0, Math.min(1, (start - r.top) / (start - end)));
     const pt = rpath.getPointAtLength(RL * k), p2 = rpath.getPointAtLength(Math.min(RL, RL * k + .5)), a = Math.atan2(p2.y - pt.y, p2.x - pt.x) * 180 / Math.PI;
-    van.setAttribute('transform', `translate(${pt.x} ${pt.y}) rotate(${k >= 1 ? 90 : a}) scale(1.35)`);
+    const fr = Math.round((((k >= 1 ? lastA : a) % 360) + 360) % 360 / 22.5) % 16; if (k < 1) lastA = a;
+    van.style.left = pt.x + '%'; van.style.top = (pt.y / 125 * 100) + '%'; van.style.backgroundPosition = (fr * 100 / 15) + '% 0';
     let near = STOPS[0][0]; STOPS.forEach(([n, t]) => { if (k >= t - .02) near = n; });
     if (near !== lastStop) { lastStop = near; setTown(near); }
   }
