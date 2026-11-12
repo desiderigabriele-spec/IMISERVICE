@@ -8,7 +8,7 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 
 ## Cosa c'è nella pagina
 
-- **Apertura**: lo schermo parte come un vetro appannato con gocce vere (dentro ogni goccia si vede il sito capovolto, come in una lente); alcune gocce grandi scivolano lasciando la scia, poi il tergivetro con il logo IMI pulisce con la passata a "S" dei vetristi (circa 4 secondi; un tocco la salta). Le immagini usate per il vetro sono in `assets/img/intro/` (telefono e computer, nitida e sfocata): **vanno rifatte se cambia la prima schermata**. Non viene mostrata a chi ha attivato la riduzione del movimento.
+- **Apertura**: lo schermo parte bagnato. Le gocce vengono da una foto (`assets/img/intro/gocce.jpg`, gocce su grigio neutro): dove c'è acqua il sito si deforma e prende i riflessi e le ombre della foto, il resto resta nitido. Poi il tergivetro con il logo IMI pulisce con la passata a "S" dei vetristi (circa 4 secondi; un tocco la salta). Per deformare il sito dentro le gocce si usa un'immagine della prima schermata (`assets/img/intro/telefono-nitido.jpg` e `computer-nitido.jpg`): **va rifatta se cambia la prima schermata**. Non viene mostrata a chi ha attivato la riduzione del movimento.
 - **Hero**: "Puliamo uffici, condomini e cantieri. Anche di notte.", con le città sopra il titolo, le foto dei sei servizi che si alternano e il timbro "Dal 2008" sulla foto.
 - **Video di Stefano**: parte muto in automatico, con il pulsante "Attiva l'audio" al centro.
 - **Sei servizi con prima/dopo**: scorrendo, la lama gialla passa da sinistra a destra e scopre il "dopo" sopra il "prima". Le foto sono in `assets/img/servizi/` (`<servizio>-prima.jpg` e `<servizio>.jpg`, 1080×720, stessa inquadratura).
