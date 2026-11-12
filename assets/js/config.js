@@ -13,5 +13,5 @@ window.IMI_CONFIG = {
   // Numero WhatsApp (solo cifre, con prefisso 39, senza + e senza spazi)
   whatsapp: '390000000000',
   email: 'info@imiservice.it',
-  piva: '00000000000'
+  piva: '06179360968'
 };
