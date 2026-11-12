@@ -3,16 +3,16 @@
 Sito statico (HTML, CSS, JS) per IMI Service, impresa di pulizie, sanificazioni e manutenzioni di Sesto San Giovanni.
 Non serve nessuna build: su Vercel basta collegare il repository (Framework preset: **Other**, nessun comando di build, cartella di output: la radice).
 
-- `index.html`: versione italiana
+- `index.html`: la pagina (CSS e JS sono dentro il file)
 - `privacy.html`: bozza dell'informativa privacy, **da completare** con i dati societari
 
 ## Cosa c'è nella pagina
 
-- **Intro 3D**: lo schermo parte "sporco" e un tergivetro 3D lo pulisce a passate, con contatore 0–100%. Si può saltare, e non viene mostrata a chi ha attivato la riduzione del movimento.
-- **Spruzzino 3D** che accompagna lo scroll: si aggancia alle sezioni, segue il mouse e spruzza quando arriva, quando si modifica il configuratore o si invia un form.
-- **Configuratore** "La tua richiesta in 30 secondi": compone un riepilogo da inviare su WhatsApp o da portare nel modulo.
-- **Video di presentazione** con riquadro 3D che si raddrizza allo scroll (configurabile, vedi sotto).
-- **Form rapido** (hero) e **form completo**, **verifica zona**, FAQ, barra contatti fissa su mobile, pulsante WhatsApp.
+- **Apertura**: lo schermo parte come un vetro bagnato e un tergivetro con il logo IMI lo pulisce dall'alto verso il basso (circa 3 secondi; un tocco la salta). Non viene mostrata a chi ha attivato la riduzione del movimento.
+- **Hero**: "Puliamo uffici, condomini e cantieri. Anche di notte." con le foto dei sei servizi che si alternano.
+- **Video di Stefano**: parte muto in automatico, con il pulsante "Attiva l'audio" al centro.
+- **Sei servizi con prima/dopo**: scorrendo, la lama gialla passa da sinistra a destra e scopre il "dopo" sopra il "prima". Le foto sono in `assets/img/servizi/` (`<servizio>-prima.jpg` e `<servizio>.jpg`, 1080×720, stessa inquadratura).
+- **Per chi** (aziende, amministratori, privati), **come lavoriamo**, **verifica zona**, **preventivo in 3 domande** che apre WhatsApp col messaggio già scritto, **FAQ** e footer con i contatti.
 
 ## Logo
 
@@ -29,62 +29,20 @@ I file del logo sono in `assets/img/logo/` (kit originale e istruzioni in `docs/
 In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.png` e `og-image.png` (anteprima 1200×630 dei link condivisi su WhatsApp e social).
 Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image` nelle due pagine.
 
-## Da completare prima della pubblicazione
+## Da completare
 
-Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`.
-
-| Campo | Cosa inserire |
-|---|---|
-| `phoneDisplay` | numero come deve apparire, es. `+39 02 1234 5678` |
-| `phone` | stesso numero senza spazi, es. `+390212345678` |
-| `whatsapp` | numero WhatsApp solo cifre con prefisso, es. `393331234567` |
-| `email`, `piva` | email aziendale e partita IVA |
-| `formEndpoint` | (consigliato) endpoint per ricevere i form via email, vedi sotto |
+Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js` (`phoneDisplay`, `phone`, `whatsapp`, `email`, `piva`).
 
 Poi:
-1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` e `ar/index.html` (serve a Google).
-2. Se il dominio non è `www.imiservice.it`, sostituiscilo nei tag `canonical`, `hreflang` e `og:url` delle due pagine.
+1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` (serve a Google).
+2. Se il dominio non è `www.imiservice.it`, sostituiscilo nei tag `canonical` e `og:url`.
 3. Completa `privacy.html`.
-
-### Ricevere i form via email
-
-Senza `formEndpoint`, il pulsante "Invia richiesta" apre il programma email dell'utente e il pulsante WhatsApp apre la chat già compilata.
-Per ricevere le richieste direttamente in casella, crea un modulo gratuito su [Formspree](https://formspree.io) e incolla l'URL (es. `https://formspree.io/f/abcdwxyz`) in `formEndpoint`.
 
 ## Video di presentazione
 
-La sezione "Il pulito che si vede" (subito dopo l'hero) mostra un riquadro con il marchio e la scritta "Video in arrivo" finché il video non c'è.
-Per attivarlo compila **uno** dei campi `video` in `assets/js/config.js`:
+La pagina usa `assets/video/presentazione-web.mp4` (720×720, 5,5 MB), che parte muto in automatico. La versione in alta qualità (`assets/video/presentazione.mp4`, 1080×1080, 81 s) resta nel repository per i social. Copertina: `assets/video/copertina.jpg`.
 
-```js
-video: {
-  youtube: 'AbCdEf12345',   // ID YouTube (consigliato: non pesa sul sito)
-  vimeo: '',                // oppure ID Vimeo
-  mp4: '',                  // oppure file nel sito, es. 'assets/video/presentazione.mp4'
-  poster: 'assets/video/copertina.jpg', // copertina (consigliata)
-  square: true,             // formato quadrato 1:1, con testo e pulsanti accanto
-  vertical: false           // true se girato in verticale 9:16
-}
-```
-
-Il video attuale (`assets/video/presentazione.mp4`, quadrato 1080×1080, 81 s, 16 MB) è montato dagli spezzoni di Stefano: sfondo sfocato in base alla profondità (effetto fotocamera), colori corretti e nitidezza, voce ripulita dal rumore, musica di sottofondo ("Acoustic Corporate Business Background" di Alex Morgan, Pixabay) e sottotitoli. Copertina: `assets/video/copertina.jpg`.
-
-Il video si carica solo quando l'utente preme play, così la pagina resta veloce. Per YouTube usa il dominio senza cookie (youtube-nocookie.com).
-
-## Usare il tuo modello 3D (tergivetro / spruzzino)
-
-Il tergivetro e lo spruzzino sono modellati via codice (Three.js, incluso in `assets/vendor/three`). Per sostituirli con modelli tuoi:
-
-1. Esporta il modello in **.glb** (consigliato) o .gltf, possibilmente sotto 2–3 MB.
-2. Mettilo in `assets/models/`, es. `assets/models/tergivetro.glb`.
-3. In `assets/js/config.js`:
-   ```js
-   models: {
-     squeegee: { url: 'assets/models/tergivetro.glb', rotation: [0, 0, 0] },
-     bottle:   { url: 'assets/models/spruzzino.glb',  rotation: [0, 0, 0] }
-   }
-   ```
-   Il modello viene centrato e scalato automaticamente. Per il tergivetro la lama deve essere verticale (asse Y): se arriva ruotato, correggilo con `rotation` (in gradi).
+Il video è montato dagli spezzoni di Stefano: sfondo sfocato in base alla profondità, colori corretti, voce ripulita dal rumore, musica di sottofondo ("Acoustic Corporate Business Background" di Alex Morgan, Pixabay) e sottotitoli.
 
 ## Provarlo in locale
 
