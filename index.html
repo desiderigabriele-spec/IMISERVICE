@@ -174,7 +174,6 @@ section { scroll-margin-top: 72px; }
 .svc h3 { font-size: 24px; }
 .photo { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3 / 2; max-width: 100%; background: var(--line); }
 .photo canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.svc .photo { touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; }
 .photo .tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(14,26,43,.86); color: #fff; font-weight: 800; font-size: 13px; padding: 6px 11px; border-radius: 999px; transition: background .3s, color .3s; }
 .photo.done .tag { background: var(--yellow); color: var(--navy); }
 .meter { display: flex; flex-direction: column; gap: 6px; }
@@ -524,8 +523,6 @@ section { scroll-margin-top: 72px; }
     for (let i = 0; i < w * h / 700; i++) { const x = rnd(0, w), y = rnd(0, h), rr = r() < .85 ? rnd(.8, 2.4) : rnd(2.4, 5); g.fillStyle = 'rgba(78,66,48,.24)'; g.beginPath(); g.arc(x, y, rr, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.arc(x - rr * .35, y - rr * .35, rr * .35, 0, 7); g.fill(); }
   }
   const blade = (g, H, x) => { g.fillStyle = '#FFD23C'; g.fillRect(x - 6, 0, 13, H); g.fillStyle = 'rgba(0,0,0,.18)'; g.fillRect(x + 7, 0, 4, H); };
-  // maniglia tonda sulla lama: fa capire che si può trascinare
-  const handle = (g, H, x, k) => { const y = H / 2, r = 20 * k; g.fillStyle = '#FFD23C'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.strokeStyle = '#0E1A2B'; g.lineWidth = 2.6 * k; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath(); g.moveTo(x - 4 * k, y - 6 * k); g.lineTo(x - 10 * k, y); g.lineTo(x - 4 * k, y + 6 * k); g.moveTo(x + 4 * k, y - 6 * k); g.lineTo(x + 10 * k, y); g.lineTo(x + 4 * k, y + 6 * k); g.stroke(); };
 
   /* ---------- 0. Apertura: vetro bagnato, il tergivetro IMI passa dall'alto verso il basso ---------- */
   const veil = document.getElementById('veil');
@@ -625,7 +622,7 @@ section { scroll-margin-top: 72px; }
   const svcs = SERVICES.map((s, i) => {
     const el = document.createElement('section'); el.className = 'svc'; el.id = 'svc-' + s.k;
     el.innerHTML = `<div class="wrap"><p class="kicker"><span class="num">${String(i + 1).padStart(2, '0')}</span> · ${s.name}</p><h3>${s.title}</h3>
-      <div class="photo"><canvas></canvas><span class="tag">Scorri o trascina la lama</span></div>
+      <div class="photo"><canvas></canvas><span class="tag">Scorri: si pulisce</span></div>
       <div class="meter"><div class="row"><span>Pulizia</span><span class="v">0%</span></div><div class="track"><div class="fill"></div></div></div>
       <ul class="feat">${s.pts.map((p, j) => `<li>${ICONS[s.ic[j]]}<span>${p}</span></li>`).join('')}</ul><a class="btn btn-d" href="#preventivo">${s.cta}</a></div>`;
     host.appendChild(el);
@@ -650,24 +647,15 @@ section { scroll-margin-top: 72px; }
   }
   function draw(x, p) {
     if (Math.abs(p - x.p) < .002) return; x.p = p;
-    const g = x.c.getContext('2d'), W = x.c.width, H = x.c.height, bx = Math.round(W * p), k = W / x.box.clientWidth;
+    const g = x.c.getContext('2d'), W = x.c.width, H = x.c.height, bx = Math.round(W * p);
     g.drawImage(x.clean, 0, 0); if (bx < W) g.drawImage(x.dirt, bx, 0, W - bx, H, bx, 0, W - bx, H);
-    if (p > 0 && p < 1) { blade(g, H, bx); handle(g, H, bx, k); }
+    if (p > 0 && p < 1) blade(g, H, bx);
     const pct = Math.round(p * 100); x.v.textContent = pct + '%'; x.fill.style.width = pct + '%';
-    const done = p >= 1; x.el.classList.toggle('done', done || x.seen); x.box.classList.toggle('done', done); x.tag.textContent = done ? 'Pulito · trascina per rivedere' : 'Scorri o trascina la lama';
+    const done = p >= 1; x.el.classList.toggle('done', done || x.seen); x.box.classList.toggle('done', done); x.tag.textContent = done ? 'Pulito' : 'Scorri: si pulisce';
     if (done) x.seen = true;
   }
   function render() {
-    for (const x of svcs) draw(x, x.manual != null ? x.manual : reduce ? 1 : scrollP(x.box.getBoundingClientRect()));
-  }
-  // trascinando col dito (o col mouse) sulla foto si sposta la lama a mano
-  for (const x of svcs) {
-    let sx = 0, sy = 0, drag = false, down = false;
-    const at = e => { const r = x.box.getBoundingClientRect(); x.manual = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); x.p = -1; draw(x, x.manual); };
-    x.box.addEventListener('pointerdown', e => { down = true; drag = false; sx = e.clientX; sy = e.clientY; });
-    x.box.addEventListener('pointermove', e => { if (!down) return; if (!drag && Math.abs(e.clientX - sx) > 6 && Math.abs(e.clientX - sx) > Math.abs(e.clientY - sy)) { drag = true; try { x.box.setPointerCapture(e.pointerId); } catch (_) {} } if (drag) at(e); });
-    x.box.addEventListener('pointerup', e => { if (down && !drag && Math.abs(e.clientY - sy) < 6) at(e); down = drag = false; });
-    x.box.addEventListener('pointercancel', () => { down = drag = false; });
+    for (const x of svcs) draw(x, reduce ? 1 : scrollP(x.box.getBoundingClientRect()));
   }
   let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }, { passive: true });
   function sizeAll() { sizeHero(); sizeSvcs(); }
