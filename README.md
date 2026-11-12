@@ -13,6 +13,7 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 - **Video di Stefano**: parte muto in automatico, con il pulsante "Attiva l'audio" al centro.
 - **Sei servizi con prima/dopo**: scorrendo, la lama gialla passa da sinistra a destra e scopre il "dopo" sopra il "prima". Le foto sono in `assets/img/servizi/` (`<servizio>-prima.jpg` e `<servizio>.jpg`, 1080×720, stessa inquadratura).
 - **Per chi** (aziende, amministratori, privati), **come lavoriamo**, **verifica zona**, **preventivo in 3 domande** che apre WhatsApp col messaggio già scritto, **FAQ** e footer con i contatti.
+- **Barra fissa in basso sul telefono** con Chiama, WhatsApp ed Email (presi da `config.js`).
 
 ## Logo
 
