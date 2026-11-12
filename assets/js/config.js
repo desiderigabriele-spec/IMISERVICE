@@ -14,7 +14,4 @@ window.IMI_CONFIG = {
   whatsapp: '390000000000',
   email: 'info@imiservice.it',
   piva: '00000000000'
-
-  // Il video della pagina è assets/video/presentazione-web.mp4 (720×720, leggero, parte muto).
-  // La versione in alta qualità resta in assets/video/presentazione.mp4.
 };
