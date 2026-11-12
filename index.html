@@ -60,8 +60,11 @@
   <link rel="preload" as="image" href="assets/img/intro/telefono-390.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 383px) and (max-width: 400px)">
   <link rel="preload" as="image" href="assets/img/intro/telefono-412.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 401px) and (max-width: 420px)">
   <link rel="preload" as="image" href="assets/img/intro/telefono-430.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 421px)">
-  <link rel="preload" as="image" href="assets/img/intro/computer-nitido.jpg" media="(min-aspect-ratio: 9/10)">
-  <link rel="preload" as="image" href="assets/img/intro/gocce.jpg">
+  <link rel="preload" as="image" href="assets/img/intro/computer-1024.jpg" media="(min-aspect-ratio: 9/10) and (max-width: 1087px)">
+  <link rel="preload" as="image" href="assets/img/intro/computer-1152.jpg" media="(min-aspect-ratio: 9/10) and (min-width: 1088px) and (max-width: 1215px)">
+  <link rel="preload" as="image" href="assets/img/intro/computer-1280.jpg" media="(min-aspect-ratio: 9/10) and (min-width: 1216px)">
+  <link rel="preload" as="image" href="assets/img/intro/gocce.jpg" media="(max-aspect-ratio: 9/10)">
+  <link rel="preload" as="image" href="assets/img/intro/gocce-pc.jpg" media="(min-aspect-ratio: 9/10)">
 <style>
 /* Colonna unica (max 560px). Apertura col tergivetro, hero con i servizi che si alternano, video, servizi prima/dopo che si puliscono scorrendo */
 :root {
@@ -102,7 +105,7 @@ section { scroll-margin-top: 72px; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(246,243,236,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 10px; }
 .top img { height: 44px; width: auto; display: block; }
-.top a { font-weight: 800; font-size: 14px; color: var(--navy); text-decoration: none; background: var(--yellow); padding: 10px 14px; border-radius: 999px; }
+.top a.cta { font-weight: 800; font-size: 14px; color: var(--navy); text-decoration: none; background: var(--yellow); padding: 10px 14px; border-radius: 999px; }
 
 /* Hero: cosa facciamo, subito */
 .hero { padding-block: 22px 8px; }
@@ -279,6 +282,73 @@ section { scroll-margin-top: 72px; }
 .mbar .m-mail { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
 @media (min-width: 768px) { .mbar { display: none; } }
 
+
+/* ---------- Computer: due colonne, servizi con foto a fianco, passi in fila ---------- */
+.menu, .d-only { display: none; }
+@media (min-width: 1000px) {
+  .m-only { display: none; }
+  .d-only { display: inline; }
+  .wrap { max-width: 1200px; padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+  .top .wrap { gap: 28px; }
+  .menu { display: flex; gap: 26px; margin-left: auto; }
+  .menu a { font-weight: 700; font-size: 15px; color: var(--navy); text-decoration: none; }
+  .menu a:hover { text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  .sec { padding-block: 96px 0; }
+  .sec h2 { font-size: 40px; }
+  .sec > .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 64px; row-gap: 16px; align-items: start; align-content: start; }
+  .sec > .wrap > .kicker, .sec > .wrap > h2 { grid-column: 1; }
+  .sec > .wrap > :not(.kicker):not(h2) { grid-column: 2; grid-row: 1 / span 6; }
+  /* hero */
+  .hero { padding-block: 56px 24px; }
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 56px; row-gap: 20px; align-content: center; }
+  .hero .wrap > * { grid-column: 1; }
+  .hero .stage { grid-column: 2; grid-row: 1 / span 6; align-self: center; }
+  .hero h1 { font-size: 58px; }
+  .hero .ctas { grid-template-columns: 1fr 1fr; }
+  /* video: grande a sinistra, testo e riquadri a destra */
+  #video .wrap { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  #video .wrap > .kicker, #video .wrap > h2, #video .tiles { grid-column: 2; grid-row: auto; }
+  #video .video { grid-column: 1; grid-row: 1 / span 4; }
+  #video .kicker { margin-top: 40px; }
+  /* servizi: foto a fianco del testo, alternati */
+  #servizi .wrap { grid-template-columns: 1fr; }
+  #servizi h2 { max-width: 760px; }
+  .svc { padding-block: 72px 0; }
+  .svc .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 64px; row-gap: 16px; align-content: center; }
+  .svc .wrap > * { grid-column: 2; }
+  .svc .photo { grid-column: 1; grid-row: 1 / span 5; }
+  .svc .meter { grid-column: 1; grid-row: 6; }
+  .svc .kicker { margin-top: 24px; }
+  .svc h3 { font-size: 34px; }
+  .svc .btn { justify-self: start; padding: 0 28px; }
+  .svc:nth-child(even) .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .svc:nth-child(even) .wrap > * { grid-column: 1; }
+  .svc:nth-child(even) .photo, .svc:nth-child(even) .meter { grid-column: 2; }
+  /* per chi */
+  .who .ans .btn { justify-self: start; padding: 0 28px; }
+  /* come lavoriamo: i quattro passi in fila */
+  #metodo .wrap { grid-template-columns: 1fr; }
+  #metodo .car { grid-column: 1; grid-row: auto; overflow: visible; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  #metodo .car .card { min-height: 240px; }
+  #metodo .car .card span { max-width: 75%; }
+  #metodo .cdots { display: none; }
+  /* zone: strada a sinistra, risposta a destra */
+  #zone .wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  #zone .wrap > .kicker, #zone .wrap > h2, #zone .zres, #zone .zmore { grid-column: 2; grid-row: auto; }
+  #zone .road { grid-column: 1; grid-row: 1 / span 5; max-width: 460px; }
+  #zone .kicker { margin-top: 120px; }
+  #zone .zres .btn { justify-self: start; padding: 0 28px; }
+  /* preventivo e domande: titolo a sinistra, contenuto a destra */
+  .chat { max-width: 620px; }
+  /* fine pagina */
+  .close { margin-top: 110px; }
+  .close .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 64px; row-gap: 16px; padding-block: 72px; align-items: center; }
+  .close .wrap > .kicker, .close h2 { grid-column: 1; }
+  .close h2 { font-size: 44px; }
+  .close .strip { grid-column: 2; grid-row: 1 / span 2; }
+  .close .btn { grid-column: 2; justify-self: start; padding: 0 32px; }
+}
+
 /* Footer */
 .foot-site { background: var(--navy-2); color: #cfd6e2; font-size: 14px; }
 .foot-site .wrap { display: flex; flex-direction: column; gap: 14px; padding-block: 28px calc(96px + env(safe-area-inset-bottom, 0px)); }
@@ -287,6 +357,7 @@ section { scroll-margin-top: 72px; }
 .foot-site a { color: #fff; font-weight: 700; text-decoration: none; }
 .foot-site .row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .foot-site small { color: #8e9ab0; }
+@media (min-width: 1000px) { .foot-site .wrap { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; } }
 </style>
 </head>
 <body>
@@ -295,7 +366,7 @@ section { scroll-margin-top: 72px; }
   <div class="blade" id="veilBlade"><div class="grip"></div><div class="neck"></div><div class="ch"></div><div class="rub"></div><div class="wet"></div><div class="badge"><img src="assets/img/logo/logo.svg" alt=""></div></div>
 </div>
 
-<header class="top"><div class="wrap"><img src="assets/img/logo/logo.svg" alt="IMI Service"><a href="#preventivo">Sopralluogo gratuito</a></div></header>
+<header class="top"><div class="wrap"><img src="assets/img/logo/logo.svg" alt="IMI Service"><nav class="menu" aria-label="Sezioni"><a href="#servizi">Servizi</a><a href="#video">Chi siamo</a><a href="#metodo">Come lavoriamo</a><a href="#zone">Zone</a><a href="#faq">Domande</a></nav><a class="cta" href="#preventivo">Sopralluogo gratuito</a></div></header>
 
 <section class="hero">
   <div class="wrap">
@@ -361,7 +432,7 @@ section { scroll-margin-top: 72px; }
 <section class="sec" id="metodo">
   <div class="wrap">
     <p class="kicker">Come lavoriamo</p>
-    <h2>Quattro passi. <span class="hl">Scorri.</span></h2>
+    <h2>Quattro passi<span class="m-only">. <span class="hl">Scorri.</span></span><span class="d-only">, <span class="hl">un lavoro fatto bene.</span></span></h2>
     <div class="car" id="car" tabindex="0" aria-label="I quattro passi, scorri di lato">
       <div class="card"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5z"/></svg><b>Ci scrivi o ci chiami</b><span>Su WhatsApp puoi mandarci anche le foto degli ambienti.</span><em aria-hidden="true">1</em></div>
       <div class="card"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.8"/></svg><b>Sopralluogo gratuito</b><span>Veniamo a vedere di persona, senza impegno.</span><em aria-hidden="true">2</em></div>
@@ -558,7 +629,7 @@ section { scroll-margin-top: 72px; }
     const load = src => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
     const timeout = setTimeout(close, 3500);
     const larg = [360, 375, 390, 412, 430].reduce((a, b) => Math.abs(b - W) < Math.abs(a - W) ? b : a);
-    Promise.all([load(tipo === 'telefono' ? `assets/img/intro/telefono-${larg}.jpg` : 'assets/img/intro/computer-nitido.jpg'), load('assets/img/intro/gocce.jpg')]).then(([sharp, tex]) => { clearTimeout(timeout); if (!done) start(sharp, tex); }, close);
+    Promise.all([load(tipo === 'telefono' ? `assets/img/intro/telefono-${larg}.jpg` : `assets/img/intro/computer-${[1024, 1152, 1280].reduce((a, b) => Math.abs(b - W) < Math.abs(a - W) ? b : a)}.jpg`), load(tipo === 'telefono' ? 'assets/img/intro/gocce.jpg' : 'assets/img/intro/gocce-pc.jpg')]).then(([sharp, tex]) => { clearTimeout(timeout); if (!done) start(sharp, tex); }, close);
 
     // sfocatura a scatola, separabile
     function boxBlur(src, w, h, r) {
@@ -573,13 +644,8 @@ section { scroll-margin-top: 72px; }
     function wet(sharp, tex) {
       const w = layer.width, h = layer.height, k = DPR / 2;
       const cover = img => { const s = Math.max(w / img.naturalWidth, h / img.naturalHeight); lg.clearRect(0, 0, w, h); lg.drawImage(img, (w - img.naturalWidth * s) / 2, (h - img.naturalHeight * s) / 2, img.naturalWidth * s, img.naturalHeight * s); return lg.getImageData(0, 0, w, h).data; };
-      // sul computer la foto delle gocce non si ingrandisce: si ripete affiancata alla grandezza del telefono,
-      // una copia sì e una no specchiata e spostata in verticale, così le gocce restano piccole e fitte e la ripetizione non si nota
-      const tiled = img => { const sc = .5 * DPR, tw = Math.round(img.naturalWidth * sc), th = Math.round(img.naturalHeight * sc), OFF = [0, .37, .71, .19, .55]; lg.fillStyle = '#808080'; lg.fillRect(0, 0, w, h);
-        for (let i = 0, x = 0; x < w; x += tw, i++) { const dy = -Math.round(OFF[i % OFF.length] * th);
-          for (let y = dy; y < h; y += th) { lg.save(); if (i % 2) { lg.translate(x + tw, y); lg.scale(-1, 1); lg.drawImage(img, 0, 0, tw + 1, th + 1); } else lg.drawImage(img, x, y, tw + 1, th + 1); lg.restore(); } }
-        return lg.getImageData(0, 0, w, h).data; };
-      const T = tipo === 'computer' ? tiled(tex) : cover(tex), N = w * h, L = new Float32Array(N), Dv = new Float32Array(N);
+      // telefono: foto verticale delle gocce; computer: foto orizzontale, con gocce più piccole e fitte
+      const T = cover(tex), N = w * h, L = new Float32Array(N), Dv = new Float32Array(N);
       for (let i = 0; i < N; i++) { L[i] = T[i * 4]; Dv[i] = Math.abs(T[i * 4] - 128); }
       const place = img => { lg.fillStyle = '#F6F3EC'; lg.fillRect(0, 0, w, h);
         if (tipo === 'telefono') { lg.drawImage(img, 0, 0, img.naturalWidth * DPR, img.naturalHeight * DPR);
