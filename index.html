@@ -38,6 +38,7 @@
       "addressCountry": "IT"
     },
     "foundingDate": "2008",
+    "vatID": "IT06179360968",
     "areaServed": ["Sesto San Giovanni", "Milano", "Monza", "Città metropolitana di Milano", "Provincia di Monza e della Brianza"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -504,7 +505,7 @@ section { scroll-margin-top: 72px; }
       <a data-cfg="wa" href="#">WhatsApp</a>
       <a data-cfg="mail" href="#">Email</a>
     </div>
-    <small>IMI Service · Sesto San Giovanni (MI) · <span data-cfg="piva">P. IVA</span> · <a href="privacy.html">Privacy</a></small>
+    <small>IMI Service di Farag Mahmoud · Sesto San Giovanni (MI) · <span data-cfg="piva">P. IVA</span> · <a href="privacy.html">Privacy</a></small>
   </div>
 </footer>
 
@@ -519,19 +520,20 @@ section { scroll-margin-top: 72px; }
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CFG = window.IMI_CONFIG || {};
-  const waLinkTo = text => 'https://wa.me/' + (CFG.whatsapp || '') + (text ? '?text=' + encodeURIComponent(text) : '');
+  // ogni messaggio che parte dal sito finisce con "(dal sito)": serve a riconoscere i clienti arrivati da qui
+  const waLinkTo = text => 'https://wa.me/' + (CFG.whatsapp || '') + '?text=' + encodeURIComponent((text ? text + ' ' : '') + '(dal sito)');
   document.querySelectorAll('[data-cfg]').forEach(el => {
     const k = el.dataset.cfg;
     if (k === 'tel') { el.href = 'tel:' + (CFG.phone || ''); el.textContent = CFG.phoneDisplay || 'Telefono'; }
     if (k === 'wa') { el.href = waLinkTo('Ciao, vorrei informazioni su IMI Service.'); el.target = '_blank'; el.rel = 'noopener'; }
-    if (k === 'mail') { el.href = 'mailto:' + (CFG.email || ''); el.textContent = CFG.email || 'Email'; }
+    if (k === 'mail') { el.href = 'mailto:' + (CFG.email || '') + '?subject=' + encodeURIComponent('Richiesta informazioni (dal sito)'); el.textContent = CFG.email || 'Email'; }
     if (k === 'piva') el.textContent = 'P. IVA ' + (CFG.piva || '');
   });
   document.querySelectorAll('[data-act]').forEach(el => {
     const k = el.dataset.act;
     if (k === 'tel') el.href = 'tel:' + (CFG.phone || '');
     if (k === 'wa') { el.href = waLinkTo('Ciao IMI Service, vorrei informazioni per una pulizia.'); el.target = '_blank'; el.rel = 'noopener'; }
-    if (k === 'mail') el.href = 'mailto:' + (CFG.email || '') + '?subject=' + encodeURIComponent('Richiesta informazioni');
+    if (k === 'mail') el.href = 'mailto:' + (CFG.email || '') + '?subject=' + encodeURIComponent('Richiesta informazioni (dal sito)');
   });
   const seeded = s => () => (s = (s * 16807) % 2147483647) / 2147483647;
 
