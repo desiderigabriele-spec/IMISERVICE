@@ -55,7 +55,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/servizi/uffici.jpg">
-  <link rel="preload" as="image" href="assets/img/intro/telefono-nitido.jpg" media="(max-aspect-ratio: 9/10)">
+  <link rel="preload" as="image" href="assets/img/intro/telefono-360.jpg" media="(max-aspect-ratio: 9/10) and (max-width: 367px)">
+  <link rel="preload" as="image" href="assets/img/intro/telefono-375.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 368px) and (max-width: 382px)">
+  <link rel="preload" as="image" href="assets/img/intro/telefono-390.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 383px) and (max-width: 400px)">
+  <link rel="preload" as="image" href="assets/img/intro/telefono-412.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 401px) and (max-width: 420px)">
+  <link rel="preload" as="image" href="assets/img/intro/telefono-430.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 421px)">
   <link rel="preload" as="image" href="assets/img/intro/computer-nitido.jpg" media="(min-aspect-ratio: 9/10)">
   <link rel="preload" as="image" href="assets/img/intro/gocce.jpg">
 <style>
@@ -553,7 +557,8 @@ section { scroll-margin-top: 72px; }
     const tipo = W / H < .9 ? 'telefono' : 'computer';
     const load = src => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
     const timeout = setTimeout(close, 3500);
-    Promise.all([load(`assets/img/intro/${tipo}-nitido.jpg`), load('assets/img/intro/gocce.jpg')]).then(([sharp, tex]) => { clearTimeout(timeout); if (!done) start(sharp, tex); }, close);
+    const larg = [360, 375, 390, 412, 430].reduce((a, b) => Math.abs(b - W) < Math.abs(a - W) ? b : a);
+    Promise.all([load(tipo === 'telefono' ? `assets/img/intro/telefono-${larg}.jpg` : 'assets/img/intro/computer-nitido.jpg'), load('assets/img/intro/gocce.jpg')]).then(([sharp, tex]) => { clearTimeout(timeout); if (!done) start(sharp, tex); }, close);
 
     // sfocatura a scatola, separabile
     function boxBlur(src, w, h, r) {
@@ -568,9 +573,23 @@ section { scroll-margin-top: 72px; }
     function wet(sharp, tex) {
       const w = layer.width, h = layer.height, k = DPR / 2;
       const cover = img => { const s = Math.max(w / img.naturalWidth, h / img.naturalHeight); lg.clearRect(0, 0, w, h); lg.drawImage(img, (w - img.naturalWidth * s) / 2, (h - img.naturalHeight * s) / 2, img.naturalWidth * s, img.naturalHeight * s); return lg.getImageData(0, 0, w, h).data; };
-      const T = cover(tex), N = w * h, L = new Float32Array(N), Dv = new Float32Array(N);
+      // sul computer la foto delle gocce non si ingrandisce: si ripete affiancata alla grandezza del telefono,
+      // una copia sì e una no specchiata e spostata in verticale, così le gocce restano piccole e fitte e la ripetizione non si nota
+      const tiled = img => { const sc = .5 * DPR, tw = Math.round(img.naturalWidth * sc), th = Math.round(img.naturalHeight * sc), OFF = [0, .37, .71, .19, .55]; lg.fillStyle = '#808080'; lg.fillRect(0, 0, w, h);
+        for (let i = 0, x = 0; x < w; x += tw, i++) { const dy = -Math.round(OFF[i % OFF.length] * th);
+          for (let y = dy; y < h; y += th) { lg.save(); if (i % 2) { lg.translate(x + tw, y); lg.scale(-1, 1); lg.drawImage(img, 0, 0, tw + 1, th + 1); } else lg.drawImage(img, x, y, tw + 1, th + 1); lg.restore(); } }
+        return lg.getImageData(0, 0, w, h).data; };
+      const T = tipo === 'computer' ? tiled(tex) : cover(tex), N = w * h, L = new Float32Array(N), Dv = new Float32Array(N);
       for (let i = 0; i < N; i++) { L[i] = T[i * 4]; Dv[i] = Math.abs(T[i * 4] - 128); }
-      const Sp = cover(sharp), Lb = boxBlur(L, w, h, Math.max(1, Math.round(3 * k))), Db = boxBlur(Dv, w, h, Math.max(1, Math.round(4 * k)));
+      const place = img => { lg.fillStyle = '#F6F3EC'; lg.fillRect(0, 0, w, h);
+        if (tipo === 'telefono') { lg.drawImage(img, 0, 0, img.naturalWidth * DPR, img.naturalHeight * DPR);
+          // la barra contatti nella foto sta in fondo alla foto: la riporto dove sta davvero su questo telefono
+          const bar = document.querySelector('.mbar'), top = bar ? bar.getBoundingClientRect().top : H - 70, BH = 70;
+          lg.fillStyle = '#FFFDF8'; lg.fillRect(0, top * DPR, w, h - top * DPR);
+          lg.drawImage(img, 0, img.naturalHeight - BH, img.naturalWidth, BH, 0, top * DPR, img.naturalWidth * DPR, BH * DPR); }
+        else lg.drawImage(img, Math.round((w - img.naturalWidth * DPR) / 2), 0, img.naturalWidth * DPR, img.naturalHeight * DPR);
+        return lg.getImageData(0, 0, w, h).data; };
+      const Sp = place(sharp), Lb = boxBlur(L, w, h, Math.max(1, Math.round(3 * k))), Db = boxBlur(Dv, w, h, Math.max(1, Math.round(4 * k)));
       const out = lg.createImageData(w, h), O = out.data, K = .8 * k;
       for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
         const i = y * w + x, a = (Db[i] - 2.5) / 7; if (a <= 0) continue;
