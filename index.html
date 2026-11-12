@@ -71,7 +71,7 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html, body { background: var(--cream); color: var(--navy); }
+html, body { background: var(--cream); color: var(--navy); overscroll-behavior-y: none; }
 body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 body.locked { overflow: hidden; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--cream); }
@@ -257,12 +257,12 @@ section { scroll-margin-top: 72px; }
 .mbar .m-tel { background: var(--navy); color: #fff; }
 .mbar .m-wa { background: var(--green); color: #fff; }
 .mbar .m-mail { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
-body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
-@media (min-width: 768px) { .mbar { display: none; } body { padding-bottom: 0; } }
+@media (min-width: 768px) { .mbar { display: none; } }
 
 /* Footer */
 .foot-site { background: var(--navy-2); color: #cfd6e2; font-size: 14px; }
-.foot-site .wrap { display: flex; flex-direction: column; gap: 14px; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.foot-site .wrap { display: flex; flex-direction: column; gap: 14px; padding-block: 28px calc(96px + env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 768px) { .foot-site .wrap { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); } }
 .foot-site img { width: 150px; height: auto; }
 .foot-site a { color: #fff; font-weight: 700; text-decoration: none; }
 .foot-site .row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
@@ -284,7 +284,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
     <div class="stage" id="stage"><canvas></canvas><span class="now" id="now"><b>Uffici</b></span></div>
     <div class="dots" id="dots"></div>
     <div class="ctas">
-      <a class="btn btn-y" href="#preventivo">Richiedi sopralluogo gratuito</a>
+      <a class="btn btn-y" href="#preventivo">Chiedi un preventivo</a>
       <a class="btn btn-w" href="#preventivo">Scrivi su WhatsApp</a>
     </div>
     <div class="trust"><span>Squadra propria</span><span>Turni anche notturni</span><span>Preventivo scritto</span></div>
@@ -317,7 +317,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
       <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6zM14 2v5h5"/><path d="m9 14 2 2 4-4"/></svg>Impresa regolare, attiva dal 2008</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Squadra propria, anche di sera e di notte</li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h3v9M4 12h15v5H4z"/><circle cx="7" cy="19" r="2"/><circle cx="16" cy="19" r="2"/></svg>Attrezzature industriali e prodotti certificati</li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6zM14 2v5h5M9 12h7M9 16h5"/></svg>Sopralluogo gratis e preventivo scritto</li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l4 4v16H6zM14 2v5h5M9 12h7M9 16h5"/></svg>Preventivo scritto, voce per voce</li>
     </ul>
   </div>
 </section>
@@ -375,7 +375,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="foot" id="foot" hidden>
         <a class="btn btn-w" id="waLink" href="#preventivo">Continua su WhatsApp</a>
-        <small>Il messaggio è già scritto · sopralluogo gratuito</small>
+        <small>Il messaggio è già scritto: devi solo inviarlo</small>
       </div>
     </div>
   </div>
@@ -401,10 +401,10 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
     <div class="facts">
       <div class="fact"><b>2008</b><span>Partita IVA attiva</span></div>
       <div class="fact"><b>H24</b><span>Turni anche festivi</span></div>
-      <div class="fact"><b>1</b><span>Referente unico</span></div>
-      <div class="fact"><b>0 €</b><span>Sopralluogo</span></div>
+      <div class="fact"><b>6</b><span>Servizi, un'unica impresa</span></div>
+      <div class="fact"><b>3</b><span>Città: Sesto, Milano, Monza</span></div>
     </div>
-    <a class="btn btn-y" href="#preventivo">Richiedi sopralluogo gratuito</a>
+    <a class="btn btn-y" href="#preventivo">Chiedi un preventivo</a>
   </div>
 </section>
 
@@ -453,7 +453,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
     moon: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>`,
     cal: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4m-7 9.5 2 2 4-4"/></svg>`,
     bag: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9h11L19 21H5zM9 9c0-2.8 1.2-4.5 3-4.5S15 6.2 15 9M10 3.5l2 1.5 2-1.5"/></svg>`,
-    person: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>`,
+    lift: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9.5 9 12 6.5 14.5 9M9.5 15l2.5 2.5 2.5-2.5"/></svg>`,
     roller: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="14" height="6" rx="1.5"/><path d="M18 6h2.5v5H12v3M11 14h2v7h-2z"/></svg>`,
     window: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16"/></svg>`,
     key: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.2 11.8 20 3M16.5 6.5l2.5 2.5M14.5 8.5l2 2"/></svg>`,
@@ -470,7 +470,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
   /* ---------- immagini: una foto per ogni servizio ---------- */
   const SERVICES = [
     { k: 'uffici', name: 'Uffici', title: 'Uffici e studi, anche H24.', pts: ['Igienizzazione di postazioni, tastiere e maniglie', 'Cestini e raccolta differenziata', 'Di sera, di notte o nel weekend'], ic: ['spray', 'bin', 'moon'], cta: 'Preventivo per il tuo ufficio' },
-    { k: 'condomini', name: 'Condomini', title: 'Scale, androni, ascensori, sacchi.', pts: ['Calendario fisso con l\'amministratore', 'Rotazione ed esposizione dei sacchi', 'Un referente unico per le segnalazioni'], ic: ['cal', 'bag', 'person'], cta: 'Preventivo per il condominio' },
+    { k: 'condomini', name: 'Condomini', title: 'Scale, androni, ascensori, sacchi.', pts: ['Calendario fisso con l\'amministratore', 'Rotazione ed esposizione dei sacchi', 'Ascensori, corrimano e vetri del portone'], ic: ['cal', 'bag', 'lift'], cta: 'Preventivo per il condominio' },
     { k: 'cantiere', name: 'Fine cantiere', title: 'Dopo i lavori, pronto da abitare.', pts: ['Polvere fine, calce, stucco e vernice', 'Infissi, sanitari e pavimenti', 'Consegna chiavi in mano'], ic: ['roller', 'window', 'key'], cta: 'Preventivo fine cantiere' },
     { k: 'sgomberi', name: 'Sgomberi', title: 'Traslochi, sgomberi, cambio inquilino.', pts: ['Locali svuotati e puliti a fondo', 'Smaltimento a norma', 'Pronto per il nuovo inquilino'], ic: ['box', 'shield', 'house'], cta: 'Preventivo sgombero' },
     { k: 'vetrate', name: 'Vetrate', title: 'Vetrate, anche in altezza.', pts: ['Vetrate di uffici e negozi', 'Superfici alte con attrezzatura dedicata', 'Senza aloni'], ic: ['shop', 'ladder', 'sparkle'], cta: 'Preventivo vetrate' },
@@ -660,9 +660,9 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
 
   /* ---------- 4. Per chi: tre domande, si apre la propria ---------- */
   const WHO = [
-    { ic: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5h6V7M3 13h18M11 13v2h2v-2"/></svg>`, q: "Hai un'azienda, un ufficio o un negozio?", p: 'Puliamo quando non ci sei. Il mattino dopo trovi tutto in ordine.', pts: ['Veniamo la sera, di notte o nel weekend', 'Un referente unico: se qualcosa non va, chiami lui', 'Fattura e documenti sempre in regola'], c: 'Preventivo per la tua azienda' },
+    { ic: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4.5h6V7M3 13h18M11 13v2h2v-2"/></svg>`, q: "Hai un'azienda, un ufficio o un negozio?", p: 'Puliamo quando non ci sei. Il mattino dopo trovi tutto in ordine.', pts: ['Veniamo la sera, di notte o nel weekend', 'Verifichiamo il risultato a fine lavoro', 'Fattura e documenti sempre in regola'], c: 'Preventivo per la tua azienda' },
     { ic: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V3h14v18M2 21h20M8.5 7h2M13.5 7h2M8.5 11h2M13.5 11h2M8.5 15h2M13.5 15h2M10.5 21v-3h3v3"/></svg>`, q: 'Amministri dei condomini?', p: 'Meno telefonate dei condòmini, scale e androni sempre in ordine.', pts: ['Calendario fisso, sempre rispettato', 'Sacchi esposti e ritirati nei giorni giusti', 'Impresa regolare: visura e contributi in ordine'], c: 'Preventivo per il condominio' },
-    { ic: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-5h4v5"/></svg>`, q: 'Hai una casa da sistemare?', p: 'Dopo i lavori, un trasloco o un cambio inquilino, te la consegniamo pronta.', pts: ['Fine cantiere, sgomberi e pulizie a fondo', 'Sopralluogo gratuito anche per un appartamento', 'Prezzo scritto prima di iniziare'], c: 'Preventivo per casa tua' }
+    { ic: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-5h4v5"/></svg>`, q: 'Hai una casa da sistemare?', p: 'Dopo i lavori, un trasloco o un cambio inquilino, te la consegniamo pronta.', pts: ['Fine cantiere, sgomberi e pulizie a fondo', 'Veniamo anche per un solo appartamento', 'Prezzo scritto prima di iniziare'], c: 'Preventivo per casa tua' }
   ];
   const whoEl = document.getElementById('who'); let whoOpen = 0;
   function drawWho() {
@@ -693,7 +693,7 @@ body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
   const say = (t, me) => { const b = document.createElement('div'); b.className = 'bub' + (me ? ' me' : ''); b.textContent = t; msgs.appendChild(b); };
   function ask(i) {
     if (i === Q.length) {
-      say(`Perfetto. Ti preparo il sopralluogo gratuito per: ${ans[0]}, ${ans[1]}, ${ans[2].toLowerCase()}.`);
+      say(`Perfetto. Riepilogo: ${ans[0]}, ${ans[1]}, ${ans[2].toLowerCase()}.`);
       wa.href = waLinkTo(`Ciao IMI Service, vorrei un sopralluogo gratuito. Servizio: ${ans[0]}. Zona: ${ans[1]}. Tempi: ${ans[2]}.`); wa.target = '_blank'; wa.rel = 'noopener';
       foot.hidden = false; return;
     }
