@@ -185,7 +185,7 @@ section { scroll-margin-top: 72px; }
 /* Chat preventivo */
 .chat { background: #ECE5DD; border-radius: 22px; overflow: hidden; box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
 .chat .head { background: var(--navy); color: #fff; display: flex; gap: 12px; align-items: center; padding: 12px 14px; }
-.chat .head img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+.chat .head img { width: 46px; height: 46px; border-radius: 50%; object-fit: contain; background: #fff; padding: 7px; border: 2px solid var(--yellow); }
 .chat .head b { display: block; }
 .chat .head span { font-size: 13px; color: #9fe0b5; font-weight: 600; }
 .msgs { display: flex; flex-direction: column; gap: 9px; padding: 14px 12px; min-height: 300px; }
@@ -231,6 +231,16 @@ section { scroll-margin-top: 72px; }
 #veil .sq .grip { position: absolute; left: 50%; bottom: 72px; width: 40px; height: 130px; margin-left: -20px; background: linear-gradient(90deg, #1B2A40, #0E1A2B 60%, #07111E); border-radius: 20px 20px 14px 14px; box-shadow: inset 0 -18px 0 #FFD23C; }
 #veil.gone { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { #veil { display: none; } .svc .btn { opacity: 1; } .bub { animation: none; } }
+
+/* Barra contatti fissa (solo telefono) */
+.mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 8px; padding: 8px max(12px, env(safe-area-inset-left, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)); background: rgba(255,253,248,.96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-top: 1px solid var(--line); box-shadow: 0 -8px 20px rgba(14,26,43,.08); }
+.mbar a { height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 7px; font: 800 15px var(--font); text-decoration: none; }
+.mbar svg { width: 20px; height: 20px; flex: none; }
+.mbar .m-tel { background: var(--navy); color: #fff; }
+.mbar .m-wa { background: var(--green); color: #fff; }
+.mbar .m-mail { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
+body { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 768px) { .mbar { display: none; } body { padding-bottom: 0; } }
 
 /* Footer */
 .foot-site { background: var(--navy-2); color: #cfd6e2; font-size: 14px; }
@@ -347,7 +357,7 @@ section { scroll-margin-top: 72px; }
     <p class="kicker">Preventivo</p>
     <h2>Tre risposte e <span class="hl">ti scriviamo noi.</span></h2>
     <div class="chat">
-      <div class="head"><img src="assets/img/stefano.jpg" alt=""><div><b>Stefano · IMI Service</b><span>● risponde di persona</span></div></div>
+      <div class="head"><img src="assets/img/logo/simbolo.svg" alt=""><div><b>IMI Service</b><span>● ti rispondiamo noi, di persona</span></div></div>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="foot" id="foot" hidden>
         <a class="btn btn-w" id="waLink" href="#preventivo">Continua su WhatsApp</a>
@@ -396,6 +406,12 @@ section { scroll-margin-top: 72px; }
   </div>
 </footer>
 
+<nav class="mbar" aria-label="Contatti rapidi">
+  <a class="m-tel" data-act="tel" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>Chiama</a>
+  <a class="m-wa" data-act="wa" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z" fill="currentColor"/></svg>WhatsApp</a>
+  <a class="m-mail" data-act="mail" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V17h16V7.4l-8 5.3zM5.3 7 12 11.4 18.7 7z" fill="currentColor"/></svg>Email</a>
+</nav>
+
 <script src="assets/js/config.js"></script>
 <script>
 (() => {
@@ -409,6 +425,12 @@ section { scroll-margin-top: 72px; }
     if (k === 'wa') { el.href = waLinkTo('Ciao, vorrei informazioni su IMI Service.'); el.target = '_blank'; el.rel = 'noopener'; }
     if (k === 'mail') { el.href = 'mailto:' + (CFG.email || ''); el.textContent = CFG.email || 'Email'; }
     if (k === 'piva') el.textContent = 'P. IVA ' + (CFG.piva || '');
+  });
+  document.querySelectorAll('[data-act]').forEach(el => {
+    const k = el.dataset.act;
+    if (k === 'tel') el.href = 'tel:' + (CFG.phone || '');
+    if (k === 'wa') { el.href = waLinkTo('Ciao IMI Service, vorrei informazioni per una pulizia.'); el.target = '_blank'; el.rel = 'noopener'; }
+    if (k === 'mail') el.href = 'mailto:' + (CFG.email || '') + '?subject=' + encodeURIComponent('Richiesta informazioni');
   });
   const seeded = s => () => (s = (s * 16807) % 2147483647) / 2147483647;
 
@@ -620,7 +642,7 @@ section { scroll-margin-top: 72px; }
   /* ---------- 6. Chat preventivo ---------- */
   const msgs = document.getElementById('msgs'), foot = document.getElementById('foot'), wa = document.getElementById('waLink');
   const Q = [
-    { q: 'Ciao, sono Stefano. Cosa dobbiamo pulire?', o: SERVICES.map(s => s.name) },
+    { q: 'Ciao! Cosa dobbiamo pulire?', o: SERVICES.map(s => s.name) },
     { q: 'In che zona?', o: ['Sesto San Giovanni', 'Milano', 'Monza', 'Altro comune'] },
     { q: 'Quando ti serve?', o: ['Il prima possibile', 'Entro un mese', 'Sto valutando'] },
   ];
@@ -629,7 +651,7 @@ section { scroll-margin-top: 72px; }
   function ask(i) {
     if (i === Q.length) {
       say(`Perfetto. Ti preparo il sopralluogo gratuito per: ${ans[0]}, ${ans[1]}, ${ans[2].toLowerCase()}.`);
-      wa.href = waLinkTo(`Ciao Stefano, vorrei un sopralluogo gratuito. Servizio: ${ans[0]}. Zona: ${ans[1]}. Tempi: ${ans[2]}.`); wa.target = '_blank'; wa.rel = 'noopener';
+      wa.href = waLinkTo(`Ciao IMI Service, vorrei un sopralluogo gratuito. Servizio: ${ans[0]}. Zona: ${ans[1]}. Tempi: ${ans[2]}.`); wa.target = '_blank'; wa.rel = 'noopener';
       foot.hidden = false; return;
     }
     say(Q[i].q); const o = document.createElement('div'); o.className = 'opts';
