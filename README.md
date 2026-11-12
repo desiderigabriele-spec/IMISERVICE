@@ -40,7 +40,7 @@ Poi:
 
 ## Video di presentazione
 
-La pagina usa `assets/video/presentazione.mp4` (1080×1080, 81 s, 16 MB): parte muto in automatico, con la barra dei comandi sotto (pausa, avanti/indietro di 10 secondi, barra di avanzamento, audio). Copertina: `assets/video/copertina.jpg`.
+La pagina usa `assets/video/presentazione.mp4` (1080×1080, 81 s, 16 MB): parte muto in automatico, con i comandi che compaiono toccando il video, come su YouTube (pausa, avanti/indietro di 10 secondi, barra di avanzamento, audio, schermo intero). Copertina: `assets/video/copertina.jpg`.
 
 Il video è montato dagli spezzoni di Stefano: sfondo sfocato in base alla profondità, colori corretti, voce ripulita dal rumore, musica di sottofondo ("Acoustic Corporate Business Background" di Alex Morgan, Pixabay) e sottotitoli.
 
