@@ -21,18 +21,6 @@
   <meta property="og:description" content="Uffici, condomini, fine cantiere e trattamenti specialistici. Sopralluogo gratuito e preventivo rapido.">
   <meta property="og:url" content="https://www.imiservice.it/">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <!-- Se JS è attivo, la pagina parte "sporca" e l'intro la pulisce -->
-  <script>document.documentElement.classList.add('js');</script>
-
-  <script type="importmap">
-  { "imports": { "three": "./assets/vendor/three/three.module.min.js" } }
-  </script>
-
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -63,717 +51,529 @@
     }
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/servizi/uffici.jpg">
+<style>
+/* Colonna unica (max 560px). Apertura col tergivetro, hero con i servizi che si alternano, video, servizi prima/dopo che si puliscono scorrendo */
+:root {
+  --navy: #0E1A2B;
+  --navy-2: #172840;
+  --cream: #F6F3EC;
+  --paper: #FFFDF8;
+  --yellow: #FFD23C;
+  --green: #168F48;
+  --muted: #5B6474;
+  --line: #E3DCCD;
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--cream); color: var(--navy); }
+body { margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body.locked { overflow: hidden; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--cream); }
+.wrap { max-width: 560px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -0.015em; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+.kicker { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hl { background: linear-gradient(transparent 60%, var(--yellow) 60%); }
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px; border-radius: 999px; border: 0; font: 800 16px/1 var(--font); text-decoration: none; cursor: pointer; }
+.btn-y { background: var(--yellow); color: var(--navy); }
+.btn-w { background: var(--green); color: #fff; }
+.btn-d { background: var(--navy); color: #fff; }
+.btn:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+section { scroll-margin-top: 72px; }
+.sec { padding-block: 48px 0; }
+.sec > .wrap { display: flex; flex-direction: column; gap: 14px; }
+.sec h2 { font-size: 28px; }
+.lead { color: var(--muted); font-weight: 600; }
+
+/* Barra in alto */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(246,243,236,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; padding-block: 10px; }
+.top img { height: 44px; width: auto; display: block; }
+.top a { font-weight: 800; font-size: 14px; color: var(--navy); text-decoration: none; background: var(--yellow); padding: 10px 14px; border-radius: 999px; }
+
+/* Hero: cosa facciamo, subito */
+.hero { padding-block: 22px 8px; }
+.hero .wrap { display: flex; flex-direction: column; gap: 14px; }
+.hero h1 { font-size: clamp(31px, 8.4vw, 42px); }
+.stage { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 3; max-width: 100%; background: var(--line); box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage .now { position: absolute; left: 12px; bottom: 12px; z-index: 2; background: var(--navy); color: #fff; font-weight: 800; font-size: 15px; padding: 8px 14px; border-radius: 999px; }
+.stage .now b { color: var(--yellow); }
+.dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.dots span { font-size: 13px; font-weight: 800; padding: 6px 11px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); transition: background .3s, border-color .3s; }
+.dots span.on { background: var(--yellow); border-color: #f0bd00; }
+.ctas { display: grid; gap: 10px; }
+.trust { display: flex; flex-wrap: wrap; gap: 6px 14px; font-weight: 700; font-size: 14px; }
+.trust span::before { content: "✓ "; color: var(--green); font-weight: 800; }
+
+/* Video */
+.video { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 1 / 1; max-width: 100%; background: var(--navy); box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
+.video video { width: 100%; height: 100%; display: block; object-fit: cover; }
+.sound { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; display: flex; align-items: center; gap: 10px; white-space: nowrap; background: var(--yellow); color: var(--navy); border: 0; border-radius: 999px; padding: 18px 28px; font: 800 19px var(--font); cursor: pointer; box-shadow: 0 0 0 0 rgba(255,210,60,.7), 0 12px 28px rgba(0,0,0,.4); animation: soundPulse 1.8s ease-out infinite; transition: all .35s ease; }
+.sound.on { left: 12px; top: 12px; transform: none; padding: 9px 14px; font-size: 14px; animation: none; background: rgba(14,26,43,.78); color: #fff; box-shadow: none; }
+@keyframes soundPulse { 0% { box-shadow: 0 0 0 0 rgba(255,210,60,.7), 0 12px 28px rgba(0,0,0,.4); } 70% { box-shadow: 0 0 0 22px rgba(255,210,60,0), 0 12px 28px rgba(0,0,0,.4); } 100% { box-shadow: 0 0 0 0 rgba(255,210,60,0), 0 12px 28px rgba(0,0,0,.4); } }
+@media (prefers-reduced-motion: reduce) { .sound { animation: none; } }
+.points { display: grid; gap: 8px; padding: 0; margin: 0; list-style: none; font-weight: 700; }
+.points li { display: flex; gap: 10px; align-items: flex-start; }
+.points svg { flex: none; margin-top: 3px; }
+
+/* Servizi che si puliscono scorrendo */
+.svc { padding-block: 34px 0; }
+.svc .wrap { display: flex; flex-direction: column; gap: 12px; }
+.svc h3 { font-size: 24px; }
+.photo { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3 / 2; max-width: 100%; background: var(--line); }
+.photo canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.photo .tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(14,26,43,.86); color: #fff; font-weight: 800; font-size: 13px; padding: 6px 11px; border-radius: 999px; transition: background .3s, color .3s; }
+.photo.done .tag { background: var(--yellow); color: var(--navy); }
+.meter { display: flex; flex-direction: column; gap: 6px; }
+.meter .row { display: flex; justify-content: space-between; font-weight: 800; font-size: 13px; font-variant-numeric: tabular-nums; }
+.meter .track { height: 6px; border-radius: 9px; background: var(--line); overflow: hidden; }
+.meter .fill { height: 100%; width: 0; background: var(--navy); border-radius: 9px; transition: background .3s; }
+.svc.done .fill { background: var(--green); }
+.svc .btn { opacity: .4; transition: opacity .4s; }
+.svc.done .btn { opacity: 1; }
+.num { font-variant-numeric: tabular-nums; color: var(--muted); }
+
+/* Per chi */
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 16px; padding: 5px; }
+.tabs button { border: 0; background: transparent; border-radius: 12px; padding: 11px 6px; font: 800 14px var(--font); color: var(--navy); cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--navy); color: #fff; }
+.panel { background: var(--paper); border: 1.5px solid var(--line); border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.panel h3 { font-size: 21px; }
+
+/* Passi */
+.steps { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; background: var(--paper); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; }
+.steps li::before { counter-increment: s; content: counter(s); width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: var(--yellow); display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+.steps b { display: block; }
+.steps span { color: var(--muted); font-weight: 600; font-size: 15px; }
+
+/* Zone */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font-size: 14px; font-weight: 700; padding: 6px 11px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
+.chips span.big { background: var(--navy); color: #fff; border-color: var(--navy); }
+.chips span.hit { background: var(--yellow); border-color: #f0bd00; }
+.check { display: flex; gap: 8px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px; }
+.check input { flex: 1; min-width: 0; border: 0; background: transparent; font: 600 16px var(--font); padding: 0 12px; color: var(--navy); }
+.check input:focus-visible { outline: none; }
+.check button { border: 0; border-radius: 999px; background: var(--navy); color: #fff; font: 800 15px var(--font); padding: 12px 16px; cursor: pointer; }
+.answer { font-weight: 700; min-height: 1.5em; }
+
+/* Chat preventivo */
+.chat { background: #ECE5DD; border-radius: 22px; overflow: hidden; box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
+.chat .head { background: var(--navy); color: #fff; display: flex; gap: 12px; align-items: center; padding: 12px 14px; }
+.chat .head img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+.chat .head b { display: block; }
+.chat .head span { font-size: 13px; color: #9fe0b5; font-weight: 600; }
+.msgs { display: flex; flex-direction: column; gap: 9px; padding: 14px 12px; min-height: 300px; }
+.bub { max-width: 84%; padding: 10px 13px; border-radius: 4px 16px 16px 16px; background: #fff; font-weight: 600; font-size: 15px; animation: pop .25s ease-out; }
+.bub.me { align-self: flex-end; background: #DCF8C6; border-radius: 16px 4px 16px 16px; }
+@keyframes pop { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
+.opts { display: flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
+.opts button { background: #fff; border: 2px solid var(--green); color: var(--green); font: 800 14px var(--font); padding: 9px 13px; border-radius: 999px; cursor: pointer; }
+.chat .foot { padding: 0 12px 14px; display: grid; gap: 8px; }
+.chat .foot small { text-align: center; color: #555; font-weight: 600; }
+
+/* FAQ */
+.faq { display: grid; gap: 8px; }
+.faq details { background: var(--paper); border: 1.5px solid var(--line); border-radius: 16px; padding: 0 16px; }
+.faq summary { cursor: pointer; list-style: none; font-weight: 800; padding: 15px 30px 15px 0; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); display: grid; place-items: center; }
+.faq details[open] summary::after { content: "−"; }
+.faq p { color: var(--muted); font-weight: 600; padding-bottom: 15px; }
+
+/* Chiusura */
+.close { background: var(--navy); color: #fff; margin-top: 52px; }
+.close .wrap { display: flex; flex-direction: column; gap: 18px; padding-block: 40px; }
+.close .kicker { color: var(--yellow); }
+.close h2 { font-size: 28px; }
+.close h2 span { color: var(--yellow); }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fact { background: var(--navy-2); border: 1px solid #22385a; border-radius: 16px; padding: 14px; }
+.fact b { display: block; color: var(--yellow); font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fact span { color: #cfd6e2; font-weight: 600; font-size: 14px; }
+.note { font-size: 13px; color: #aab4c4; font-weight: 600; }
+
+/* Velo sporco all'apertura */
+#veil { position: fixed; inset: 0; z-index: 50; overflow: hidden; transition: opacity .45s; cursor: pointer; }
+#veil .glass { position: absolute; inset: 0; -webkit-backdrop-filter: blur(5px) saturate(.85); backdrop-filter: blur(5px) saturate(.85); }
+#veil canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#veil .sq { position: absolute; left: -3vw; right: -3vw; top: 0; height: 0; will-change: transform; transform: translateY(-60px); filter: drop-shadow(0 12px 14px rgba(0,0,0,.35)); }
+#veil .sq .ch { position: absolute; left: 0; right: 0; bottom: 4px; height: 28px; background: linear-gradient(180deg, #E9B820, #FFD23C 40%, #FFE27A 60%, #E9B820); border-radius: 3px; }
+#veil .sq .rub { position: absolute; left: 0; right: 0; bottom: -5px; height: 9px; background: #1B2638; border-radius: 0 0 3px 3px; }
+#veil .sq .badge { position: absolute; left: 50%; bottom: -6px; width: 150px; height: 50px; margin-left: -75px; background: #F6F3EC; border: 3px solid #0E1A2B; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+#veil .sq .badge img { width: 124px; height: auto; display: block; }
+#veil .sq .neck { position: absolute; left: 50%; bottom: 44px; width: 18px; height: 30px; margin-left: -9px; background: linear-gradient(90deg, #C9CED6, #8E96A3); }
+#veil .sq .grip { position: absolute; left: 50%; bottom: 72px; width: 40px; height: 130px; margin-left: -20px; background: linear-gradient(90deg, #1B2A40, #0E1A2B 60%, #07111E); border-radius: 20px 20px 14px 14px; box-shadow: inset 0 -18px 0 #FFD23C; }
+#veil.gone { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { #veil { display: none; } .svc .btn { opacity: 1; } .bub { animation: none; } }
+
+/* Footer */
+.foot-site { background: var(--navy-2); color: #cfd6e2; font-size: 14px; }
+.foot-site .wrap { display: flex; flex-direction: column; gap: 14px; padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.foot-site img { width: 150px; height: auto; }
+.foot-site a { color: #fff; font-weight: 700; text-decoration: none; }
+.foot-site .row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.foot-site small { color: #8e9ab0; }
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Vai al contenuto</a>
+<div id="veil" aria-hidden="true">
+  <div class="glass" id="veilGlass"><canvas id="veilCanvas"></canvas></div>
+  <div class="sq" id="veilSq"><div class="grip"></div><div class="neck"></div><div class="ch"></div><div class="rub"></div><div class="badge"><img src="assets/img/logo/logo.svg" alt=""></div></div>
+</div>
 
-  <!-- ============ INTRO: il tergivetro pulisce lo schermo ============ -->
-  <div class="intro" id="intro" aria-hidden="true">
-    <canvas class="intro__grime" id="grime"></canvas>
-    <div class="intro__center">
-      <img class="intro__logo" src="assets/img/logo/logo-animato.svg" alt="IMI Service" width="720" height="320">
-      <div class="intro__badge" id="introBadge">
-      <svg viewBox="0 0 100 100" class="intro__ring">
-        <circle cx="50" cy="50" r="44" class="intro__ring-bg"/>
-        <circle cx="50" cy="50" r="44" class="intro__ring-fg" id="introRing"/>
-      </svg>
-      <span class="intro__pct"><span id="introPct">0</span>%</span>
-      </div>
+<header class="top"><div class="wrap"><img src="assets/img/logo/logo.svg" alt="IMI Service"><a href="#preventivo">Sopralluogo gratuito</a></div></header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Dal 2008 · Sesto San Giovanni · Milano · Monza</p>
+    <h1>Puliamo uffici, condomini e cantieri. <span class="hl">Anche di notte.</span></h1>
+    <div class="stage" id="stage"><canvas></canvas><span class="now" id="now"><b>Uffici</b></span></div>
+    <div class="dots" id="dots"></div>
+    <div class="ctas">
+      <a class="btn btn-y" href="#preventivo">Richiedi sopralluogo gratuito</a>
+      <a class="btn btn-w" href="#preventivo">Scrivi su WhatsApp</a>
     </div>
-    <button class="intro__skip" type="button" id="introSkip">Salta intro</button>
+    <div class="trust"><span>Squadra propria</span><span>Turni anche notturni</span><span>Preventivo scritto</span></div>
   </div>
+</section>
 
-  <!-- Canvas 3D condiviso: tergivetro (intro) + spruzzino (scroll) -->
-  <canvas class="scene3d" id="scene3d" aria-hidden="true"></canvas>
-
-  <!-- ============ HEADER ============ -->
-  <header class="header" id="top">
-    <div class="container header__inner">
-      <a class="brand" href="#top">
-        <img class="brand__logo" src="assets/img/logo/logo.svg" alt="IMI Service – torna all'inizio" width="720" height="320">
-      </a>
-
-      <nav class="nav" id="nav" aria-label="Navigazione principale">
-        <ul>
-          <li><a href="#servizi">Servizi</a></li>
-          <li><a href="#video">Video</a></li>
-          <li><a href="#configuratore">Configura</a></li>
-          <li><a href="#perche-noi">Perché IMI</a></li>
-          <li><a href="#zone">Zone</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-        <a class="nav__phone" href="tel:+390000000000" data-imi="tel">+39 000 000 0000</a>
-        <a class="btn btn--yellow nav__cta" href="#preventivo">Sopralluogo gratuito</a>
-      </nav>
-
-      <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">
-        <span class="sr-only">Apri menu</span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span>
-      </button>
+<section class="sec" id="video">
+  <div class="wrap">
+    <p class="kicker">Video · 80 secondi</p>
+    <h2>Conosci chi <span class="hl">verrà da te.</span></h2>
+    <div class="video">
+      <video id="vid" src="assets/video/presentazione-web.mp4" poster="assets/video/copertina.jpg" autoplay muted loop playsinline preload="metadata"></video>
+      <button class="sound" id="sound" type="button">🔊 Attiva l'audio</button>
     </div>
-  </header>
+    <ul class="points">
+      <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFD23C"/><path d="m7 12 3.5 3.5L17 9" fill="none" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Impresa regolare, attiva dal 2008</li>
+      <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFD23C"/><path d="m7 12 3.5 3.5L17 9" fill="none" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Squadra propria: turni di sera, di notte e nel weekend</li>
+      <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFD23C"/><path d="m7 12 3.5 3.5L17 9" fill="none" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Attrezzature industriali e prodotti certificati</li>
+      <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFD23C"/><path d="m7 12 3.5 3.5L17 9" fill="none" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sopralluogo gratuito e preventivo scritto</li>
+    </ul>
+  </div>
+</section>
 
-  <main id="main">
+<section class="sec" id="servizi">
+  <div class="wrap">
+    <p class="kicker">Servizi</p>
+    <h2>Tutto quello che facciamo. <span class="hl">Scorri e guarda.</span></h2>
+  </div>
+</section>
+<div id="services"></div>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-      <div class="hero__brandmark" aria-hidden="true"><img src="assets/img/logo/simbolo.svg" alt=""></div>
-      <div class="container hero__inner">
-        <div class="hero__copy">
-          <p class="kicker"><span class="kicker__dots" aria-hidden="true"></span>Dal 2008 · Sesto San Giovanni · Milano · Monza</p>
-          <h1 class="reveal">Pulizie professionali, <mark class="hl">sopralluogo gratuito</mark> e preventivo rapido.</h1>
-          <p class="hero__lead reveal">
-            Uffici, condomini, fine cantiere e trattamenti specialistici. Squadra propria, attrezzature industriali,
-            prodotti certificati e turni fino all'H24: ci adattiamo ai vostri orari, non il contrario.
-          </p>
+<section class="sec" id="perchi">
+  <div class="wrap">
+    <p class="kicker">Per chi lavoriamo</p>
+    <h2>Trova il tuo caso.</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-t="0" type="button">Aziende</button>
+      <button role="tab" aria-selected="false" data-t="1" type="button">Amministratori</button>
+      <button role="tab" aria-selected="false" data-t="2" type="button">Privati</button>
+    </div>
+    <div class="panel" id="panel" role="tabpanel"></div>
+  </div>
+</section>
 
-          <div class="hero__actions reveal">
-            <a class="btn btn--dark btn--lg" href="#configuratore">Configura la richiesta <span aria-hidden="true">→</span></a>
-            <a class="btn btn--whatsapp btn--lg" href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg>
-              WhatsApp
-            </a>
-          </div>
+<section class="sec" id="metodo">
+  <div class="wrap">
+    <p class="kicker">Come lavoriamo</p>
+    <h2>Quattro passi, un solo referente.</h2>
+    <ol class="steps">
+      <li><div><b>Ci scrivi o ci chiami</b><span>Su WhatsApp puoi mandarci anche le foto degli ambienti.</span></div></li>
+      <li><div><b>Sopralluogo gratuito</b><span>Veniamo a vedere di persona, senza impegno.</span></div></li>
+      <li><div><b>Preventivo scritto</b><span>Attività, frequenze e costi, voce per voce.</span></div></li>
+      <li><div><b>Intervento e controllo</b><span>Squadra puntuale e verifica del risultato.</span></div></li>
+    </ol>
+  </div>
+</section>
 
-          <ul class="hero__trust reveal" role="list">
-            <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-check"/></svg>Attivi dal 2008, impresa regolare</li>
-            <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-check"/></svg>Squadra propria e formata</li>
-            <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-check"/></svg>Turni diurni, serali, notturni, festivi</li>
-            <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-check"/></svg>Attrezzature industriali</li>
-            <li><svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-check"/></svg>Preventivo scritto, zero sorprese</li>
-          </ul>
-        </div>
+<section class="sec" id="zone">
+  <div class="wrap">
+    <p class="kicker">Zone</p>
+    <h2>Arriviamo anche da te?</h2>
+    <form class="check" id="zoneForm"><input id="zoneIn" type="text" placeholder="Il tuo comune o quartiere" autocomplete="off"><button type="submit">Verifica</button></form>
+    <p class="answer" id="zoneOut" role="status"></p>
+    <div class="chips" id="zoneChips">
+      <span class="big">Sesto San Giovanni</span><span class="big">Milano</span><span class="big">Monza</span>
+      <span>Bicocca</span><span>Niguarda</span><span>Isola</span><span>Città Studi</span><span>NoLo</span><span>Lambrate</span><span>Porta Romana</span>
+      <span>Cinisello Balsamo</span><span>Cologno Monzese</span><span>Bresso</span><span>Brugherio</span><span>Segrate</span><span>Fuori zona su richiesta</span>
+    </div>
+  </div>
+</section>
 
-        <!-- Form rapido -->
-        <aside class="hero__card reveal" aria-labelledby="quick-title">
-          <span class="anchor3d anchor3d--hero" data-anchor data-scale="1.05" data-mobile="1" aria-hidden="true"></span>
-          <p class="hero__card-tag">Risposta rapida</p>
-          <h2 id="quick-title">Ti richiamiamo noi</h2>
-          <p class="hero__card-sub">Lascia nome e telefono: fissiamo insieme il sopralluogo gratuito.</p>
-          <form class="lead-form" data-form="quick" novalidate>
-            <div class="field">
-              <label for="q-nome">Nome / Azienda</label>
-              <input id="q-nome" name="nome" type="text" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="q-tel">Telefono</label>
-              <input id="q-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required>
-            </div>
-            <div class="field">
-              <label for="q-servizio">Servizio</label>
-              <select id="q-servizio" name="servizio" required>
-                <option value="">Seleziona…</option>
-                <option>Pulizia e sanificazione uffici</option>
-                <option>Pulizie condominiali</option>
-                <option>Post-ristrutturazione / sgombero</option>
-                <option>Vetrate, moquette, pavimenti</option>
-                <option>Altro / più servizi</option>
-              </select>
-            </div>
-            <label class="check">
-              <input type="checkbox" name="privacy" required>
-              <span>Accetto l'<a href="privacy.html" target="_blank">informativa privacy</a>.</span>
-            </label>
-            <button class="btn btn--yellow btn--block" type="submit">Richiamatemi <span aria-hidden="true">→</span></button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-          </form>
-          <p class="hero__card-alt">Preferisci parlare subito? <a href="tel:+390000000000" data-imi="tel-plain">Chiama ora</a></p>
-        </aside>
-      </div>
-
-      <!-- Barra impegni -->
-      <div class="stats">
-        <div class="container stats__inner">
-          <div class="stat"><strong>0 €</strong><span>Sopralluogo e preventivo</span></div>
-          <div class="stat"><strong>H24</strong><span>Copertura su turni, anche festivi</span></div>
-          <div class="stat"><strong>Dal 2008</strong><span>Partita IVA attiva, impresa regolare</span></div>
-          <div class="stat"><strong>MI · MB</strong><span>Milano, Monza e prima cintura</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ VIDEO PRESENTAZIONE ============ -->
-    <section class="section video-sec" id="video" aria-labelledby="video-title">
-      <div class="container">
-        <div class="section__head section__head--split reveal">
-          <div>
-            <p class="kicker">Video presentazione</p>
-            <h2 id="video-title">Il pulito <mark class="hl">che si vede.</mark></h2>
-          </div>
-          <p>Chi siamo, come lavoriamo e con quali attrezzature arriviamo da te. In meno di due minuti.</p>
-        </div>
-
-        <div class="video" id="videoBox" data-state="empty">
-          <span class="anchor3d anchor3d--video" data-anchor data-scale="0.95" aria-hidden="true"></span>
-          <div class="video__frame">
-            <div class="video__poster" aria-hidden="true">
-              <img class="video__wm" src="assets/img/logo/logo-negativo.svg" alt="">
-              <span class="video__wipe"></span>
-            </div>
-            <button class="video__play" type="button" aria-label="Guarda il video di presentazione">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
-            </button>
-            <div class="video__caption">
-              <p class="video__title">IMI Service<span>Pulizie · Sanificazioni · Manutenzioni · dal 2008</span></p>
-              <p class="video__soon">Video in arrivo</p>
-            </div>
-            <ul class="video__chips" role="list">
-              <li>La squadra</li><li>Le attrezzature</li><li>Il metodo</li><li>I risultati</li>
-            </ul>
-          </div>
-          <!-- Testo accanto al video (visibile con il formato quadrato) -->
-          <div class="video__side">
-            <p class="tag">Stefano · IMI Service</p>
-            <h3>Conosci chi verrà da te.</h3>
-            <ul class="ticks">
-              <li>Impresa regolare, attiva dal 2008</li>
-              <li>Squadra propria: turni anche di sera, di notte e nel weekend</li>
-              <li>Attrezzature industriali e prodotti certificati</li>
-              <li>Sopralluogo gratuito e preventivo scritto, voce per voce</li>
-            </ul>
-            <div class="video__side-actions">
-              <a class="btn btn--yellow" href="#preventivo">Richiedi sopralluogo</a>
-              <a class="btn btn--whatsapp" href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener">
-                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg> WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ TARGET ============ -->
-    <section class="section" aria-labelledby="target-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="kicker">A chi ci rivolgiamo</p>
-          <h2 id="target-title">Per chi gestisce spazi. <mark class="hl">E per chi li vive.</mark></h2>
-        </div>
-        <div class="target">
-          <article class="target__card tilt reveal">
-            <p class="tag">Aziende · Uffici · Condomini</p>
-            <h3>Contratti periodici, zero pensieri</h3>
-            <ul class="ticks">
-              <li>Frequenze e orari concordati, anche fuori orario lavorativo</li>
-              <li>Referente unico e controllo qualità sugli interventi</li>
-              <li>Gestione rotazione ed esposizione sacchi per i condomini</li>
-              <li>Fatturazione regolare e documentazione in ordine</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-type="Azienda / Ufficio">Configura per la tua azienda</a>
-          </article>
-          <article class="target__card target__card--dark tilt reveal">
-            <p class="tag tag--yellow">Privati · Appartamenti · Cantieri</p>
-            <h3>Pulizie di fondo, consegna chiavi in mano</h3>
-            <ul class="ticks">
-              <li>Prima o dopo un trasloco, al cambio inquilino</li>
-              <li>Fine cantiere: polvere fine, calce, vernici e silicone</li>
-              <li>Sgomberi locali con smaltimento a norma</li>
-              <li>Trattamenti per marmo, parquet e gres</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-type="Privato">Configura per casa</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SERVIZI ============ -->
-    <section class="section section--tint" id="servizi" aria-labelledby="servizi-title">
-      <div class="container">
-        <div class="section__head section__head--split reveal">
-          <div>
-            <p class="kicker">Servizi</p>
-            <h2 id="servizi-title">Cosa facciamo, <mark class="hl">nel concreto.</mark></h2>
-          </div>
-          <p>Quattro aree di intervento, un'unica squadra. Ogni lavoro parte da un sopralluogo e da un piano scritto.</p>
-          <span class="anchor3d anchor3d--right" data-anchor data-scale="0.9" aria-hidden="true"></span>
-        </div>
-
-        <div class="services">
-          <article class="service tilt reveal">
-            <span class="service__n">01</span>
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg>
-            </div>
-            <h3>Pulizia e sanificazione uffici</h3>
-            <p>Interventi periodici o H24 per spazi di lavoro, sale riunioni, aree break e servizi.</p>
-            <ul class="ticks ticks--sm">
-              <li>Sanificazione postazioni, tastiere, telefoni, maniglie</li>
-              <li>Cestini e raccolta differenziata</li>
-              <li>Pulizie serali, notturne o nel weekend</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-service="Pulizia e sanificazione uffici">Configura</a>
-          </article>
-
-          <article class="service tilt reveal">
-            <span class="service__n">02</span>
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M9 10h.01M15 10h.01"/></svg>
-            </div>
-            <h3>Pulizie condominiali</h3>
-            <p>Aree comuni con calendario concordato con l'amministratore.</p>
-            <ul class="ticks ticks--sm">
-              <li>Scale, androni, pianerottoli, ascensori</li>
-              <li>Rotazione ed esposizione sacchi e bidoni</li>
-              <li>Vetri del portone, corrimano, box e cantine</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-service="Pulizie condominiali">Configura</a>
-          </article>
-
-          <article class="service tilt reveal">
-            <span class="service__n">03</span>
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V10l7-6 7 6v10"/><path d="m14 14 3 3M17 14l-3 3"/></svg>
-            </div>
-            <h3>Post-ristrutturazione e sgomberi</h3>
-            <p>Pulizie di fondo di fine cantiere, traslochi e cambio inquilino.</p>
-            <ul class="ticks ticks--sm">
-              <li>Polvere fine, calce, stucco e vernice</li>
-              <li>Infissi, sanitari, pavimenti e superfici</li>
-              <li>Sgombero locali e smaltimento a norma</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-service="Post-ristrutturazione / sgombero">Configura</a>
-          </article>
-
-          <article class="service tilt reveal">
-            <span class="service__n">04</span>
-            <div class="service__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></svg>
-            </div>
-            <h3>Trattamenti specialistici</h3>
-            <p>Lavorazioni tecniche con macchinari e prodotti specifici per ogni superficie.</p>
-            <ul class="ticks ticks--sm">
-              <li>Vetrate e superfici in altezza</li>
-              <li>Lavaggio e igienizzazione moquette</li>
-              <li>Lucidatura marmo, parquet e gres</li>
-            </ul>
-            <a class="link-arrow" href="#configuratore" data-prefill-service="Vetrate, moquette, pavimenti">Configura</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ CONFIGURATORE ============ -->
-    <section class="section" id="configuratore" aria-labelledby="config-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="kicker">Configuratore</p>
-          <h2 id="config-title">La tua richiesta, <mark class="hl">pronta in 30 secondi.</mark></h2>
-          <p>Scegli cosa ti serve: componiamo noi il riepilogo da inviarci su WhatsApp o tramite modulo.</p>
-        </div>
-
-        <div class="config">
-          <form class="config__form reveal" id="configForm" onsubmit="return false">
-            <fieldset class="config__step">
-              <legend><span>1</span> Sei…</legend>
-              <div class="pills" data-group="tipo">
-                <label class="pill"><input type="radio" name="c-tipo" value="Azienda / Ufficio" checked><span>Azienda / Ufficio</span></label>
-                <label class="pill"><input type="radio" name="c-tipo" value="Amministratore di condominio"><span>Condominio</span></label>
-                <label class="pill"><input type="radio" name="c-tipo" value="Privato"><span>Privato</span></label>
-                <label class="pill"><input type="radio" name="c-tipo" value="Impresa / Cantiere"><span>Cantiere</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="config__step">
-              <legend><span>2</span> Servizio</legend>
-              <div class="pills" data-group="servizio">
-                <label class="pill"><input type="radio" name="c-servizio" value="Pulizia e sanificazione uffici" checked><span>Uffici</span></label>
-                <label class="pill"><input type="radio" name="c-servizio" value="Pulizie condominiali"><span>Condominio</span></label>
-                <label class="pill"><input type="radio" name="c-servizio" value="Post-ristrutturazione / sgombero"><span>Fine cantiere / sgombero</span></label>
-                <label class="pill"><input type="radio" name="c-servizio" value="Vetrate, moquette, pavimenti"><span>Trattamenti specialistici</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="config__step">
-              <legend><span>3</span> Superficie indicativa</legend>
-              <div class="range">
-                <input type="range" id="c-mq" name="c-mq" min="20" max="3000" step="10" value="150" aria-describedby="c-mq-out">
-                <output id="c-mq-out" for="c-mq">150 m²</output>
-              </div>
-            </fieldset>
-
-            <fieldset class="config__step">
-              <legend><span>4</span> Frequenza</legend>
-              <div class="pills" data-group="frequenza">
-                <label class="pill"><input type="radio" name="c-freq" value="Intervento singolo"><span>Una tantum</span></label>
-                <label class="pill"><input type="radio" name="c-freq" value="Giornaliera"><span>Giornaliera</span></label>
-                <label class="pill"><input type="radio" name="c-freq" value="Settimanale" checked><span>Settimanale</span></label>
-                <label class="pill"><input type="radio" name="c-freq" value="Quindicinale / mensile"><span>Quindicinale / mensile</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="config__step">
-              <legend><span>5</span> Orario preferito</legend>
-              <div class="pills" data-group="orario">
-                <label class="pill"><input type="radio" name="c-orario" value="Diurno" checked><span>Diurno</span></label>
-                <label class="pill"><input type="radio" name="c-orario" value="Serale / dopo chiusura"><span>Serale</span></label>
-                <label class="pill"><input type="radio" name="c-orario" value="Notturno"><span>Notturno</span></label>
-                <label class="pill"><input type="radio" name="c-orario" value="Weekend / festivi"><span>Weekend</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="config__step">
-              <legend><span>6</span> Extra</legend>
-              <div class="pills pills--multi">
-                <label class="pill"><input type="checkbox" name="c-extra" value="Sanificazione"><span>Sanificazione</span></label>
-                <label class="pill"><input type="checkbox" name="c-extra" value="Vetrate in altezza"><span>Vetrate in altezza</span></label>
-                <label class="pill"><input type="checkbox" name="c-extra" value="Lavaggio moquette"><span>Moquette</span></label>
-                <label class="pill"><input type="checkbox" name="c-extra" value="Lucidatura pavimenti"><span>Lucidatura pavimenti</span></label>
-                <label class="pill"><input type="checkbox" name="c-extra" value="Gestione sacchi rifiuti"><span>Sacchi rifiuti</span></label>
-                <label class="pill"><input type="checkbox" name="c-extra" value="Sgombero"><span>Sgombero</span></label>
-              </div>
-            </fieldset>
-
-            <div class="config__step">
-              <label class="config__label" for="c-zona"><span>7</span> Dove?</label>
-              <input class="config__input" id="c-zona" type="text" placeholder="Comune o quartiere, es. Sesto San Giovanni">
-            </div>
-          </form>
-
-          <aside class="summary reveal" aria-live="polite">
-            <span class="anchor3d anchor3d--summary" data-anchor data-scale="0.85" aria-hidden="true"></span>
-            <p class="summary__label">La tua richiesta</p>
-            <p class="summary__price"><span class="summary__big">0 €</span><span>per sopralluogo<br>e preventivo</span></p>
-            <dl class="summary__list" id="summaryList"></dl>
-            <div class="summary__actions">
-              <a class="btn btn--whatsapp btn--block" id="configWa" href="https://wa.me/390000000000" target="_blank" rel="noopener">
-                <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg> Invia su WhatsApp
-              </a>
-              <a class="btn btn--yellow btn--block" id="configForm2" href="#preventivo">Continua con il modulo <span aria-hidden="true">→</span></a>
-            </div>
-            <p class="summary__note">Il prezzo definitivo è sempre scritto, dopo il sopralluogo. Nessun impegno.</p>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PERCHÉ NOI ============ -->
-    <section class="section section--tint" id="perche-noi" aria-labelledby="perche-title">
-      <div class="container">
-        <div class="section__head reveal">
-          <p class="kicker">Perché IMI Service</p>
-          <h2 id="perche-title">Affidabilità che si vede <mark class="hl">dal primo intervento.</mark></h2>
-        </div>
-
-        <div class="usp">
-          <article class="usp__item tilt reveal">
-            <div class="usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2a5 5 0 0 1 6 4.8"/></svg></div>
-            <h3>Squadra esperta e multiculturale</h3>
-            <p>Personale italiano, filippino ed egiziano, formato e stabile. Una squadra affiatata significa copertura
-              continua dei turni, sostituzioni immediate e la stessa cura del dettaglio a ogni intervento.</p>
-          </article>
-          <article class="usp__item tilt reveal">
-            <div class="usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4Z"/></svg></div>
-            <h3>Attrezzature industriali</h3>
-            <p>Monospazzole, lavasciuga, aspiratori specifici e prodotti professionali certificati per ogni superficie.
-              Risultati da impresa, non da pulizia domestica.</p>
-          </article>
-          <article class="usp__item tilt reveal">
-            <div class="usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-            <h3>Flessibilità geografica</h3>
-            <p>Base operativa a Sesto San Giovanni: raggiungiamo in fretta Milano, Monza e la prima cintura.
-              Trasferte fuori zona su richiesta.</p>
-          </article>
-          <article class="usp__item tilt reveal">
-            <div class="usp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3Z"/></svg></div>
-            <h3>Dal 2008, trasparenza e regolarità</h3>
-            <p>Partita IVA attiva dal 2008: un'impresa regolare, con una storia verificabile. Sopralluogo gratuito,
-              preventivo scritto con voci chiare, rapporto di lavoro regolare e puntualità negli interventi concordati.</p>
-          </article>
-        </div>
-
-        <div class="marquee reveal" aria-label="La nostra dotazione">
-          <ul class="marquee__track" role="list">
-            <li>Monospazzole</li><li>Lavasciuga pavimenti</li><li>Aspiratori solidi/liquidi</li>
-            <li>Iniettori-estrattori per moquette</li><li>Aste telescopiche per vetrate</li><li>Prodotti professionali certificati</li>
-            <li aria-hidden="true">Monospazzole</li><li aria-hidden="true">Lavasciuga pavimenti</li><li aria-hidden="true">Aspiratori solidi/liquidi</li>
-            <li aria-hidden="true">Iniettori-estrattori per moquette</li><li aria-hidden="true">Aste telescopiche per vetrate</li><li aria-hidden="true">Prodotti professionali certificati</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ METODO (scuro) ============ -->
-    <section class="section section--dark" id="metodo" aria-labelledby="metodo-title">
-      <div class="container">
-        <div class="section__head section__head--split reveal">
-          <div>
-            <p class="kicker kicker--light">Come lavoriamo</p>
-            <h2 id="metodo-title">Uffici e condomini puliti <mark class="hl hl--dark">fuori orario.</mark></h2>
-          </div>
-          <p>Dal primo contatto all'intervento in quattro passaggi, con un referente unico che segue tutto.</p>
-          <span class="anchor3d anchor3d--right" data-anchor data-scale="0.9" aria-hidden="true"></span>
-        </div>
-        <ol class="steps">
-          <li class="step reveal">
-            <span class="step__n">01</span>
-            <h3>Contatto</h3>
-            <p>Ci scrivi tramite modulo, WhatsApp o telefono. Ti rispondiamo in tempi brevi.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">02</span>
-            <h3>Sopralluogo gratuito</h3>
-            <p>Valutiamo spazi, superfici e necessità. Senza impegno.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">03</span>
-            <h3>Preventivo chiaro</h3>
-            <p>Offerta scritta con attività, frequenze e costi. Nessuna sorpresa.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">04</span>
-            <h3>Intervento e controllo</h3>
-            <p>Squadra puntuale, referente unico e verifica del risultato.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============ ZONE ============ -->
-    <section class="section" id="zone" aria-labelledby="zone-title">
-      <div class="container zone">
-        <div class="zone__copy reveal">
-          <p class="kicker">Zone servite</p>
-          <h2 id="zone-title">Arriviamo <mark class="hl">anche da te?</mark></h2>
-          <p>Base a Sesto San Giovanni, operativi ogni giorno su Milano (tutti i quartieri), Monza e prima cintura.
-            Fuori zona organizziamo trasferte su richiesta.</p>
-
-          <form class="zonecheck" id="zoneCheck" novalidate>
-            <label class="sr-only" for="zone-input">Il tuo comune o quartiere</label>
-            <input id="zone-input" type="text" placeholder="Scrivi comune o quartiere…" autocomplete="address-level2">
-            <button class="btn btn--dark" type="submit">Verifica</button>
-          </form>
-          <p class="zonecheck__out" id="zoneOut" role="status" aria-live="polite"></p>
-        </div>
-
-        <div class="zone__lists reveal">
-          <div class="zone__group">
-            <h3>Base operativa</h3>
-            <ul class="chips" role="list">
-              <li class="chip chip--strong">Sesto San Giovanni</li>
-              <li class="chip chip--strong">Milano</li>
-              <li class="chip chip--strong">Monza</li>
-            </ul>
-          </div>
-          <div class="zone__group">
-            <h3>Milano, tutti i quartieri</h3>
-            <ul class="chips" role="list">
-              <li class="chip">Centro Storico</li><li class="chip">Porta Nuova</li><li class="chip">Isola</li>
-              <li class="chip">Città Studi</li><li class="chip">Loreto</li><li class="chip">NoLo</li>
-              <li class="chip">Bicocca</li><li class="chip">Niguarda</li><li class="chip">Greco</li>
-              <li class="chip">Lambrate</li><li class="chip">Porta Romana</li><li class="chip">Navigli</li>
-              <li class="chip">CityLife</li><li class="chip">San Siro</li><li class="chip">Bovisa</li>
-              <li class="chip">Affori</li><li class="chip">…e tutti gli altri</li>
-            </ul>
-          </div>
-          <div class="zone__group">
-            <h3>Prima cintura</h3>
-            <ul class="chips" role="list">
-              <li class="chip">Cinisello Balsamo</li><li class="chip">Cologno Monzese</li><li class="chip">Bresso</li>
-              <li class="chip">Cusano Milanino</li><li class="chip">Brugherio</li><li class="chip">Vimodrone</li>
-              <li class="chip">Segrate</li><li class="chip">Paderno Dugnano</li><li class="chip">Cernusco s/N</li>
-              <li class="chip">Fuori zona su richiesta</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ FAQ ============ -->
-    <section class="section section--tint" id="faq" aria-labelledby="faq-title">
-      <div class="container container--narrow">
-        <div class="section__head reveal">
-          <p class="kicker">Domande frequenti</p>
-          <h2 id="faq-title">Prima di chiamarci</h2>
-        </div>
-        <div class="faq reveal">
-          <details>
-            <summary>Il sopralluogo è davvero gratuito?</summary>
-            <p>Sì. Sopralluogo e preventivo sono gratuiti e senza impegno. Ci servono per quotare il lavoro con precisione, senza stime al buio.</p>
-          </details>
-          <details>
-            <summary>Lavorate anche di sera, di notte o nel weekend?</summary>
-            <p>Sì. Organizziamo i turni in base alle vostre esigenze: fuori orario d'ufficio, di notte, nel weekend e nei festivi, fino alla copertura H24.</p>
-          </details>
-          <details>
-            <summary>Fornite voi attrezzature e prodotti?</summary>
-            <p>Sempre. Arriviamo con macchinari industriali (monospazzole, lavasciuga, aspiratori) e prodotti professionali certificati, scelti in base alle superfici.</p>
-          </details>
-          <details>
-            <summary>Fate contratti per condomini?</summary>
-            <p>Sì. Lavoriamo con gli amministratori su calendario fisso: aree comuni, scale, ascensori e gestione della rotazione ed esposizione dei sacchi.</p>
-          </details>
-          <details>
-            <summary>Quanto dura una pulizia post-ristrutturazione?</summary>
-            <p>Dipende da metratura e stato del cantiere. Dopo il sopralluogo vi indichiamo durata e numero di operatori; per un appartamento standard l'intervento si chiude di norma in giornata.</p>
-          </details>
-          <details>
-            <summary>Venite anche fuori Milano e Monza?</summary>
-            <p>Sì. Copriamo la prima cintura e, su richiesta, organizziamo trasferte fuori zona. Indicateci la località nel modulo.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PREVENTIVO ============ -->
-    <section class="section" id="preventivo" aria-labelledby="preventivo-title">
-      <div class="container contact">
-        <div class="contact__copy reveal">
-          <p class="kicker">Preventivo gratuito</p>
-          <h2 id="preventivo-title">Prima di prenotare, <mark class="hl">parliamone.</mark></h2>
-          <p>Più dettagli ci dai, più preciso sarà il preventivo. Ti ricontattiamo per fissare il sopralluogo gratuito.</p>
-
-          <ul class="contact__channels" role="list">
-            <li>
-              <a class="channel" href="tel:+390000000000" data-imi="tel-plain">
-                <span class="channel__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-phone"/></svg></span>
-                <span><strong>Chiama</strong><span data-imi="tel-text">+39 000 000 0000</span></span>
-              </a>
-            </li>
-            <li>
-              <a class="channel channel--wa" href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener">
-                <span class="channel__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></span>
-                <span><strong>WhatsApp</strong><span>Risposta rapida, anche con foto</span></span>
-              </a>
-            </li>
-            <li>
-              <a class="channel" href="mailto:info@imiservice.it" data-imi="mail-plain">
-                <span class="channel__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-mail"/></svg></span>
-                <span><strong>Email</strong><span data-imi="mail-text">info@imiservice.it</span></span>
-              </a>
-            </li>
-          </ul>
-          <p class="contact__note">Su WhatsApp puoi inviarci foto degli ambienti: ci aiutano a darti una prima stima ancora più velocemente.</p>
-        </div>
-
-        <form class="lead-form contact__form reveal" data-form="full" id="fullForm" novalidate>
-          <div class="grid-2">
-            <div class="field">
-              <label for="f-nome">Nome e cognome / Ragione sociale</label>
-              <input id="f-nome" name="nome" type="text" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="f-tel">Telefono</label>
-              <input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required>
-            </div>
-            <div class="field">
-              <label for="f-servizio">Servizio richiesto</label>
-              <select id="f-servizio" name="servizio" required>
-                <option value="">Seleziona…</option>
-                <option>Pulizia e sanificazione uffici</option>
-                <option>Pulizie condominiali</option>
-                <option>Post-ristrutturazione / sgombero</option>
-                <option>Vetrate, moquette, pavimenti</option>
-                <option>Altro / più servizi</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="f-localita">Località / quartiere</label>
-              <input id="f-localita" name="localita" type="text" placeholder="Es. Sesto San Giovanni" required>
-            </div>
-            <div class="field grid-2__full">
-              <label for="f-email">Email <span class="optional">(facoltativa)</span></label>
-              <input id="f-email" name="email" type="email" autocomplete="email">
-            </div>
-            <div class="field grid-2__full">
-              <label for="f-msg">Dettagli della richiesta</label>
-              <textarea id="f-msg" name="messaggio" rows="5" placeholder="Tipo di ambienti, superfici, orari preferiti, urgenza…"></textarea>
-            </div>
-          </div>
-
-          <label class="check">
-            <input type="checkbox" name="privacy" required>
-            <span>Ho letto l'<a href="privacy.html" target="_blank">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato.</span>
-          </label>
-
-          <div class="form-actions">
-            <button class="btn btn--dark btn--lg" type="submit" data-channel="form">Invia richiesta</button>
-            <button class="btn btn--whatsapp btn--lg" type="submit" data-channel="whatsapp">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg> Invia via WhatsApp
-            </button>
-          </div>
-          <p class="form-status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="container footer__cta reveal">
-      <span class="anchor3d anchor3d--footer" data-anchor data-scale="1" aria-hidden="true"></span>
-      <h2>Il tuo preventivo è <span class="sparkle">a un messaggio</span> di distanza.</h2>
-      <div class="footer__cta-actions">
-        <a class="btn btn--yellow btn--lg" href="#preventivo">Richiedi sopralluogo</a>
-        <a class="btn btn--whatsapp btn--lg" href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg> WhatsApp
-        </a>
+<section class="sec" id="preventivo">
+  <div class="wrap">
+    <p class="kicker">Preventivo</p>
+    <h2>Tre risposte e <span class="hl">ti scriviamo noi.</span></h2>
+    <div class="chat">
+      <div class="head"><img src="assets/img/stefano.jpg" alt=""><div><b>Stefano · IMI Service</b><span>● risponde di persona</span></div></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="foot" id="foot" hidden>
+        <a class="btn btn-w" id="waLink" href="#preventivo">Continua su WhatsApp</a>
+        <small>Il messaggio è già scritto · sopralluogo gratuito</small>
       </div>
     </div>
-    <div class="container footer__inner">
-      <div>
-        <a class="brand brand--light" href="#top">
-          <img class="brand__logo" src="assets/img/logo/logo-negativo.svg" alt="IMI Service – torna all'inizio" width="720" height="320" loading="lazy">
-        </a>
-        <p class="footer__claim">Impresa di pulizie attiva dal 2008, con sede operativa a Sesto San Giovanni. Al servizio di aziende, condomini e privati a Milano, Monza e provincia.</p>
-      </div>
-      <div>
-        <h3>Servizi</h3>
-        <ul role="list">
-          <li><a href="#servizi">Pulizia uffici</a></li>
-          <li><a href="#servizi">Pulizie condominiali</a></li>
-          <li><a href="#servizi">Post-ristrutturazione e sgomberi</a></li>
-          <li><a href="#servizi">Vetrate, moquette, pavimenti</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Contatti</h3>
-        <ul role="list">
-          <li><a href="tel:+390000000000" data-imi="tel">+39 000 000 0000</a></li>
-          <li><a href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="mailto:info@imiservice.it" data-imi="mail">info@imiservice.it</a></li>
-          <li>Sesto San Giovanni (MI)</li>
-        </ul>
-      </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <p class="kicker">Domande frequenti</p>
+    <h2>Prima di chiamarci.</h2>
+    <div class="faq">
+      <details><summary>Il sopralluogo è davvero gratuito?</summary><p>Sì, gratuito e senza impegno. Ci serve per farti un preventivo preciso, senza stime al buio.</p></details>
+      <details><summary>Lavorate di sera, di notte e nel weekend?</summary><p>Sì. Organizziamo i turni in base ai vostri orari, fino alla copertura H24.</p></details>
+      <details><summary>Portate voi attrezzature e prodotti?</summary><p>Sempre: macchinari industriali e prodotti professionali certificati, scelti per ogni superficie.</p></details>
+      <details><summary>Venite anche fuori Milano e Monza?</summary><p>Sì. Copriamo la prima cintura e, su richiesta, organizziamo trasferte fuori zona.</p></details>
     </div>
-    <div class="container footer__legal">
-      <p>© <span data-year>2026</span> IMI Service · P.IVA <span data-imi="piva">00000000000</span></p>
-      <p><a href="privacy.html">Privacy policy</a></p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <p class="kicker">Perché sceglierci</p>
+    <h2>Un'impresa regolare, <span>dal 2008.</span></h2>
+    <div class="facts">
+      <div class="fact"><b>2008</b><span>Partita IVA attiva</span></div>
+      <div class="fact"><b>H24</b><span>Turni anche festivi</span></div>
+      <div class="fact"><b>1</b><span>Referente unico</span></div>
+      <div class="fact"><b>0 €</b><span>Sopralluogo</span></div>
     </div>
-  </footer>
+    <a class="btn btn-y" href="#preventivo">Richiedi sopralluogo gratuito</a>
+  </div>
+</section>
 
-  <!-- Contatti fissi -->
-  <a class="wa-float" href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
-    <svg aria-hidden="true" viewBox="0 0 24 24"><use href="#i-wa"/></svg>
-  </a>
+<footer class="foot-site">
+  <div class="wrap">
+    <img src="assets/img/logo/logo-negativo.svg" alt="IMI Service">
+    <div class="row">
+      <a data-cfg="tel" href="#">Telefono</a>
+      <a data-cfg="wa" href="#">WhatsApp</a>
+      <a data-cfg="mail" href="#">Email</a>
+    </div>
+    <small>IMI Service · Sesto San Giovanni (MI) · <span data-cfg="piva">P. IVA</span> · <a href="privacy.html">Privacy</a></small>
+  </div>
+</footer>
 
-  <nav class="mobile-bar" aria-label="Contatto rapido">
-    <a href="tel:+390000000000" data-imi="tel-plain">Chiama</a>
-    <a href="https://wa.me/390000000000" data-imi="wa" target="_blank" rel="noopener" class="mobile-bar__wa">WhatsApp</a>
-    <a href="#preventivo" class="mobile-bar__cta">Preventivo</a>
-  </nav>
+<script src="assets/js/config.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CHECK = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FFD23C"/><path d="m7 12 3.5 3.5L17 9" fill="none" stroke="#0E1A2B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const CFG = window.IMI_CONFIG || {};
+  const waLinkTo = text => 'https://wa.me/' + (CFG.whatsapp || '') + (text ? '?text=' + encodeURIComponent(text) : '');
+  document.querySelectorAll('[data-cfg]').forEach(el => {
+    const k = el.dataset.cfg;
+    if (k === 'tel') { el.href = 'tel:' + (CFG.phone || ''); el.textContent = CFG.phoneDisplay || 'Telefono'; }
+    if (k === 'wa') { el.href = waLinkTo('Ciao, vorrei informazioni su IMI Service.'); el.target = '_blank'; el.rel = 'noopener'; }
+    if (k === 'mail') { el.href = 'mailto:' + (CFG.email || ''); el.textContent = CFG.email || 'Email'; }
+    if (k === 'piva') el.textContent = 'P. IVA ' + (CFG.piva || '');
+  });
+  const seeded = s => () => (s = (s * 16807) % 2147483647) / 2147483647;
 
-  <!-- Icone -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 1.9 17.7L.5 23.5l5.9-1.5A11.8 11.8 0 0 0 24 12a11.7 11.7 0 0 0-3.5-8.5ZM12 21.6a9.7 9.7 0 0 1-5-1.4l-.3-.2-3.5.9.9-3.4-.2-.4A9.7 9.7 0 1 1 12 21.6Zm5.3-7.3c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a7.9 7.9 0 0 1-2.3-1.4 8.7 8.7 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.4-.5.3-.5a.5.5 0 0 0 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.1-.3-.2-.6-.3Z"/></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></g></symbol>
-  </svg>
+  /* ---------- immagini: una foto per ogni servizio ---------- */
+  const SERVICES = [
+    { k: 'uffici', name: 'Uffici', title: 'Uffici e studi, anche H24.', pts: ['Igienizzazione di postazioni, tastiere e maniglie', 'Cestini e raccolta differenziata', 'Di sera, di notte o nel weekend'], cta: 'Preventivo per il tuo ufficio' },
+    { k: 'condomini', name: 'Condomini', title: 'Scale, androni, ascensori, sacchi.', pts: ['Calendario fisso con l\'amministratore', 'Rotazione ed esposizione dei sacchi', 'Un referente unico per le segnalazioni'], cta: 'Preventivo per il condominio' },
+    { k: 'cantiere', name: 'Fine cantiere', title: 'Dopo i lavori, pronto da abitare.', pts: ['Polvere fine, calce, stucco e vernice', 'Infissi, sanitari e pavimenti', 'Consegna chiavi in mano'], cta: 'Preventivo fine cantiere' },
+    { k: 'sgomberi', name: 'Sgomberi', title: 'Traslochi, sgomberi, cambio inquilino.', pts: ['Locali svuotati e puliti a fondo', 'Smaltimento a norma', 'Pronto per il nuovo inquilino'], cta: 'Preventivo sgombero' },
+    { k: 'vetrate', name: 'Vetrate', title: 'Vetrate, anche in altezza.', pts: ['Vetrate di uffici e negozi', 'Superfici alte con attrezzatura dedicata', 'Senza aloni'], cta: 'Preventivo vetrate' },
+    { k: 'pavimenti', name: 'Pavimenti', title: 'Moquette, marmo, parquet, gres.', pts: ['Lavaggio e igienizzazione moquette', 'Lucidatura di marmo e parquet', 'Trattamenti specifici per ogni superficie'], cta: 'Preventivo pavimenti' },
+  ];
+  const IMGS = {
+    uffici: 'assets/img/servizi/uffici.jpg',
+    condomini: 'assets/img/servizi/condomini.jpg',
+    cantiere: 'assets/img/servizi/cantiere.jpg',
+    sgomberi: 'assets/img/servizi/sgomberi.jpg',
+    vetrate: 'assets/img/servizi/vetrate.jpg',
+    pavimenti: 'assets/img/servizi/pavimenti.jpg'
+  };
+  const PRIMA = {
+    pavimenti: 'assets/img/servizi/pavimenti-prima.jpg',
+    vetrate: 'assets/img/servizi/vetrate-prima.jpg',
+    sgomberi: 'assets/img/servizi/sgomberi-prima.jpg',
+    cantiere: 'assets/img/servizi/cantiere-prima.jpg',
+    condomini: 'assets/img/servizi/condomini-prima.jpg',
+    uffici: 'assets/img/servizi/uffici-prima.jpg'
+  };
+  for (const s of SERVICES) { s.im = new Image(); s.im.src = IMGS[s.k]; if (PRIMA[s.k]) { s.bim = new Image(); s.bim.src = PRIMA[s.k]; } }
+  function icon(g, k, cx, cy, s) {
+    g.save(); g.translate(cx, cy); g.scale(s, s); g.strokeStyle = '#0E1A2B'; g.lineWidth = 3.2; g.lineCap = 'round'; g.lineJoin = 'round'; g.fillStyle = '#FFD23C'; g.beginPath();
+    if (k === 'condomini') { g.moveTo(-50, 40); for (let i = 0; i < 5; i++) { g.lineTo(-50 + i * 20, 40 - i * 18); g.lineTo(-30 + i * 20, 40 - i * 18); } g.stroke(); g.beginPath(); g.moveTo(-46, 10); g.lineTo(50, -76); g.stroke(); }
+    else if (k === 'cantiere') { g.fillRect(-46, -40, 70, 34); g.strokeRect(-46, -40, 70, 34); g.moveTo(24, -23); g.lineTo(40, -23); g.lineTo(40, 6); g.lineTo(-6, 6); g.lineTo(-6, 44); g.stroke(); }
+    else if (k === 'sgomberi') { g.moveTo(-40, -10); g.lineTo(0, -32); g.lineTo(40, -10); g.lineTo(40, 34); g.lineTo(0, 54); g.lineTo(-40, 34); g.closePath(); g.stroke(); g.beginPath(); g.moveTo(-40, -10); g.lineTo(0, 12); g.lineTo(40, -10); g.moveTo(0, 12); g.lineTo(0, 54); g.stroke(); }
+    else if (k === 'vetrate') { g.strokeRect(-50, -50, 100, 100); g.beginPath(); g.moveTo(0, -50); g.lineTo(0, 50); g.moveTo(-50, 0); g.lineTo(50, 0); g.stroke(); g.save(); g.rotate(-.6); g.fillRect(-36, -8, 72, 12); g.strokeRect(-36, -8, 72, 12); g.restore(); }
+    else { for (let i = 0; i < 4; i++) { g.moveTo(-60 + i * 8, 40 - i * 22); g.lineTo(60 - i * 8, 40 - i * 22); } for (let j = -2; j <= 2; j++) { g.moveTo(j * 30, 40); g.lineTo(j * 18, -26); } g.stroke(); g.beginPath(); g.moveTo(10, -44); g.lineTo(16, -56); g.lineTo(22, -44); g.lineTo(34, -38); g.lineTo(22, -32); g.lineTo(16, -20); g.lineTo(10, -32); g.lineTo(-2, -38); g.closePath(); g.fill(); g.stroke(); }
+    g.restore();
+  }
+  // disegna l'immagine "pulita" di un servizio
+  function drawClean(g, w, h, svc) {
+    const im = svc.im; if (im && im.complete && im.naturalWidth) {
+      const r = Math.max(w / im.naturalWidth, h / im.naturalHeight), iw = im.naturalWidth * r, ih = im.naturalHeight * r;
+      g.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih); return;
+    }
+    const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#EFE9DC'); gr.addColorStop(1, '#DCD2BF'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(14,26,43,.06)'; g.lineWidth = 1; for (let x = 0; x < w; x += 24) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
+    icon(g, svc.k, w / 2, h / 2 - 8, Math.min(w, h) / 230);
+    g.font = '800 13px Manrope, sans-serif'; const t = 'Foto provvisoria · ' + svc.name; const tw = g.measureText(t).width;
+    g.fillStyle = 'rgba(14,26,43,.78)'; g.beginPath(); g.roundRect(w - tw - 30, h - 38, tw + 18, 26, 13); g.fill(); g.fillStyle = '#fff'; g.fillText(t, w - tw - 21, h - 20);
+  }
+  function paintDirt(g, w, h, alpha, seed) {
+    const r = seeded(seed), rnd = (a, b) => a + r() * (b - a);
+    g.fillStyle = `rgba(206,197,180,${alpha})`; g.fillRect(0, 0, w, h);
+    const tint = g.createLinearGradient(0, 0, w, h); tint.addColorStop(0, 'rgba(255,255,255,.18)'); tint.addColorStop(1, 'rgba(110,94,68,.2)'); g.fillStyle = tint; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < w * h / 2600; i++) { const x = rnd(0, w), y = rnd(0, h), rr = rnd(16, 110), gr = g.createRadialGradient(x, y, 0, x, y, rr); gr.addColorStop(0, `rgba(98,82,58,${rnd(.06, .18)})`); gr.addColorStop(1, 'rgba(98,82,58,0)'); g.fillStyle = gr; g.fillRect(x - rr, y - rr, rr * 2, rr * 2); }
+    g.lineCap = 'round'; for (let i = 0; i < 6; i++) { g.strokeStyle = `rgba(255,255,255,${rnd(.05, .12)})`; g.lineWidth = rnd(18, 50); g.beginPath(); const a0 = rnd(0, 6.28); g.arc(rnd(0, w), rnd(0, h), rnd(50, 200), a0, a0 + rnd(1.2, 3)); g.stroke(); }
+    for (let i = 0; i < w * h / 700; i++) { const x = rnd(0, w), y = rnd(0, h), rr = r() < .85 ? rnd(.8, 2.4) : rnd(2.4, 5); g.fillStyle = 'rgba(78,66,48,.24)'; g.beginPath(); g.arc(x, y, rr, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.arc(x - rr * .35, y - rr * .35, rr * .35, 0, 7); g.fill(); }
+  }
+  const blade = (g, H, x) => { g.fillStyle = '#FFD23C'; g.fillRect(x - 6, 0, 13, H); g.fillStyle = 'rgba(0,0,0,.18)'; g.fillRect(x + 7, 0, 4, H); };
 
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/main.js" defer></script>
-  <script type="module" src="assets/js/scene3d.js"></script>
-  <!-- Rete di sicurezza: se gli script non partono, la pagina non resta coperta -->
-  <script>
-    setTimeout(function () {
-      if (document.body.classList.contains('intro-done')) return;
-      var i = document.getElementById('intro'); if (i) i.remove();
-      document.body.classList.add('intro-done');
-      document.documentElement.style.overflow = '';
-      document.querySelectorAll('.reveal').forEach(function (e) { e.classList.add('is-in'); });
-    }, 9000);
-  </script>
+  /* ---------- 0. Apertura: vetro bagnato, il tergivetro IMI passa dall'alto verso il basso ---------- */
+  const veil = document.getElementById('veil');
+  if (reduce) veil.remove();
+  else {
+    document.body.classList.add('locked');
+    const glass = document.getElementById('veilGlass'), vc = document.getElementById('veilCanvas'), sq = document.getElementById('veilSq');
+    const dpr = Math.min(devicePixelRatio || 1, 2), W = innerWidth, H = innerHeight;
+    vc.width = W * dpr; vc.height = H * dpr; const g = vc.getContext('2d'); g.scale(dpr, dpr);
+    (function paintGlass() {
+      const r = seeded(29), rnd = (a, b) => a + r() * (b - a);
+      g.fillStyle = 'rgba(238,236,230,.46)'; g.fillRect(0, 0, W, H);
+      g.lineCap = 'round';
+      for (let i = 0; i < 16; i++) { g.strokeStyle = `rgba(255,255,255,${rnd(.08, .2)})`; g.lineWidth = rnd(40, 110); g.beginPath(); const a0 = rnd(0, 6.28); g.arc(rnd(0, W), rnd(0, H), rnd(60, 260), a0, a0 + rnd(1, 2.6)); g.stroke(); }
+      for (let i = 0; i < W * H / 900; i++) { g.fillStyle = `rgba(90,80,62,${rnd(.08, .18)})`; g.beginPath(); g.arc(rnd(0, W), rnd(0, H), rnd(.5, 1.4), 0, 7); g.fill(); }
+      const drop = (x, y, rr, el) => {
+        g.save(); g.translate(x, y); g.scale(1, el);
+        let gr = g.createRadialGradient(-rr * .25, -rr * .3, rr * .1, 0, 0, rr); gr.addColorStop(0, 'rgba(255,255,255,.10)'); gr.addColorStop(.75, 'rgba(255,255,255,.04)'); gr.addColorStop(1, 'rgba(14,26,43,.28)');
+        g.fillStyle = gr; g.beginPath(); g.arc(0, 0, rr, 0, 7); g.fill();
+        g.fillStyle = 'rgba(14,26,43,.22)'; g.beginPath(); g.arc(0, rr * .18, rr * .92, .15 * Math.PI, .85 * Math.PI); g.arc(0, 0, rr, .85 * Math.PI, .15 * Math.PI, true); g.fill();
+        g.fillStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.ellipse(-rr * .35, -rr * .4, rr * .22, rr * .14, -.6, 0, 7); g.fill();
+        g.restore();
+      };
+      for (let i = 0; i < 9; i++) { const x = rnd(0, W), y0 = rnd(0, H * .6), len = rnd(60, 220), w = rnd(3, 6);
+        g.strokeStyle = 'rgba(255,255,255,.16)'; g.lineWidth = w; g.beginPath(); g.moveTo(x, y0); g.lineTo(x + rnd(-6, 6), y0 + len); g.stroke(); drop(x, y0 + len, w * 1.6, 1.25); }
+      for (let i = 0; i < W * H / 1500; i++) { const big = r() < .12; drop(rnd(0, W), rnd(0, H), big ? rnd(7, 13) : rnd(1.6, 5), big ? rnd(1, 1.3) : 1); }
+    })();
+    let done = false;
+    const ease = k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    function close() { if (done) return; done = true; veil.classList.add('gone'); document.body.classList.remove('locked'); setTimeout(() => veil.remove(), 500); startHero(); }
+    function sweep() {
+      const t0 = performance.now(), D = 2300, Y0 = -40, Y1 = H + 220;
+      (function step(t) { if (done) return; const k = Math.min(1, (t - t0) / D), y = Y0 + (Y1 - Y0) * ease(k);
+        sq.style.transform = `translateY(${y}px)`; glass.style.clipPath = `inset(${Math.max(0, y)}px 0 0 0)`;
+        if (k < 1) requestAnimationFrame(step); else close(); })(t0);
+    }
+    veil.addEventListener('click', close);
+    setTimeout(sweep, 1000);
+  }
+
+  /* ---------- 1. Hero: i servizi si alternano con la passata della lama ---------- */
+  const stage = document.getElementById('stage'), sc = stage.querySelector('canvas'), nowEl = document.getElementById('now'), dots = document.getElementById('dots');
+  SERVICES.forEach((s, i) => { const d = document.createElement('span'); d.textContent = s.name; if (!i) d.className = 'on'; dots.appendChild(d); });
+  let hi = 0, layers = [], heroOn = false;
+  function sizeHero() {
+    const dpr = Math.min(devicePixelRatio || 1, 2), r = stage.getBoundingClientRect(); sc.width = r.width * dpr; sc.height = r.height * dpr;
+    layers = SERVICES.map(s => { const c = document.createElement('canvas'); c.width = sc.width; c.height = sc.height; const g = c.getContext('2d'); g.scale(dpr, dpr); drawClean(g, r.width, r.height, s); return c; });
+    sc.getContext('2d').drawImage(layers[hi], 0, 0);
+  }
+  function show(i) { nowEl.innerHTML = `<b>${SERVICES[i].name}</b>`; [...dots.children].forEach((d, j) => d.classList.toggle('on', j === i)); }
+  function next() {
+    const from = layers[hi], ni = (hi + 1) % SERVICES.length, to = layers[ni], g = sc.getContext('2d'), W = sc.width, H = sc.height, t0 = performance.now();
+    (function step(t) { const k = Math.min(1, (t - t0) / 650), x = Math.round(W * k * k * (3 - 2 * k)); g.drawImage(from, 0, 0); if (x > 0) g.drawImage(to, 0, 0, x, H, 0, 0, x, H); if (k < 1) { blade(g, H, x); requestAnimationFrame(step); } else { hi = ni; show(hi); } })(t0);
+  }
+  function startHero() { if (heroOn || reduce) return; heroOn = true; setInterval(next, 2200); }
+  if (!document.getElementById('veil')) startHero();
+
+  /* ---------- 2. Video: parte muto, audio con un tocco ---------- */
+  const vid = document.getElementById('vid'), snd = document.getElementById('sound');
+  snd.addEventListener('click', () => { vid.muted = !vid.muted; if (!vid.muted) { vid.currentTime = 0; vid.play(); } snd.textContent = vid.muted ? '🔊 Attiva l\'audio' : '🔇 Togli l\'audio'; snd.classList.toggle('on', !vid.muted); });
+
+  /* ---------- 3. Servizi che si puliscono scorrendo ---------- */
+  const host = document.getElementById('services');
+  const svcs = SERVICES.map((s, i) => {
+    const el = document.createElement('section'); el.className = 'svc'; el.id = 'svc-' + s.k;
+    el.innerHTML = `<div class="wrap"><p class="kicker"><span class="num">${String(i + 1).padStart(2, '0')}</span> · ${s.name}</p><h3>${s.title}</h3>
+      <div class="photo"><canvas></canvas><span class="tag">Scorri: si pulisce</span></div>
+      <div class="meter"><div class="row"><span>Pulizia</span><span class="v">0%</span></div><div class="track"><div class="fill"></div></div></div>
+      <ul class="points">${s.pts.map(p => `<li>${CHECK}${p}</li>`).join('')}</ul><a class="btn btn-d" href="#preventivo">${s.cta}</a></div>`;
+    host.appendChild(el);
+    const box = el.querySelector('.photo');
+    return { s, el, box, c: box.querySelector('canvas'), clean: document.createElement('canvas'), dirt: document.createElement('canvas'), v: el.querySelector('.v'), fill: el.querySelector('.fill'), tag: el.querySelector('.tag'), p: -1, seed: 11 + i * 7 };
+  });
+  function sizeSvcs() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    for (const x of svcs) { const r = x.box.getBoundingClientRect(); for (const cv of [x.c, x.clean, x.dirt]) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); }
+      const gc = x.clean.getContext('2d'); gc.scale(dpr, dpr); drawClean(gc, r.width, r.height, x.s); const gd = x.dirt.getContext('2d'); gd.scale(dpr, dpr); const b = x.s.bim; if (b && b.complete && b.naturalWidth) { const k = Math.max(r.width / b.naturalWidth, r.height / b.naturalHeight), bw = b.naturalWidth * k, bh = b.naturalHeight * k; gd.drawImage(b, (r.width - bw) / 2, (r.height - bh) / 2, bw, bh); } else paintDirt(gd, r.width, r.height, .72, x.seed); x.p = -1; }
+    render();
+  }
+  function render() {
+    const vh = innerHeight;
+    for (const x of svcs) {
+      const r = x.box.getBoundingClientRect(); let p = (vh * .9 - r.top) / (vh * .9 - vh * .18); p = reduce ? 1 : Math.max(0, Math.min(1, p));
+      if (Math.abs(p - x.p) < .002) continue; x.p = p;
+      const g = x.c.getContext('2d'), W = x.c.width, H = x.c.height, bx = Math.round(W * p);
+      g.drawImage(x.clean, 0, 0); if (bx < W) g.drawImage(x.dirt, bx, 0, W - bx, H, bx, 0, W - bx, H); if (p > 0 && p < 1) blade(g, H, bx);
+      const pct = Math.round(p * 100); x.v.textContent = pct + '%'; x.fill.style.width = pct + '%';
+      const done = p >= 1; x.el.classList.toggle('done', done); x.box.classList.toggle('done', done); x.tag.textContent = done ? 'Pulito' : 'Scorri: si pulisce';
+    }
+  }
+  let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }, { passive: true });
+  function sizeAll() { sizeHero(); sizeSvcs(); }
+  addEventListener('resize', () => { clearTimeout(sizeAll.t); sizeAll.t = setTimeout(sizeAll, 150); });
+  Promise.all(SERVICES.flatMap(x => [x.im, x.bim]).filter(Boolean).map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => document.fonts.ready).then(sizeAll);
+  sizeAll();
+
+  /* ---------- 4. Per chi ---------- */
+  const PANELS = [
+    { h: 'Aziende e uffici', pts: ['Interventi fuori orario: nessuno si accorge di noi', 'Referente unico e controllo qualità', 'Fattura regolare e documenti in ordine'], cta: 'Preventivo per la tua azienda' },
+    { h: 'Amministratori di condominio', pts: ['Calendario fisso concordato e rispettato', 'Gestione rotazione ed esposizione dei sacchi', 'Impresa regolare: visura e contributi in ordine'], cta: 'Preventivo per il condominio' },
+    { h: 'Privati', pts: ['Pulizie di fondo prima o dopo il trasloco', 'Fine lavori: casa pronta da abitare', 'Sgomberi e consegna chiavi in mano'], cta: 'Preventivo per casa' },
+  ];
+  const panel = document.getElementById('panel'), tabs = [...document.querySelectorAll('.tabs button')];
+  function tab(i) { tabs.forEach((b, j) => b.setAttribute('aria-selected', j === i)); const P = PANELS[i]; panel.innerHTML = `<h3>${P.h}</h3><ul class="points">${P.pts.map(p => `<li>${CHECK}${p}</li>`).join('')}</ul><a class="btn btn-y" href="#preventivo">${P.cta}</a>`; }
+  tabs.forEach((b, i) => b.addEventListener('click', () => tab(i))); tab(0);
+
+  /* ---------- 5. Zone ---------- */
+  const ZONES = ['milano', 'sesto', 'monza', 'bicocca', 'niguarda', 'isola', 'citta studi', 'nolo', 'lambrate', 'porta romana', 'cinisello', 'cologno', 'bresso', 'brugherio', 'segrate', 'cusano', 'vimodrone', 'baggio', 'navigli', 'loreto', 'greco', 'affori', 'bovisa', 'san siro'];
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+  document.getElementById('zoneForm').addEventListener('submit', e => {
+    e.preventDefault(); const q = norm(document.getElementById('zoneIn').value), out = document.getElementById('zoneOut');
+    document.querySelectorAll('#zoneChips span').forEach(c => c.classList.toggle('hit', !!q && norm(c.textContent).includes(q)));
+    if (!q) { out.textContent = ''; return; }
+    out.textContent = ZONES.some(z => q.includes(z) || z.includes(q)) ? '✓ Sì, lavoriamo nella tua zona.' : 'Fuori dalle zone abituali? Organizziamo trasferte su richiesta.';
+  });
+
+  /* ---------- 6. Chat preventivo ---------- */
+  const msgs = document.getElementById('msgs'), foot = document.getElementById('foot'), wa = document.getElementById('waLink');
+  const Q = [
+    { q: 'Ciao, sono Stefano. Cosa dobbiamo pulire?', o: SERVICES.map(s => s.name) },
+    { q: 'In che zona?', o: ['Sesto San Giovanni', 'Milano', 'Monza', 'Altro comune'] },
+    { q: 'Quando ti serve?', o: ['Il prima possibile', 'Entro un mese', 'Sto valutando'] },
+  ];
+  const ans = [];
+  const say = (t, me) => { const b = document.createElement('div'); b.className = 'bub' + (me ? ' me' : ''); b.textContent = t; msgs.appendChild(b); };
+  function ask(i) {
+    if (i === Q.length) {
+      say(`Perfetto. Ti preparo il sopralluogo gratuito per: ${ans[0]}, ${ans[1]}, ${ans[2].toLowerCase()}.`);
+      wa.href = waLinkTo(`Ciao Stefano, vorrei un sopralluogo gratuito. Servizio: ${ans[0]}. Zona: ${ans[1]}. Tempi: ${ans[2]}.`); wa.target = '_blank'; wa.rel = 'noopener';
+      foot.hidden = false; return;
+    }
+    say(Q[i].q); const o = document.createElement('div'); o.className = 'opts';
+    Q[i].o.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.addEventListener('click', () => { o.remove(); ans.push(t); say(t, true); setTimeout(() => ask(i + 1), 350); }); o.appendChild(b); });
+    msgs.appendChild(o);
+  }
+  ask(0);
+})();
+</script>
 </body>
 </html>
