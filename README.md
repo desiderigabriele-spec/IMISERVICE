@@ -8,8 +8,8 @@ Non serve nessuna build: su Vercel basta collegare il repository (Framework pres
 
 ## Cosa c'è nella pagina
 
-- **Apertura**: lo schermo parte come un vetro bagnato e un tergivetro con il logo IMI lo pulisce dall'alto verso il basso (circa 3 secondi; un tocco la salta). Non viene mostrata a chi ha attivato la riduzione del movimento.
-- **Hero**: "Puliamo uffici, condomini e cantieri. Anche di notte." con le foto dei sei servizi che si alternano.
+- **Apertura**: lo schermo parte come un vetro appannato con gocce vere (dentro ogni goccia si vede il sito capovolto, come in una lente); alcune gocce grandi scivolano lasciando la scia, poi il tergivetro con il logo IMI pulisce con la passata a "S" dei vetristi (circa 4 secondi; un tocco la salta). Le immagini usate per il vetro sono in `assets/img/intro/` (telefono e computer, nitida e sfocata): **vanno rifatte se cambia la prima schermata**. Non viene mostrata a chi ha attivato la riduzione del movimento.
+- **Hero**: "Puliamo uffici, condomini e cantieri. Anche di notte.", con le città sopra il titolo, le foto dei sei servizi che si alternano e il timbro "Dal 2008" sulla foto.
 - **Video di Stefano**: parte muto in automatico, con il pulsante "Attiva l'audio" al centro.
 - **Sei servizi con prima/dopo**: scorrendo, la lama gialla passa da sinistra a destra e scopre il "dopo" sopra il "prima". Le foto sono in `assets/img/servizi/` (`<servizio>-prima.jpg` e `<servizio>.jpg`, 1080×720, stessa inquadratura).
 - **Per chi** (aziende, amministratori, privati), **come lavoriamo** (schede da scorrere), **zone** (un furgone parte da Sesto e percorre la strada mentre scorri; il comune raggiunto si illumina e compare il pulsante WhatsApp), **preventivo in 3 domande** che apre WhatsApp col messaggio già scritto, **FAQ** e footer con i contatti.
