@@ -116,17 +116,23 @@ section { scroll-margin-top: 72px; }
 .video { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 1 / 1; max-width: 100%; background: var(--navy); box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
 .video video { width: 100%; height: 100%; display: block; object-fit: cover; cursor: pointer; }
 .sound.off { display: none; }
-.bigplay { position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; z-index: 2; border: 0; border-radius: 50%; background: rgba(14,26,43,.8); color: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
-.bigplay svg { width: 34px; height: 34px; margin-left: 4px; }
-.vbar { margin-top: 10px; background: var(--navy); color: #fff; border-radius: 18px; padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
-.vbar .row { display: flex; align-items: center; gap: 8px; }
-.vbar input[type=range] { flex: 1; min-width: 0; height: 28px; margin: 0; accent-color: var(--yellow); cursor: pointer; }
-.vbar .t { font: 700 13px var(--font); font-variant-numeric: tabular-nums; color: #cfd6e2; white-space: nowrap; }
-.vbar button { height: 42px; min-width: 46px; padding: 0 12px; border: 0; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; font: 800 14px var(--font); display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
-.vbar button svg { width: 18px; height: 18px; }
-.vbar .vplay { background: var(--yellow); color: var(--navy); min-width: 52px; }
-.vbar .vmute { margin-left: auto; }
-.vbar .vmute.on { background: var(--yellow); color: var(--navy); }
+.vc { position: absolute; inset: 0; z-index: 3; opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; background: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.6)); pointer-events: none; }
+.video.ui .vc { opacity: 1; visibility: visible; }
+.video.ui .vc button, .video.ui .vc input { pointer-events: auto; }
+.video.ui .sound { opacity: 0; pointer-events: none; }
+.vc button { border: 0; background: none; color: #fff; cursor: pointer; display: grid; place-items: center; padding: 0; }
+.vc .mid { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); display: flex; justify-content: center; align-items: center; gap: 30px; }
+.vc .mid button { width: 52px; height: 52px; border-radius: 50%; background: rgba(0,0,0,.45); font: 800 14px var(--font); }
+.vc .mid .vplay { width: 70px; height: 70px; }
+.vc .mid .vplay svg { width: 32px; height: 32px; }
+.vc .bot { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 12px 8px; display: flex; flex-direction: column; }
+.vc .bot .row { display: flex; align-items: center; gap: 6px; }
+.vc .t { font: 700 13px var(--font); font-variant-numeric: tabular-nums; color: #fff; white-space: nowrap; margin-right: auto; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.vc .bot button { width: 42px; height: 42px; }
+.vc .bot button svg { width: 24px; height: 24px; }
+.vc input[type=range] { width: 100%; height: 22px; margin: 0; accent-color: var(--yellow); cursor: pointer; }
+.video:fullscreen { border-radius: 0; aspect-ratio: auto; width: 100vw; height: 100vh; background: #000; }
+.video:fullscreen video { object-fit: contain; }
 .sound { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; display: flex; align-items: center; gap: 10px; white-space: nowrap; background: var(--yellow); color: var(--navy); border: 0; border-radius: 999px; padding: 18px 28px; font: 800 19px var(--font); cursor: pointer; box-shadow: 0 0 0 0 rgba(255,210,60,.7), 0 12px 28px rgba(0,0,0,.4); animation: soundPulse 1.8s ease-out infinite; transition: all .35s ease; }
 @keyframes soundPulse { 0% { box-shadow: 0 0 0 0 rgba(255,210,60,.7), 0 12px 28px rgba(0,0,0,.4); } 70% { box-shadow: 0 0 0 22px rgba(255,210,60,0), 0 12px 28px rgba(0,0,0,.4); } 100% { box-shadow: 0 0 0 0 rgba(255,210,60,0), 0 12px 28px rgba(0,0,0,.4); } }
 @media (prefers-reduced-motion: reduce) { .sound { animation: none; } }
@@ -264,15 +270,19 @@ section { scroll-margin-top: 72px; }
     <div class="video">
       <video id="vid" src="assets/video/presentazione.mp4" poster="assets/video/copertina.jpg" autoplay muted loop playsinline preload="metadata"></video>
       <button class="sound" id="sound" type="button">🔊 Attiva l'audio</button>
-      <button class="bigplay" id="bigPlay" type="button" aria-label="Riproduci" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg></button>
-    </div>
-    <div class="vbar" id="vbar">
-      <div class="row"><span class="t" id="vCur">0:00</span><input type="range" id="vSeek" min="0" max="1000" value="0" step="1" aria-label="Posizione nel video"><span class="t" id="vDur">1:21</span></div>
-      <div class="row">
-        <button type="button" id="vBack" aria-label="Indietro di 10 secondi">−10s</button>
-        <button type="button" class="vplay" id="vPlay" aria-label="Pausa"></button>
-        <button type="button" id="vFwd" aria-label="Avanti di 10 secondi">+10s</button>
-        <button type="button" class="vmute" id="vMute">🔊 Attiva audio</button>
+      <div class="vc" id="vc">
+        <div class="mid">
+          <button type="button" id="vBack" aria-label="Indietro di 10 secondi">−10</button>
+          <button type="button" class="vplay" id="vPlay" aria-label="Pausa"></button>
+          <button type="button" id="vFwd" aria-label="Avanti di 10 secondi">+10</button>
+        </div>
+        <div class="bot">
+          <div class="row"><span class="t"><span id="vCur">0:00</span> / <span id="vDur">1:21</span></span>
+            <button type="button" id="vMute" aria-label="Attiva audio"></button>
+            <button type="button" id="vFull" aria-label="Schermo intero"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <input type="range" id="vSeek" min="0" max="1000" value="0" step="1" aria-label="Posizione nel video">
+        </div>
       </div>
     </div>
     <ul class="points">
@@ -515,24 +525,38 @@ section { scroll-margin-top: 72px; }
   function startHero() { if (heroOn || reduce) return; heroOn = true; setInterval(next, 2200); }
   if (!document.getElementById('veil')) startHero();
 
-  /* ---------- 2. Video: parte muto, audio con un tocco ---------- */
-  const vid = document.getElementById('vid'), snd = document.getElementById('sound'), big = document.getElementById('bigPlay');
-  const vPlay = document.getElementById('vPlay'), vMute = document.getElementById('vMute'), vSeek = document.getElementById('vSeek'), vCur = document.getElementById('vCur'), vDur = document.getElementById('vDur');
-  const ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>', ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h4.2v15H6zm7.8 0H18v15h-4.2z" fill="currentColor"/></svg>';
+  /* ---------- 2. Video: parte muto, audio con un tocco, comandi a comparsa ---------- */
+  const vid = document.getElementById('vid'), snd = document.getElementById('sound'), box = vid.parentElement;
+  const vPlay = document.getElementById('vPlay'), vMute = document.getElementById('vMute'), vSeek = document.getElementById('vSeek'), vCur = document.getElementById('vCur'), vDur = document.getElementById('vDur'), vFull = document.getElementById('vFull');
+  const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="currentColor"/></svg>`;
+  const ICON_PLAY = svg('M7 4.5v15l12.5-7.5z'), ICON_PAUSE = svg('M6 4.5h4.2v15H6zm7.8 0H18v15h-4.2z');
+  const ICON_ON = svg('M4 9v6h4l5 4.5v-15L8 9zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z');
+  const ICON_OFF = svg('M4 9v6h4l5 4.5v-15L8 9zm12.6 3 2.7-2.7-1.2-1.2-2.7 2.7-2.7-2.7-1.2 1.2 2.7 2.7-2.7 2.7 1.2 1.2 2.7-2.7 2.7 2.7 1.2-1.2z');
   const fmt = t => { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
-  let seeking = false, heard = false;
-  function syncPlay() { const p = vid.paused; vPlay.innerHTML = p ? ICON_PLAY : ICON_PAUSE; vPlay.setAttribute('aria-label', p ? 'Riproduci' : 'Pausa'); big.hidden = !p; }
-  function syncMute() { vMute.textContent = vid.muted ? '🔊 Attiva audio' : '🔇 Togli audio'; vMute.classList.toggle('on', !vid.muted); snd.classList.toggle('off', !vid.muted || heard); }
+  let seeking = false, heard = false, hideT;
+  // comandi a comparsa, come su YouTube: un tocco li mostra, spariscono da soli dopo 3 secondi se il video va
+  function showUI() { box.classList.add('ui'); clearTimeout(hideT); if (!vid.paused) hideT = setTimeout(() => box.classList.remove('ui'), 3000); }
+  function hideUI() { clearTimeout(hideT); box.classList.remove('ui'); }
+  function syncPlay() { const p = vid.paused; vPlay.innerHTML = p ? ICON_PLAY : ICON_PAUSE; vPlay.setAttribute('aria-label', p ? 'Riproduci' : 'Pausa'); if (p) { clearTimeout(hideT); } else if (box.classList.contains('ui')) showUI(); }
+  function syncMute() { vMute.innerHTML = vid.muted ? ICON_OFF : ICON_ON; vMute.setAttribute('aria-label', vid.muted ? 'Attiva audio' : 'Togli audio'); snd.classList.toggle('off', !vid.muted || heard); }
   function syncTime() { if (!seeking && vid.duration) vSeek.value = Math.round(vid.currentTime / vid.duration * 1000); vCur.textContent = fmt(vid.currentTime); }
-  const toggle = () => { if (vid.paused) vid.play(); else vid.pause(); };
   function unmute() { if (!heard) { heard = true; vid.currentTime = 0; } vid.muted = false; vid.play(); syncMute(); }
-  snd.addEventListener('click', unmute);
-  vMute.addEventListener('click', () => { if (vid.muted) unmute(); else { vid.muted = true; syncMute(); } });
-  vPlay.addEventListener('click', toggle); big.addEventListener('click', toggle); vid.addEventListener('click', toggle);
-  document.getElementById('vBack').addEventListener('click', () => { vid.currentTime = Math.max(0, vid.currentTime - 10); });
-  document.getElementById('vFwd').addEventListener('click', () => { vid.currentTime = Math.min((vid.duration || 0) - .1, vid.currentTime + 10); });
-  vSeek.addEventListener('input', () => { seeking = true; if (vid.duration) { vid.currentTime = vSeek.value / 1000 * vid.duration; vCur.textContent = fmt(vid.currentTime); } });
-  vSeek.addEventListener('change', () => { seeking = false; });
+  const act = f => e => { e.stopPropagation(); f(); showUI(); };
+  vid.addEventListener('click', () => { if (box.classList.contains('ui')) hideUI(); else showUI(); });
+  box.querySelector('.vc').addEventListener('click', e => { if (e.target === e.currentTarget) hideUI(); });
+  snd.addEventListener('click', e => { e.stopPropagation(); unmute(); });
+  vPlay.addEventListener('click', act(() => { if (vid.paused) vid.play(); else vid.pause(); }));
+  vMute.addEventListener('click', act(() => { if (vid.muted) unmute(); else { vid.muted = true; syncMute(); } }));
+  document.getElementById('vBack').addEventListener('click', act(() => { vid.currentTime = Math.max(0, vid.currentTime - 10); }));
+  document.getElementById('vFwd').addEventListener('click', act(() => { vid.currentTime = Math.min((vid.duration || 0) - .1, vid.currentTime + 10); }));
+  vFull.addEventListener('click', act(() => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (box.requestFullscreen) box.requestFullscreen().catch(() => vid.webkitEnterFullscreen && vid.webkitEnterFullscreen());
+    else if (vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
+  }));
+  vSeek.addEventListener('input', e => { e.stopPropagation(); seeking = true; showUI(); if (vid.duration) { vid.currentTime = vSeek.value / 1000 * vid.duration; vCur.textContent = fmt(vid.currentTime); } });
+  vSeek.addEventListener('change', () => { seeking = false; showUI(); });
+  vSeek.addEventListener('click', e => e.stopPropagation());
   vid.addEventListener('play', syncPlay); vid.addEventListener('pause', syncPlay); vid.addEventListener('timeupdate', syncTime);
   vid.addEventListener('loadedmetadata', () => { vDur.textContent = fmt(vid.duration); syncTime(); });
   vid.addEventListener('volumechange', syncMute);
