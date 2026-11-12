@@ -190,15 +190,17 @@ section { scroll-margin-top: 72px; }
 /* Passi */
 
 /* Zone */
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chips span { font-size: 14px; font-weight: 700; padding: 6px 11px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
-.chips span.big { background: var(--navy); color: #fff; border-color: var(--navy); }
-.chips span.hit { background: var(--yellow); border-color: #f0bd00; }
-.check { display: flex; gap: 8px; background: var(--paper); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px; }
-.check input { flex: 1; min-width: 0; border: 0; background: transparent; font: 600 16px var(--font); padding: 0 12px; color: var(--navy); }
-.check input:focus-visible { outline: none; }
-.check button { border: 0; border-radius: 999px; background: var(--navy); color: #fff; font: 800 15px var(--font); padding: 12px 16px; cursor: pointer; }
-.answer { font-weight: 700; min-height: 1.5em; }
+/* Zone: schema a cerchi intorno a Sesto */
+.map { position: relative; width: 100%; max-width: 420px; aspect-ratio: 1 / 1; margin: 0 auto; }
+.map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map button { position: absolute; transform: translate(-50%, -50%); font: 800 13px var(--font); padding: 6px 10px; border-radius: 999px; border: 1.5px solid var(--navy); background: var(--paper); color: var(--navy); cursor: pointer; white-space: nowrap; }
+.map button.big { background: var(--navy); color: #fff; font-size: 14px; }
+.map button.home { background: var(--yellow); font-size: 14px; }
+.map button[aria-pressed="true"] { background: var(--yellow); color: var(--navy); box-shadow: 0 0 0 5px rgba(255,210,60,.35); }
+.zres { background: var(--paper); border: 2px solid var(--green); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-weight: 800; }
+.zres .ok { color: var(--green); font-size: 17px; }
+.zmore { font-weight: 600; color: var(--muted); }
+.zmore a { color: var(--navy); font-weight: 800; }
 
 /* Chat preventivo */
 .chat { background: #ECE5DD; border-radius: 22px; overflow: hidden; box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
@@ -230,10 +232,11 @@ section { scroll-margin-top: 72px; }
 .close .kicker { color: var(--yellow); }
 .close h2 { font-size: 28px; }
 .close h2 span { color: var(--yellow); }
-.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.fact { background: var(--navy-2); border: 1px solid #22385a; border-radius: 16px; padding: 14px; }
-.fact b { display: block; color: var(--yellow); font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.fact span { color: #cfd6e2; font-weight: 600; font-size: 14px; }
+.strip { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #2a3d5c; border-bottom: 1px solid #2a3d5c; }
+.strip div { padding: 14px 6px; text-align: center; display: flex; flex-direction: column; gap: 3px; }
+.strip div + div { border-left: 1px solid #2a3d5c; }
+.strip b { font-size: 30px; color: var(--yellow); line-height: 1; font-variant-numeric: tabular-nums; }
+.strip span { font-size: 13px; font-weight: 700; color: #cfd6e2; }
 .note { font-size: 13px; color: #aab4c4; font-weight: 600; }
 
 /* Velo sporco all'apertura */
@@ -355,14 +358,16 @@ section { scroll-margin-top: 72px; }
 <section class="sec" id="zone">
   <div class="wrap">
     <p class="kicker">Zone</p>
-    <h2>Arriviamo anche da te?</h2>
-    <form class="check" id="zoneForm"><input id="zoneIn" type="text" placeholder="Il tuo comune o quartiere" autocomplete="off"><button type="submit">Verifica</button></form>
-    <p class="answer" id="zoneOut" role="status"></p>
-    <div class="chips" id="zoneChips">
-      <span class="big">Sesto San Giovanni</span><span class="big">Milano</span><span class="big">Monza</span>
-      <span>Bicocca</span><span>Niguarda</span><span>Isola</span><span>Città Studi</span><span>NoLo</span><span>Lambrate</span><span>Porta Romana</span>
-      <span>Cinisello Balsamo</span><span>Cologno Monzese</span><span>Bresso</span><span>Brugherio</span><span>Segrate</span><span>Fuori zona su richiesta</span>
+    <h2>Partiamo da Sesto. <span class="hl">Arriviamo qui.</span></h2>
+    <div class="map" id="map">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#E3DCCD" stroke-width=".6" stroke-dasharray="2 2"/>
+        <circle cx="50" cy="50" r="30" fill="#FFF7D6" stroke="#FFD23C" stroke-width=".8"/>
+        <circle cx="50" cy="50" r="14" fill="#FFE98A"/>
+      </svg>
     </div>
+    <div class="zres" id="zres" role="status"></div>
+    <p class="zmore">Il tuo comune non c'è? <a data-act="wa" href="#">Chiedici lo stesso</a>: organizziamo anche trasferte.</p>
   </div>
 </section>
 
@@ -398,12 +403,7 @@ section { scroll-margin-top: 72px; }
   <div class="wrap">
     <p class="kicker">Perché sceglierci</p>
     <h2>Un'impresa regolare, <span>dal 2008.</span></h2>
-    <div class="facts">
-      <div class="fact"><b>2008</b><span>Partita IVA attiva</span></div>
-      <div class="fact"><b>H24</b><span>Turni anche festivi</span></div>
-      <div class="fact"><b>6</b><span>Servizi, un'unica impresa</span></div>
-      <div class="fact"><b>3</b><span>Città: Sesto, Milano, Monza</span></div>
-    </div>
+    <div class="strip"><div><b>2008</b><span>attivi da</span></div><div><b>H24</b><span>anche festivi</span></div><div><b>6</b><span>servizi</span></div></div>
     <a class="btn btn-y" href="#preventivo">Chiedi un preventivo</a>
   </div>
 </section>
@@ -672,15 +672,20 @@ section { scroll-margin-top: 72px; }
   }
   drawWho();
 
-  /* ---------- 5. Zone ---------- */
-  const ZONES = ['milano', 'sesto', 'monza', 'bicocca', 'niguarda', 'isola', 'citta studi', 'nolo', 'lambrate', 'porta romana', 'cinisello', 'cologno', 'bresso', 'brugherio', 'segrate', 'cusano', 'vimodrone', 'baggio', 'navigli', 'loreto', 'greco', 'affori', 'bovisa', 'san siro'];
-  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
-  document.getElementById('zoneForm').addEventListener('submit', e => {
-    e.preventDefault(); const q = norm(document.getElementById('zoneIn').value), out = document.getElementById('zoneOut');
-    document.querySelectorAll('#zoneChips span').forEach(c => c.classList.toggle('hit', !!q && norm(c.textContent).includes(q)));
-    if (!q) { out.textContent = ''; return; }
-    out.textContent = ZONES.some(z => q.includes(z) || z.includes(q)) ? '✓ Sì, lavoriamo nella tua zona.' : 'Fuori dalle zone abituali? Organizziamo trasferte su richiesta.';
-  });
+  /* ---------- 5. Zone: tocchi il comune, risposta e WhatsApp ---------- */
+  const TOWNS = [
+    { n: 'Sesto San Giovanni', x: 50, y: 50, c: 'home' }, { n: 'Milano', x: 46, y: 87, c: 'big' }, { n: 'Monza', x: 58, y: 12, c: 'big' },
+    { n: 'Cinisello Balsamo', t: 'Cinisello B.', x: 25, y: 32 }, { n: 'Cologno Monzese', t: 'Cologno M.', x: 77, y: 60 }, { n: 'Bresso', x: 24, y: 57 },
+    { n: 'Brugherio', x: 81, y: 34 }, { n: 'Segrate', x: 76, y: 82 }, { n: 'Bicocca', x: 41, y: 69 }
+  ];
+  const map = document.getElementById('map'), zres = document.getElementById('zres'); let town = 0;
+  function drawTowns() {
+    map.querySelectorAll('button').forEach(b => b.remove());
+    TOWNS.forEach((t, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t.t || t.n; b.className = t.c || ''; b.style.left = t.x + '%'; b.style.top = t.y + '%'; b.setAttribute('aria-pressed', i === town); b.setAttribute('aria-label', t.n); b.addEventListener('click', () => { town = i; drawTowns(); }); map.appendChild(b); });
+    const n = TOWNS[town].n;
+    zres.innerHTML = `<span class="ok">✓ Sì, arriviamo a ${n}.</span><a class="btn btn-w" href="${waLinkTo(`Ciao IMI Service, vorrei informazioni per una pulizia a ${n}.`)}" target="_blank" rel="noopener">Scrivici da ${n}</a>`;
+  }
+  drawTowns();
 
   /* ---------- 6. Chat preventivo ---------- */
   const msgs = document.getElementById('msgs'), foot = document.getElementById('foot'), wa = document.getElementById('waLink');
