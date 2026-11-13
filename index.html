@@ -126,8 +126,9 @@ section { scroll-margin-top: 72px; }
 .stage .now { position: absolute; left: 12px; bottom: 12px; z-index: 2; background: var(--navy); color: #fff; font-weight: 800; font-size: 15px; padding: 8px 14px; border-radius: 999px; }
 .stage .now b { color: var(--yellow); }
 .dots { display: flex; gap: 6px; flex-wrap: wrap; }
-.dots span { font-size: 13px; font-weight: 800; padding: 6px 11px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); transition: background .3s, border-color .3s; }
-.dots span.on { background: var(--yellow); border-color: #f0bd00; }
+.dots button { font: 800 13px var(--font); color: var(--navy); padding: 6px 11px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); cursor: pointer; transition: background .3s, border-color .3s; }
+.dots button:hover { border-color: var(--navy); }
+.dots button.on { background: var(--yellow); border-color: #f0bd00; }
 .ctas { display: grid; gap: 10px; }
 .trust { display: flex; flex-wrap: wrap; gap: 6px 14px; font-weight: 700; font-size: 14px; }
 .trust span::before { content: "✓ "; color: var(--green); font-weight: 800; }
@@ -710,19 +711,34 @@ section { scroll-margin-top: 72px; }
 
   /* ---------- 1. Hero: i servizi si alternano con la passata della lama ---------- */
   const stage = document.getElementById('stage'), sc = stage.querySelector('canvas'), nowEl = document.getElementById('now'), dots = document.getElementById('dots');
-  SERVICES.forEach((s, i) => { const d = document.createElement('span'); d.textContent = s.name; if (!i) d.className = 'on'; dots.appendChild(d); });
-  let hi = 0, layers = [], heroOn = false;
+  SERVICES.forEach((s, i) => { const d = document.createElement('button'); d.type = 'button'; d.textContent = s.name; d.setAttribute('aria-pressed', !i); if (!i) d.className = 'on'; d.addEventListener('click', () => pick(i)); dots.appendChild(d); });
+  let hi = 0, layers = [], heroOn = false, anim = 0, timer = 0;
+  const AUTO = 2600, PAUSA = 7000;   // cambio automatico ogni 2,6 s; dopo una scelta a mano riparte da solo dopo 7 s
   function sizeHero() {
+    anim++;
     const dpr = Math.min(devicePixelRatio || 1, 2), r = stage.getBoundingClientRect(); sc.width = r.width * dpr; sc.height = r.height * dpr;
     layers = SERVICES.map(s => { const c = document.createElement('canvas'); c.width = sc.width; c.height = sc.height; const g = c.getContext('2d'); g.scale(dpr, dpr); drawClean(g, r.width, r.height, s); return c; });
     sc.getContext('2d').drawImage(layers[hi], 0, 0);
   }
-  function show(i) { nowEl.innerHTML = `<b>${SERVICES[i].name}</b>`; [...dots.children].forEach((d, j) => d.classList.toggle('on', j === i)); }
-  function next() {
-    const from = layers[hi], ni = (hi + 1) % SERVICES.length, to = layers[ni], g = sc.getContext('2d'), W = sc.width, H = sc.height, t0 = performance.now();
-    (function step(t) { const k = Math.min(1, (t - t0) / 650), x = Math.round(W * k * k * (3 - 2 * k)); g.drawImage(from, 0, 0); if (x > 0) g.drawImage(to, 0, 0, x, H, 0, 0, x, H); if (k < 1) { blade(g, H, x); requestAnimationFrame(step); } else { hi = ni; show(hi); } })(t0);
+  function show(i) { nowEl.innerHTML = `<b>${SERVICES[i].name}</b>`; [...dots.children].forEach((d, j) => { d.classList.toggle('on', j === i); d.setAttribute('aria-pressed', j === i); }); }
+  // una sola passata alla volta: se ne parte un'altra, quella in corso si ferma; a fine passata resta solo l'immagine nuova
+  function go(ni, ms) {
+    if (!layers.length || ni === hi) return;
+    const from = layers[hi], to = layers[ni], g = sc.getContext('2d'), W = sc.width, H = sc.height, id = ++anim, t0 = performance.now();
+    hi = ni; show(hi);
+    if (reduce || document.hidden) { g.drawImage(to, 0, 0); return; }
+    (function step(t) {
+      if (id !== anim) return;
+      const k = Math.min(1, (t - t0) / ms), x = Math.round(W * k * k * (3 - 2 * k));
+      g.drawImage(from, 0, 0); if (x > 0) g.drawImage(to, 0, 0, x, H, 0, 0, x, H);
+      if (k < 1) { blade(g, H, x); requestAnimationFrame(step); } else g.drawImage(to, 0, 0);
+    })(t0);
   }
-  function startHero() { if (heroOn || reduce) return; heroOn = true; setInterval(next, 2200); }
+  function schedule(ms) { clearTimeout(timer); if (heroOn && !reduce) timer = setTimeout(() => { if (!document.hidden) go((hi + 1) % SERVICES.length, 650); schedule(AUTO); }, ms); }
+  function pick(i) { go(i, 450); schedule(PAUSA); }
+  function startHero() { if (heroOn || reduce) return; heroOn = true; schedule(AUTO); }
+  // scheda in secondo piano: niente cambi; quando torna visibile si ridisegna l'immagine giusta e si riparte
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(timer); anim++; } else if (layers.length) { sc.getContext('2d').drawImage(layers[hi], 0, 0); schedule(AUTO); } });
   if (!document.getElementById('veil')) startHero();
 
   /* ---------- 2. Video: parte muto, audio con un tocco, comandi a comparsa ---------- */
