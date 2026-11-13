@@ -228,15 +228,18 @@ Piano approvato il 13/11/2026. Commit separati per area (PR #38 e #39, unite):
 
 Il TBT residuo (~350 ms) è l'apertura con le gocce: per scendere sotto 200 ms bisognerebbe spostare il calcolo in un worker o mostrarla solo alla prima visita (cambia l'esperienza: da decidere).
 
+## Aggiornamento 13/11 sera
+
+- Decisioni: **344 770 1121 anche sulla scheda Google** (accordo del 20% aggiornato: contano anche i contatti da Maps), **aperti H24**, **sanificazioni sì**.
+- Aggiunti: FAQ "Fate anche sanificazioni?" (visibile e in FAQPage), Service "Sanificazione ambienti", `openingHoursSpecification` H24 tutti i giorni.
+
 ## Cosa resta
 
 | Cosa | Serve da te |
 |---|---|
 | 6 pagine servizio (Gruppo 7) | Cosa include ogni servizio, frequenze e tempi tipici, tipo di clienti, eventuali prezzi indicativi |
 | FAQ da 4 a 8–10 (Gruppo 9) | Risposte vere su costi indicativi, tempi, fattura, assicurazione RC |
-| `openingHoursSpecification` | Orari reali (H24 vero o fasce) |
 | `sameAs`, `geo` | Link della scheda Google verificata (e social) |
-| Telefono nel NAP | Conferma: 344 770 1121 o numero storico sulla scheda Google |
 | Apertura più leggera | Decidere se mostrarla solo alla prima visita |
 
 ## Checklist manuale (da fare tu)
