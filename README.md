@@ -65,3 +65,9 @@ Poi apri http://localhost:8000 (serve un server: aprendo il file direttamente i 
 - Ordine di caricamento: prima foto (uffici) e immagini dell'apertura → le altre foto della prima schermata → le foto "prima" (solo vicino ai servizi o quando le altre sono arrivate). Il furgone si scarica solo vicino alla sezione Zone.
 - Se le immagini dell'apertura non arrivano entro 1,8 s, l'apertura si salta.
 - `vercel.json`: cache di una settimana per `assets/` (se si sostituisce un file tenendo lo stesso nome, chi è già passato può vedere la vecchia versione fino a 7 giorni: meglio cambiare nome al file).
+
+## Pagine legali
+
+- `note-legali.html`, `privacy.html`, `cookie.html` (stile comune in `assets/css/legale.css`), linkate dal piè di pagina.
+- Nelle pagine compare solo il nome **IMI Service** (non la denominazione completa della ditta individuale), con sede e P. IVA.
+- Il sito non usa cookie né servizi esterni: anche il carattere Manrope è ospitato in `assets/fonts/` (licenza OFL). **Se si aggiungono Google Analytics, Google Ads, Meta Pixel, mappe o video YouTube incorporati, serve un banner cookie e vanno aggiornate privacy e cookie policy.**
