@@ -66,7 +66,7 @@
     const v = leggi() || {};
     box = document.createElement('div'); box.id = 'ck'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Preferenze cookie');
     box.innerHTML = `<button class="x" type="button" aria-label="Chiudi e rifiuta">×</button>
-      <p>Usiamo solo strumenti tecnici necessari. Statistiche e pubblicità restano spente finché non le accetti. <a href="cookie.html">Cookie policy</a></p>
+      <p>Usiamo solo strumenti tecnici necessari. Statistiche e pubblicità restano spente finché non le accetti. <a href="/cookie">Cookie policy</a></p>
       <div class="cats">${CAT.map(c => `<label><b>${c.t}</b><small>${c.d}</small><input type="checkbox" data-k="${c.k}" ${c.fisso || v[c.k] ? 'checked' : ''} ${c.fisso ? 'disabled' : ''}></label>`).join('')}
         <p class="nota">Al momento il sito non usa strumenti di statistica o pubblicità.</p></div>
       <div class="b"><button type="button" class="no">Rifiuta</button><button type="button" class="ok">Accetta</button></div>

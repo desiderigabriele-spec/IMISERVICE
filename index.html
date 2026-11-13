@@ -186,9 +186,11 @@ section { scroll-margin-top: 72px; }
 .car .card b { font-size: 19px; }
 .car .card span { color: #cfd6e2; font-weight: 600; font-size: 15px; max-width: 70%; }
 .car .card em { position: absolute; right: 12px; bottom: 4px; font: 800 100px/.8 var(--font); font-style: normal; color: transparent; -webkit-text-stroke: 2px var(--yellow); }
-.cdots { display: flex; gap: 6px; justify-content: center; }
-.cdots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: var(--line); cursor: pointer; transition: width .2s, background .2s; }
-.cdots button.on { width: 22px; background: var(--navy); }
+.cdots { display: flex; gap: 0; justify-content: center; }
+.cdots button { width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; transition: width .2s; }
+.cdots button::before { content: ""; width: 8px; height: 8px; border-radius: 4px; background: var(--line); transition: width .2s, background .2s; }
+.cdots button.on { width: 30px; }
+.cdots button.on::before { width: 22px; background: var(--navy); }
 .points li { display: flex; gap: 10px; align-items: flex-start; }
 .points svg { flex: none; margin-top: 3px; }
 
@@ -374,11 +376,12 @@ section { scroll-margin-top: 72px; }
 <body>
 <div id="veil" aria-hidden="true">
   <canvas id="veilCanvas"></canvas>
-  <div class="blade" id="veilBlade"><div class="grip"></div><div class="neck"></div><div class="ch"></div><div class="rub"></div><div class="wet"></div><div class="badge"><img src="assets/img/logo/logo.svg" alt=""></div></div>
+  <div class="blade" id="veilBlade"><div class="grip"></div><div class="neck"></div><div class="ch"></div><div class="rub"></div><div class="wet"></div><div class="badge"><img src="assets/img/logo/logo.svg" alt="" width="116" height="38"></div></div>
 </div>
 
-<header class="top"><div class="wrap"><img src="assets/img/logo/logo.svg" alt="IMI service pulizie"><nav class="menu" aria-label="Sezioni"><a href="#servizi">Servizi</a><a href="#video">Chi siamo</a><a href="#metodo">Come lavoriamo</a><a href="#zone">Zone</a><a href="#faq">Domande</a></nav><a class="cta" href="#preventivo">Sopralluogo gratuito</a></div></header>
+<header class="top"><div class="wrap"><img src="assets/img/logo/logo.svg" alt="IMI service pulizie" width="183" height="60"><nav class="menu" aria-label="Sezioni"><a href="#servizi">Servizi</a><a href="#video">Chi siamo</a><a href="#metodo">Come lavoriamo</a><a href="#zone">Zone</a><a href="#faq">Domande</a></nav><a class="cta" href="#preventivo">Sopralluogo gratuito</a></div></header>
 
+<main id="contenuto">
 <section class="hero">
   <div class="wrap">
     <p class="city"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg>Sesto San Giovanni · Milano · Monza</p>
@@ -475,7 +478,7 @@ section { scroll-margin-top: 72px; }
     <p class="kicker">Preventivo</p>
     <h2>Rispondi a 3 domande: <span class="hl">il preventivo te lo prepariamo noi.</span></h2>
     <div class="chat">
-      <div class="head"><img src="assets/img/logo/simbolo.svg" alt=""><div><b>IMI Service</b><span>● ti rispondiamo noi, di persona</span></div></div>
+      <div class="head"><img src="assets/img/logo/simbolo.svg" alt="" width="46" height="46"><div><b>IMI Service</b><span>● ti rispondiamo noi, di persona</span></div></div>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="foot" id="foot" hidden>
         <a class="btn btn-w" id="waLink" href="#preventivo">Continua su WhatsApp</a>
@@ -507,16 +510,18 @@ section { scroll-margin-top: 72px; }
   </div>
 </section>
 
+</main>
+
 <footer class="foot-site">
   <div class="wrap">
-    <img src="assets/img/logo/logo-negativo.svg" alt="IMI service pulizie">
+    <img src="assets/img/logo/logo-negativo.svg" alt="IMI service pulizie" width="150" height="49" loading="lazy">
     <div class="row">
       <a data-cfg="tel" href="#">Telefono</a>
       <a data-cfg="wa" href="#">WhatsApp</a>
       <a data-cfg="mail" href="#">Email</a>
     </div>
     <small>IMI Service · Via Bergomi 25, 20099 Sesto San Giovanni (MI) · <span data-cfg="piva">P. IVA</span></small>
-    <nav class="legal" aria-label="Informazioni legali"><a href="note-legali.html">Note legali</a><a href="privacy.html">Privacy</a><a href="cookie.html">Cookie</a><a href="cookie.html" data-cookie-pref>Preferenze cookie</a></nav>
+    <nav class="legal" aria-label="Informazioni legali"><a href="/note-legali">Note legali</a><a href="/privacy">Privacy</a><a href="/cookie">Cookie</a><a href="/cookie" data-cookie-pref>Preferenze cookie</a></nav>
   </div>
 </footer>
 
