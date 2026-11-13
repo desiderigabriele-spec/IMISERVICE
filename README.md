@@ -70,4 +70,5 @@ Poi apri http://localhost:8000 (serve un server: aprendo il file direttamente i 
 
 - `note-legali.html`, `privacy.html`, `cookie.html` (stile comune in `assets/css/legale.css`), linkate dal piè di pagina.
 - Nelle pagine compare solo il nome **IMI Service** (non la denominazione completa della ditta individuale), con sede e P. IVA.
+- Banner cookie in `assets/js/consenso.js` (Accetta / Rifiuta / Personalizza, scelta salvata 6 mesi, link "Preferenze cookie" nel piè di pagina). Gli script di statistiche o pubblicità vanno scritti con `type="text/plain" data-consenso="statistiche"` (o `"marketing"`): partono solo dopo il consenso.
 - Il sito non usa cookie né servizi esterni: anche il carattere Manrope è ospitato in `assets/fonts/` (licenza OFL). **Se si aggiungono Google Analytics, Google Ads, Meta Pixel, mappe o video YouTube incorporati, serve un banner cookie e vanno aggiornate privacy e cookie policy.**
