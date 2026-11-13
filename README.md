@@ -23,7 +23,7 @@ Il modello si può riusare per altre immagini (social, preventivi, biglietti da 
 
 ## Logo
 
-Logo "IMI. SERVICE PULIZIE": il simbolo col tergivetro, "IMI" in Archivo Black con il punto giallo che sporge a destra (non conta nella centratura) e "SERVICE PULIZIE" spaziato, largo esattamente quanto "IMI". Le lettere sono tracciati vettoriali: non serve nessun font.
+Logo "imi. SERVICE PULIZIE": il simbolo col tergivetro, "imi" minuscolo in Archivo Black con il punto giallo che sporge a destra (non conta nella centratura) e "SERVICE PULIZIE" spaziato, largo esattamente quanto "imi"; il blocco della scritta è centrato in verticale sul quadrato del simbolo. Le lettere sono tracciati vettoriali: non serve nessun font.
 
 | File | Dove si usa |
 |---|---|
