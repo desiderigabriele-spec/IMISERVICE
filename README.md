@@ -23,18 +23,19 @@ Il modello si può riusare per altre immagini (social, preventivi, biglietti da 
 
 ## Logo
 
-I file del logo sono in `assets/img/logo/` (kit originale e istruzioni in `docs/brand/`):
+Logo "IMI. SERVICE PULIZIE": il simbolo col tergivetro, "IMI" in Archivo Black con il punto giallo che sporge a destra (non conta nella centratura) e "SERVICE PULIZIE" spaziato, largo esattamente quanto "IMI". Le lettere sono tracciati vettoriali: non serve nessun font.
 
 | File | Dove si usa |
 |---|---|
-| `logo.svg` | header (fondo crema) |
-| `logo-negativo.svg` | footer e fondi scuri: stessa forma, scritta crema e bordo sottile del riquadro |
-| `logo-animato.svg` | apertura del sito (una sola animazione, rispetta la riduzione del movimento) |
-| `simbolo.svg` | favicon, filigrana nell'hero, etichetta dello spruzzino 3D |
-| `logo-crema.svg`, `logo-monocromatico.svg` | stampa e materiali esterni |
+| `assets/img/logo/logo.svg` | intestazione, privacy, etichetta del tergivetro nell'apertura |
+| `assets/img/logo/logo-negativo.svg` | footer e fondi scuri (scritta crema, bordo sottile del riquadro) |
+| `assets/img/logo/scritta.svg`, `scritta-negativo.svg` | solo la scritta, per impaginazioni verticali (simbolo sopra, scritta sotto) |
+| `assets/img/logo/simbolo.svg` | favicon e icone |
+| `docs/brand/social/` | foto profilo (2160×2160) e copertina (1920×1080) per WhatsApp e social |
+| `docs/brand/vecchio-logo/` | il logo precedente "IMI Service", conservato |
 
-In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.png` e `og-image.png` (anteprima 1200×630 dei link condivisi su WhatsApp e social).
-Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image` nelle due pagine.
+In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.png` e `og-image.png` (anteprima 1200×630 dei link condivisi su WhatsApp e social, con il nuovo logo).
+Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image`.
 
 ## Da completare
 
