@@ -960,13 +960,14 @@ section { scroll-margin-top: 72px; }
     uffici: 'assets/img/servizi/uffici-prima.webp'
   };
   // le foto "dopo" servono subito (prima schermata); le "prima" si scaricano solo quando ci si avvicina ai servizi
-  let redrawT = 0; const redraw = () => { clearTimeout(redrawT); redrawT = setTimeout(() => sizeAll(), 120); };
+  // quando arriva una foto si ridisegna solo quel servizio (nell'hero e nella sua scheda), non tutta la pagina
+  const refresh = s => { const i = SERVICES.indexOf(s); heroLayer(i, true); if (svcs[i]) svcPrep(svcs[i], true); };
   // ordine: 1) la prima foto (uffici) e l'apertura, 2) le altre foto della prima schermata, 3) le foto "prima"
   const img = (src, done) => { const i = new Image(); i.decoding = 'async'; i.onload = i.onerror = done; i.src = src; return i; };
   let restOn = false, primaOn = false, left = SERVICES.length - 1;
-  SERVICES[0].im = img(IMGS[SERVICES[0].k], redraw);
-  function loadRest() { if (restOn) return; restOn = true; for (const s of SERVICES.slice(1)) s.im = img(IMGS[s.k], () => { redraw(); if (--left === 0) loadPrima(); }); }
-  function loadPrima() { if (primaOn) return; primaOn = true; loadRest(); for (const s of SERVICES) if (PRIMA[s.k]) s.bim = img(PRIMA[s.k], redraw); }
+  SERVICES[0].im = img(IMGS[SERVICES[0].k], () => refresh(SERVICES[0]));
+  function loadRest() { if (restOn) return; restOn = true; for (const s of SERVICES.slice(1)) s.im = img(IMGS[s.k], () => { refresh(s); if (--left === 0) loadPrima(); }); }
+  function loadPrima() { if (primaOn) return; primaOn = true; loadRest(); for (const s of SERVICES) if (PRIMA[s.k]) s.bim = img(PRIMA[s.k], () => refresh(s)); }
   // disegna l'immagine "pulita" di un servizio
   function drawClean(g, w, h, svc) {
     const im = svc.im; if (im && im.complete && im.naturalWidth) {
@@ -991,7 +992,7 @@ section { scroll-margin-top: 72px; }
   else {
     document.body.classList.add('locked');
     const vc = document.getElementById('veilCanvas'), blade = document.getElementById('veilBlade');
-    const W = innerWidth, H = innerHeight, DPR = Math.min(devicePixelRatio || 1, 2, Math.sqrt(1.6e6 / (W * H)));
+    const W = innerWidth, H = innerHeight, DPR = Math.min(devicePixelRatio || 1, 2, Math.max(1, Math.sqrt(6e5 / (W * H))));
     vc.width = Math.round(W * DPR); vc.height = Math.round(H * DPR); const g = vc.getContext('2d');
     const layer = document.createElement('canvas'); layer.width = vc.width; layer.height = vc.height; const lg = layer.getContext('2d', { willReadFrequently: true });
     let done = false;
@@ -1081,17 +1082,29 @@ section { scroll-margin-top: 72px; }
   SERVICES.forEach((s, i) => { const d = document.createElement('button'); d.type = 'button'; d.textContent = s.name; d.setAttribute('aria-pressed', !i); if (!i) d.className = 'on'; d.addEventListener('click', () => pick(i)); dots.appendChild(d); });
   let hi = 0, layers = [], heroOn = false, anim = 0, timer = 0;
   const AUTO = 2600, PAUSA = 7000;   // cambio automatico ogni 2,6 s; dopo una scelta a mano riparte da solo dopo 7 s
+  let heroDpr = 1, heroR = null;
   function sizeHero() {
     anim++;
-    const dpr = Math.min(devicePixelRatio || 1, 2), r = stage.getBoundingClientRect(); sc.width = r.width * dpr; sc.height = r.height * dpr;
-    layers = SERVICES.map(s => { const c = document.createElement('canvas'); c.width = sc.width; c.height = sc.height; const g = c.getContext('2d'); g.scale(dpr, dpr); drawClean(g, r.width, r.height, s); return c; });
-    sc.getContext('2d').drawImage(layers[hi], 0, 0);
+    heroDpr = Math.min(devicePixelRatio || 1, 2); heroR = stage.getBoundingClientRect(); sc.width = Math.round(heroR.width * heroDpr); sc.height = Math.round(heroR.height * heroDpr);
+    layers = SERVICES.map(() => null);
+    sc.getContext('2d').drawImage(heroLayer(hi), 0, 0);
+  }
+  // un livello per servizio, preparato solo quando serve (o rifatto quando arriva la sua foto)
+  function heroLayer(i, again) {
+    if (!heroR) return null;
+    let c = layers[i];
+    if (c && !again) return c;
+    if (!c && again) return null;
+    if (!c) c = layers[i] = document.createElement('canvas');
+    c.width = sc.width; c.height = sc.height; const g = c.getContext('2d'); g.setTransform(heroDpr, 0, 0, heroDpr, 0, 0); drawClean(g, heroR.width, heroR.height, SERVICES[i]);
+    if (again && i === hi) sc.getContext('2d').drawImage(c, 0, 0);
+    return c;
   }
   function show(i) { nowEl.innerHTML = `<b>${SERVICES[i].name}</b>`; [...dots.children].forEach((d, j) => { d.classList.toggle('on', j === i); d.setAttribute('aria-pressed', j === i); }); }
   // una sola passata alla volta: se ne parte un'altra, quella in corso si ferma; a fine passata resta solo l'immagine nuova
   function go(ni, ms) {
     if (!layers.length || ni === hi) return;
-    const from = layers[hi], to = layers[ni], g = sc.getContext('2d'), W = sc.width, H = sc.height, id = ++anim, t0 = performance.now();
+    const from = heroLayer(hi), to = heroLayer(ni), g = sc.getContext('2d'), W = sc.width, H = sc.height, id = ++anim, t0 = performance.now();
     hi = ni; show(hi);
     if (reduce || document.hidden) { g.drawImage(to, 0, 0); return; }
     (function step(t) {
@@ -1169,12 +1182,23 @@ section { scroll-margin-top: 72px; }
     const box = el.querySelector('.photo');
     return { s, el, box, c: box.querySelector('canvas'), clean: document.createElement('canvas'), dirt: document.createElement('canvas'), v: el.querySelector('.v'), fill: el.querySelector('.fill'), tag: el.querySelector('.tag'), p: -1, seed: 11 + i * 7 };
   });
+  let svcDpr = 1;
   function sizeSvcs() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    for (const x of svcs) { const r = x.box.getBoundingClientRect(); for (const cv of [x.c, x.clean, x.dirt]) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); }
-      const gc = x.clean.getContext('2d'); gc.scale(dpr, dpr); drawClean(gc, r.width, r.height, x.s); const gd = x.dirt.getContext('2d'); gd.scale(dpr, dpr); const b = x.s.bim; if (b && b.complete && b.naturalWidth) { const k = Math.max(r.width / b.naturalWidth, r.height / b.naturalHeight), bw = b.naturalWidth * k, bh = b.naturalHeight * k; gd.drawImage(b, (r.width - bw) / 2, (r.height - bh) / 2, bw, bh); } else paintDirt(gd, r.width, r.height, .72, x.seed); x.p = -1; }
+    svcDpr = Math.min(devicePixelRatio || 1, 1.5);
+    for (const x of svcs) { x.ready = false; if (x.near) svcPrep(x); }
     render();
   }
+  function svcPrep(x, again) {
+    if (again && !x.ready) return;
+    const dpr = svcDpr, r = x.box.getBoundingClientRect(); for (const cv of [x.c, x.clean, x.dirt]) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); }
+      const gc = x.clean.getContext('2d'); gc.scale(dpr, dpr); drawClean(gc, r.width, r.height, x.s); const gd = x.dirt.getContext('2d'); gd.scale(dpr, dpr); const b = x.s.bim; if (b && b.complete && b.naturalWidth) { const k = Math.max(r.width / b.naturalWidth, r.height / b.naturalHeight), bw = b.naturalWidth * k, bh = b.naturalHeight * k; gd.drawImage(b, (r.width - bw) / 2, (r.height - bh) / 2, bw, bh); } else paintDirt(gd, r.width, r.height, .72, x.seed); x.p = -1; x.ready = true;
+    if (again) draw(x, reduce ? 1 : scrollP(x.box.getBoundingClientRect()));
+  }
+  // si lavora solo sulle schede vicine allo schermo
+  if ('IntersectionObserver' in window) {
+    const near = new IntersectionObserver(es => es.forEach(e => { const x = svcs.find(v => v.box === e.target); x.near = e.isIntersecting; if (x.near && !x.ready) { svcPrep(x); draw(x, reduce ? 1 : scrollP(x.box.getBoundingClientRect())); } }), { rootMargin: '100% 0px' });
+    svcs.forEach(x => near.observe(x.box));
+  } else svcs.forEach(x => { x.near = true; });
   // la pulizia parte quando la foto è tutta visibile (sotto l'intestazione e sopra la barra contatti)
   // e finisce prima che esca in alto, così si vede tutta la passata
   const topBar = document.querySelector('.top'), mbar = document.querySelector('.mbar');
@@ -1195,7 +1219,7 @@ section { scroll-margin-top: 72px; }
     if (done) x.seen = true;
   }
   function render() {
-    for (const x of svcs) draw(x, reduce ? 1 : scrollP(x.box.getBoundingClientRect()));
+    for (const x of svcs) if (x.near && x.ready) draw(x, reduce ? 1 : scrollP(x.box.getBoundingClientRect()));
   }
   let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }, { passive: true });
   function sizeAll() { sizeHero(); sizeSvcs(); }
