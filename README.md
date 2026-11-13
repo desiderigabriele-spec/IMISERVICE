@@ -38,7 +38,7 @@ Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image` n
 
 ## Da completare
 
-Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js` (`phoneDisplay`, `phone`, `whatsapp`, `email`, `piva`).
+Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`. Telefono e WhatsApp sono il numero riservato al sito, 344 770 1121 (non va usato su altri canali, serve a riconoscere i clienti arrivati dal sito); manca ancora l'email.
 
 Poi:
 1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` (serve a Google).

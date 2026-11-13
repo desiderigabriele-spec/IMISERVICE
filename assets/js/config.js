@@ -7,11 +7,11 @@
  */
 window.IMI_CONFIG = {
   // Numero mostrato a video
-  phoneDisplay: '+39 000 000 0000',
+  phoneDisplay: '+39 344 770 1121',
   // Numero per i link "tel:" (formato internazionale, senza spazi)
-  phone: '+390000000000',
+  phone: '+393447701121',
   // Numero WhatsApp (solo cifre, con prefisso 39, senza + e senza spazi)
-  whatsapp: '390000000000',
+  whatsapp: '393447701121',
   email: 'info@imiservice.it',
   piva: '06179360968'
 };
