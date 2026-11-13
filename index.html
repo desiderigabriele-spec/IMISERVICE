@@ -55,7 +55,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/servizi/uffici.jpg">
+  <link rel="preload" as="image" href="assets/img/servizi/uffici.webp" fetchpriority="high">
   <link rel="preload" as="image" href="assets/img/intro/telefono-360.jpg" media="(max-aspect-ratio: 9/10) and (max-width: 367px)">
   <link rel="preload" as="image" href="assets/img/intro/telefono-375.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 368px) and (max-width: 382px)">
   <link rel="preload" as="image" href="assets/img/intro/telefono-390.jpg" media="(max-aspect-ratio: 9/10) and (min-width: 383px) and (max-width: 400px)">
@@ -218,7 +218,8 @@ section { scroll-margin-top: 72px; }
 .road button.home { background: var(--yellow); font-size: 14px; }
 .road button { z-index: 1; }
 /* furgone 3D: 16 direzioni in un'unica immagine, si mostra quella giusta per la curva */
-.road .van { position: absolute; z-index: 2; width: 24%; aspect-ratio: 1 / 1; transform: translate(-50%, -56%); background: url(assets/img/furgone.webp) 0 0 / 1600% 100% no-repeat; pointer-events: none; }
+.road.vis .van { background-image: url(assets/img/furgone.webp); }
+.road .van { position: absolute; z-index: 2; width: 24%; aspect-ratio: 1 / 1; transform: translate(-50%, -56%); background: 0 0 / 1600% 100% no-repeat; pointer-events: none; }
 .road button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
 .zres { background: var(--paper); border: 2px solid var(--green); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-weight: 800; }
 .zres .ok { color: var(--green); font-size: 17px; }
@@ -392,7 +393,7 @@ section { scroll-margin-top: 72px; }
     <p class="kicker">Video · 80 secondi</p>
     <h2>Conosci chi <span class="hl">verrà da te.</span></h2>
     <div class="video">
-      <video id="vid" src="assets/video/presentazione.mp4" poster="assets/video/copertina.jpg" autoplay muted loop playsinline preload="metadata"></video>
+      <video id="vid" src="assets/video/presentazione.mp4" poster="assets/video/copertina.webp" muted loop playsinline preload="none"></video>
       <button class="sound" id="sound" type="button">🔊 Attiva l'audio</button>
       <div class="vc" id="vc">
         <div class="mid">
@@ -571,31 +572,29 @@ section { scroll-margin-top: 72px; }
     { k: 'pavimenti', name: 'Pavimenti', title: 'Il tuo pavimento torna come nuovo: marmo, parquet, gres, moquette.', pts: ['Lavaggio e igienizzazione moquette', 'Lucidatura di marmo e parquet', 'Trattamenti specifici per ogni superficie'], ic: ['drop', 'shine', 'layers'], cta: 'Preventivo pavimenti' },
   ];
   const IMGS = {
-    uffici: 'assets/img/servizi/uffici.jpg',
-    condomini: 'assets/img/servizi/condomini.jpg',
-    cantiere: 'assets/img/servizi/cantiere.jpg',
-    sgomberi: 'assets/img/servizi/sgomberi.jpg',
-    vetrate: 'assets/img/servizi/vetrate.jpg',
-    pavimenti: 'assets/img/servizi/pavimenti.jpg'
+    uffici: 'assets/img/servizi/uffici.webp',
+    condomini: 'assets/img/servizi/condomini.webp',
+    cantiere: 'assets/img/servizi/cantiere.webp',
+    sgomberi: 'assets/img/servizi/sgomberi.webp',
+    vetrate: 'assets/img/servizi/vetrate.webp',
+    pavimenti: 'assets/img/servizi/pavimenti.webp'
   };
   const PRIMA = {
-    pavimenti: 'assets/img/servizi/pavimenti-prima.jpg',
-    vetrate: 'assets/img/servizi/vetrate-prima.jpg',
-    sgomberi: 'assets/img/servizi/sgomberi-prima.jpg',
-    cantiere: 'assets/img/servizi/cantiere-prima.jpg',
-    condomini: 'assets/img/servizi/condomini-prima.jpg',
-    uffici: 'assets/img/servizi/uffici-prima.jpg'
+    pavimenti: 'assets/img/servizi/pavimenti-prima.webp',
+    vetrate: 'assets/img/servizi/vetrate-prima.webp',
+    sgomberi: 'assets/img/servizi/sgomberi-prima.webp',
+    cantiere: 'assets/img/servizi/cantiere-prima.webp',
+    condomini: 'assets/img/servizi/condomini-prima.webp',
+    uffici: 'assets/img/servizi/uffici-prima.webp'
   };
-  for (const s of SERVICES) { s.im = new Image(); s.im.src = IMGS[s.k]; if (PRIMA[s.k]) { s.bim = new Image(); s.bim.src = PRIMA[s.k]; } }
-  function icon(g, k, cx, cy, s) {
-    g.save(); g.translate(cx, cy); g.scale(s, s); g.strokeStyle = '#0E1A2B'; g.lineWidth = 3.2; g.lineCap = 'round'; g.lineJoin = 'round'; g.fillStyle = '#FFD23C'; g.beginPath();
-    if (k === 'condomini') { g.moveTo(-50, 40); for (let i = 0; i < 5; i++) { g.lineTo(-50 + i * 20, 40 - i * 18); g.lineTo(-30 + i * 20, 40 - i * 18); } g.stroke(); g.beginPath(); g.moveTo(-46, 10); g.lineTo(50, -76); g.stroke(); }
-    else if (k === 'cantiere') { g.fillRect(-46, -40, 70, 34); g.strokeRect(-46, -40, 70, 34); g.moveTo(24, -23); g.lineTo(40, -23); g.lineTo(40, 6); g.lineTo(-6, 6); g.lineTo(-6, 44); g.stroke(); }
-    else if (k === 'sgomberi') { g.moveTo(-40, -10); g.lineTo(0, -32); g.lineTo(40, -10); g.lineTo(40, 34); g.lineTo(0, 54); g.lineTo(-40, 34); g.closePath(); g.stroke(); g.beginPath(); g.moveTo(-40, -10); g.lineTo(0, 12); g.lineTo(40, -10); g.moveTo(0, 12); g.lineTo(0, 54); g.stroke(); }
-    else if (k === 'vetrate') { g.strokeRect(-50, -50, 100, 100); g.beginPath(); g.moveTo(0, -50); g.lineTo(0, 50); g.moveTo(-50, 0); g.lineTo(50, 0); g.stroke(); g.save(); g.rotate(-.6); g.fillRect(-36, -8, 72, 12); g.strokeRect(-36, -8, 72, 12); g.restore(); }
-    else { for (let i = 0; i < 4; i++) { g.moveTo(-60 + i * 8, 40 - i * 22); g.lineTo(60 - i * 8, 40 - i * 22); } for (let j = -2; j <= 2; j++) { g.moveTo(j * 30, 40); g.lineTo(j * 18, -26); } g.stroke(); g.beginPath(); g.moveTo(10, -44); g.lineTo(16, -56); g.lineTo(22, -44); g.lineTo(34, -38); g.lineTo(22, -32); g.lineTo(16, -20); g.lineTo(10, -32); g.lineTo(-2, -38); g.closePath(); g.fill(); g.stroke(); }
-    g.restore();
-  }
+  // le foto "dopo" servono subito (prima schermata); le "prima" si scaricano solo quando ci si avvicina ai servizi
+  let redrawT = 0; const redraw = () => { clearTimeout(redrawT); redrawT = setTimeout(() => sizeAll(), 120); };
+  // ordine: 1) la prima foto (uffici) e l'apertura, 2) le altre foto della prima schermata, 3) le foto "prima"
+  const img = (src, done) => { const i = new Image(); i.decoding = 'async'; i.onload = i.onerror = done; i.src = src; return i; };
+  let restOn = false, primaOn = false, left = SERVICES.length - 1;
+  SERVICES[0].im = img(IMGS[SERVICES[0].k], redraw);
+  function loadRest() { if (restOn) return; restOn = true; for (const s of SERVICES.slice(1)) s.im = img(IMGS[s.k], () => { redraw(); if (--left === 0) loadPrima(); }); }
+  function loadPrima() { if (primaOn) return; primaOn = true; loadRest(); for (const s of SERVICES) if (PRIMA[s.k]) s.bim = img(PRIMA[s.k], redraw); }
   // disegna l'immagine "pulita" di un servizio
   function drawClean(g, w, h, svc) {
     const im = svc.im; if (im && im.complete && im.naturalWidth) {
@@ -603,10 +602,6 @@ section { scroll-margin-top: 72px; }
       g.drawImage(im, (w - iw) / 2, (h - ih) / 2, iw, ih); return;
     }
     const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#EFE9DC'); gr.addColorStop(1, '#DCD2BF'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(14,26,43,.06)'; g.lineWidth = 1; for (let x = 0; x < w; x += 24) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
-    icon(g, svc.k, w / 2, h / 2 - 8, Math.min(w, h) / 230);
-    g.font = '800 13px Manrope, sans-serif'; const t = 'Foto provvisoria · ' + svc.name; const tw = g.measureText(t).width;
-    g.fillStyle = 'rgba(14,26,43,.78)'; g.beginPath(); g.roundRect(w - tw - 30, h - 38, tw + 18, 26, 13); g.fill(); g.fillStyle = '#fff'; g.fillText(t, w - tw - 21, h - 20);
   }
   function paintDirt(g, w, h, alpha, seed) {
     const r = seeded(seed), rnd = (a, b) => a + r() * (b - a);
@@ -633,7 +628,7 @@ section { scroll-margin-top: 72px; }
     // immagine della prima schermata (si vede deformata dentro le gocce) e foto delle gocce su grigio neutro
     const tipo = W / H < .9 ? 'telefono' : 'computer';
     const load = src => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
-    const timeout = setTimeout(close, 3500);
+    const timeout = setTimeout(close, 1800);
     const larg = [360, 375, 390, 412, 430].reduce((a, b) => Math.abs(b - W) < Math.abs(a - W) ? b : a);
     Promise.all([load(tipo === 'telefono' ? `assets/img/intro/telefono-${larg}.jpg` : `assets/img/intro/computer-${[1024, 1152, 1280].reduce((a, b) => Math.abs(b - W) < Math.abs(a - W) ? b : a)}.jpg`), load(tipo === 'telefono' ? 'assets/img/intro/gocce.jpg' : 'assets/img/intro/gocce-pc.jpg')]).then(([sharp, tex]) => { clearTimeout(timeout); if (!done) start(sharp, tex); }, close);
 
@@ -734,9 +729,11 @@ section { scroll-margin-top: 72px; }
       if (k < 1) { blade(g, H, x); requestAnimationFrame(step); } else g.drawImage(to, 0, 0);
     })(t0);
   }
-  function schedule(ms) { clearTimeout(timer); if (heroOn && !reduce) timer = setTimeout(() => { if (!document.hidden) go((hi + 1) % SERVICES.length, 650); schedule(AUTO); }, ms); }
+  const ready = i => SERVICES[i].im && SERVICES[i].im.complete && SERVICES[i].im.naturalWidth;
+  function nextReady() { for (let d = 1; d < SERVICES.length; d++) { const i = (hi + d) % SERVICES.length; if (ready(i)) return i; } return hi; }
+  function schedule(ms) { clearTimeout(timer); if (heroOn && !reduce) timer = setTimeout(() => { if (!document.hidden) go(nextReady(), 650); schedule(AUTO); }, ms); }
   function pick(i) { go(i, 450); schedule(PAUSA); }
-  function startHero() { if (heroOn || reduce) return; heroOn = true; schedule(AUTO); }
+  function startHero() { if (heroOn || reduce) return; heroOn = true; loadRest(); schedule(AUTO); }
   // scheda in secondo piano: niente cambi; quando torna visibile si ridisegna l'immagine giusta e si riparte
   document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(timer); anim++; } else if (layers.length) { sc.getContext('2d').drawImage(layers[hi], 0, 0); schedule(AUTO); } });
   if (!document.getElementById('veil')) startHero();
@@ -777,6 +774,14 @@ section { scroll-margin-top: 72px; }
   vid.addEventListener('loadedmetadata', () => { vDur.textContent = fmt(vid.duration); syncTime(); });
   vid.addEventListener('volumechange', syncMute);
   syncPlay(); syncMute(); if (vid.readyState >= 1) vDur.textContent = fmt(vid.duration);
+  // il video (16 MB) non si scarica all'apertura: parte muto quando arriva sullo schermo, si ferma quando esce
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { if (vid.preload !== 'auto') vid.preload = 'auto'; if (vid.paused && !vid.dataset.stop) vid.play().catch(() => {}); }
+      else if (!vid.paused && vid.muted) vid.pause();
+    }), { threshold: .25 }).observe(box);
+  } else { vid.preload = 'auto'; vid.play().catch(() => {}); }
+  vPlay.addEventListener('click', () => { if (vid.paused) vid.dataset.stop = '1'; else delete vid.dataset.stop; });
 
   /* ---------- 3. Servizi che si puliscono scorrendo ---------- */
   const host = document.getElementById('services');
@@ -821,7 +826,13 @@ section { scroll-margin-top: 72px; }
   let raf = 0; addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }, { passive: true });
   function sizeAll() { sizeHero(); sizeSvcs(); }
   addEventListener('resize', () => { clearTimeout(sizeAll.t); sizeAll.t = setTimeout(sizeAll, 150); });
-  Promise.all(SERVICES.flatMap(x => [x.im, x.bim]).filter(Boolean).map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => document.fonts.ready).then(sizeAll);
+  document.fonts.ready.then(sizeAll);
+  // le foto "prima" e il furgone si scaricano quando ci si avvicina (o comunque dopo il caricamento della pagina)
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { loadPrima(); o.disconnect(); } }), { rootMargin: '500px 0px' }).observe(document.getElementById('services'));
+    new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); o.disconnect(); } }), { rootMargin: '600px 0px' }).observe(document.getElementById('road'));
+  } else { loadPrima(); document.getElementById('road').classList.add('vis'); }
+  addEventListener('load', () => setTimeout(loadRest, 300));
   sizeAll();
 
   /* ---------- 3b. Come lavoriamo: pallini delle schede ---------- */
