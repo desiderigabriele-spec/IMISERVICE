@@ -23,35 +23,353 @@
   <meta property="og:url" content="https://imiservicepulizie.it/">
 
   <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
   {
-    "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    "name": "IMI Service",
-    "description": "Impresa di pulizie, sanificazioni e manutenzioni per aziende, condomini e privati a Milano, Monza e Sesto San Giovanni.",
-    "url": "https://imiservicepulizie.it/",
-    "telephone": "+39 344 770 1121",
-    "email": "info@imiservicepulizie.it",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Sesto San Giovanni",
-      "addressRegion": "MI",
-      "postalCode": "20099",
-      "addressCountry": "IT"
+   "@type": "WebSite",
+   "@id": "https://imiservicepulizie.it/#sito",
+   "url": "https://imiservicepulizie.it/",
+   "name": "IMI Service",
+   "alternateName": "IMI Service Pulizie",
+   "inLanguage": "it-IT",
+   "publisher": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://imiservicepulizie.it/#pagina",
+   "url": "https://imiservicepulizie.it/",
+   "name": "Impresa di pulizie a Sesto San Giovanni | IMI Service",
+   "description": "Impresa di pulizie a Sesto San Giovanni dal 2008: uffici, condomini, fine cantiere, sgomberi e vetrate a Milano e Monza. Anche di notte. Sopralluogo gratuito.",
+   "inLanguage": "it-IT",
+   "isPartOf": {
+    "@id": "https://imiservicepulizie.it/#sito"
+   },
+   "about": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "primaryImageOfPage": {
+    "@id": "https://imiservicepulizie.it/#immagine"
+   }
+  },
+  {
+   "@type": "ImageObject",
+   "@id": "https://imiservicepulizie.it/#immagine",
+   "url": "https://imiservicepulizie.it/assets/img/og-image.png",
+   "width": 1200,
+   "height": 630
+  },
+  {
+   "@type": "HomeAndConstructionBusiness",
+   "@id": "https://imiservicepulizie.it/#impresa",
+   "name": "IMI Service",
+   "alternateName": "IMI Service Pulizie",
+   "description": "Impresa di pulizie di Sesto San Giovanni, attiva dal 2008: pulizie di uffici e condomini, fine cantiere, sgomberi, vetrate e trattamento pavimenti a Milano, Monza e prima cintura, anche di sera e di notte.",
+   "url": "https://imiservicepulizie.it/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://imiservicepulizie.it/assets/img/icon-192.png",
+    "width": 192,
+    "height": 192
+   },
+   "image": {
+    "@id": "https://imiservicepulizie.it/#immagine"
+   },
+   "telephone": "+39 344 770 1121",
+   "email": "info@imiservicepulizie.it",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Bergomi 25",
+    "addressLocality": "Sesto San Giovanni",
+    "addressRegion": "MI",
+    "postalCode": "20099",
+    "addressCountry": "IT"
+   },
+   "foundingDate": "2008",
+   "vatID": "IT06179360968",
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
     },
-    "foundingDate": "2008",
-    "vatID": "IT06179360968",
-    "areaServed": ["Sesto San Giovanni", "Milano", "Monza", "Città metropolitana di Milano", "Provincia di Monza e della Brianza"],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Servizi di pulizia",
-      "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pulizia e sanificazione uffici"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pulizie condominiali"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pulizie post-ristrutturazione e sgomberi"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Vetrate in altezza, moquette e trattamento pavimenti"}}
-      ]
+    {
+     "@type": "City",
+     "name": "Monza"
+    },
+    {
+     "@type": "City",
+     "name": "Brugherio"
+    },
+    {
+     "@type": "City",
+     "name": "Cologno Monzese"
+    },
+    {
+     "@type": "City",
+     "name": "Cinisello Balsamo"
+    },
+    {
+     "@type": "City",
+     "name": "Bresso"
+    },
+    {
+     "@type": "City",
+     "name": "Segrate"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
     }
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servizi di pulizia",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-uffici"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-condomini"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-cantiere"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-sgomberi"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-vetrate"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-pavimenti"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-uffici",
+   "name": "Pulizie uffici",
+   "serviceType": "Pulizie uffici",
+   "description": "Il tuo ufficio pulito prima che arrivi tu. Igienizzazione di postazioni, tastiere e maniglie; Cestini e raccolta differenziata; Di sera, di notte o nel weekend.",
+   "url": "https://imiservicepulizie.it/#svc-uffici",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-condomini",
+   "name": "Pulizie condominiali",
+   "serviceType": "Pulizie condominiali",
+   "description": "Scale e androni puliti, senza lamentele dei condòmini. Calendario fisso con l'amministratore; Rotazione ed esposizione dei sacchi; Ascensori, corrimano e vetri del portone.",
+   "url": "https://imiservicepulizie.it/#svc-condomini",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-cantiere",
+   "name": "Pulizia fine cantiere e post ristrutturazione",
+   "serviceType": "Pulizia fine cantiere e post ristrutturazione",
+   "description": "Hai finito i lavori? Te la consegniamo pronta da abitare. Polvere fine, calce, stucco e vernice; Infissi, sanitari e pavimenti; Consegna chiavi in mano.",
+   "url": "https://imiservicepulizie.it/#svc-cantiere",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-sgomberi",
+   "name": "Sgomberi di case, cantine e uffici",
+   "serviceType": "Sgomberi di case, cantine e uffici",
+   "description": "Devi liberare casa? Svuotiamo, puliamo e te la ridiamo vuota. Locali svuotati e puliti a fondo; Smaltimento a norma; Pronto per il nuovo inquilino.",
+   "url": "https://imiservicepulizie.it/#svc-sgomberi",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-vetrate",
+   "name": "Pulizia vetrate e vetri in altezza",
+   "serviceType": "Pulizia vetrate e vetri in altezza",
+   "description": "Vetri e vetrine che si vedono puliti, anche in altezza. Vetrate di uffici e negozi; Superfici alte con attrezzatura dedicata; Senza aloni.",
+   "url": "https://imiservicepulizie.it/#svc-vetrate",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-pavimenti",
+   "name": "Trattamento pavimenti e lavaggio moquette",
+   "serviceType": "Trattamento pavimenti e lavaggio moquette",
+   "description": "Il tuo pavimento torna come nuovo: marmo, parquet, gres, moquette. Lavaggio e igienizzazione moquette; Lucidatura di marmo e parquet; Trattamenti specifici per ogni superficie.",
+   "url": "https://imiservicepulizie.it/#svc-pavimenti",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://imiservicepulizie.it/#domande",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Il sopralluogo è davvero gratuito?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sì, gratuito e senza impegno. Ci serve per farti un preventivo preciso, senza stime al buio."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Lavorate di sera, di notte e nel weekend?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sì. Organizziamo i turni in base ai vostri orari, fino alla copertura H24."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Portate voi attrezzature e prodotti?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sempre: macchinari industriali e prodotti professionali certificati, scelti per ogni superficie."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Venite anche fuori Milano e Monza?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sì. Copriamo la prima cintura e, su richiesta, organizziamo trasferte fuori zona."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "VideoObject",
+   "@id": "https://imiservicepulizie.it/#video",
+   "name": "IMI Service: conosci chi verrà da te",
+   "description": "Presentazione di IMI Service, impresa di pulizie di Sesto San Giovanni attiva dal 2008: chi siamo e come lavoriamo.",
+   "thumbnailUrl": "https://imiservicepulizie.it/assets/video/copertina.webp",
+   "uploadDate": "2026-11-10T12:00:00+01:00",
+   "duration": "PT1M21S",
+   "contentUrl": "https://imiservicepulizie.it/assets/video/presentazione.mp4",
+   "inLanguage": "it-IT",
+   "publisher": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   }
   }
+ ]
+}
   </script>
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/servizi/uffici.webp" fetchpriority="high">
