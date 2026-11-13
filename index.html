@@ -66,7 +66,7 @@
    "@id": "https://imiservicepulizie.it/#impresa",
    "name": "IMI Service",
    "alternateName": "IMI Service Pulizie",
-   "description": "Impresa di pulizie di Sesto San Giovanni, attiva dal 2008: pulizie di uffici e condomini, fine cantiere, sgomberi, vetrate e trattamento pavimenti a Milano, Monza e prima cintura, anche di sera e di notte.",
+   "description": "Impresa di pulizie di Sesto San Giovanni, attiva dal 2008: pulizie di uffici e condomini, fine cantiere, sgomberi, vetrate, trattamento pavimenti e sanificazioni a Milano, Monza e prima cintura, anche di sera e di notte, H24.",
    "url": "https://imiservicepulizie.it/",
    "logo": {
     "@type": "ImageObject",
@@ -162,9 +162,31 @@
       "itemOffered": {
        "@id": "https://imiservicepulizie.it/#servizio-pavimenti"
       }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://imiservicepulizie.it/#servizio-sanificazione"
+      }
      }
     ]
-   }
+   },
+   "openingHoursSpecification": [
+    {
+     "@type": "OpeningHoursSpecification",
+     "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+     ],
+     "opens": "00:00",
+     "closes": "23:59"
+    }
+   ]
   },
   {
    "@type": "Service",
@@ -317,6 +339,31 @@
    ]
   },
   {
+   "@type": "Service",
+   "@id": "https://imiservicepulizie.it/#servizio-sanificazione",
+   "name": "Sanificazione ambienti",
+   "serviceType": "Sanificazione ambienti",
+   "description": "Sanifichiamo uffici, condomini, negozi e abitazioni con prodotti professionali specifici, anche dopo un caso di malattia o prima di riaprire i locali. Ti diciamo prima tempi, prodotti e come preparare gli ambienti.",
+   "url": "https://imiservicepulizie.it/#faq",
+   "provider": {
+    "@id": "https://imiservicepulizie.it/#impresa"
+   },
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Sesto San Giovanni"
+    },
+    {
+     "@type": "City",
+     "name": "Milano"
+    },
+    {
+     "@type": "City",
+     "name": "Monza"
+    }
+   ]
+  },
+  {
    "@type": "FAQPage",
    "@id": "https://imiservicepulizie.it/#domande",
    "mainEntity": [
@@ -334,6 +381,14 @@
      "acceptedAnswer": {
       "@type": "Answer",
       "text": "Sì. Organizziamo i turni in base ai vostri orari, fino alla copertura H24."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Fate anche sanificazioni?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sì. Sanifichiamo uffici, condomini, negozi e abitazioni con prodotti professionali specifici, anche dopo un caso di malattia o prima di riaprire i locali. Ti diciamo prima tempi, prodotti e come preparare gli ambienti."
      }
     },
     {
@@ -855,6 +910,7 @@ section { scroll-margin-top: 72px; }
     <div class="faq">
       <details><summary>Il sopralluogo è davvero gratuito?</summary><p>Sì, gratuito e senza impegno. Ci serve per farti un preventivo preciso, senza stime al buio.</p></details>
       <details><summary>Lavorate di sera, di notte e nel weekend?</summary><p>Sì. Organizziamo i turni in base ai vostri orari, fino alla copertura H24.</p></details>
+      <details><summary>Fate anche sanificazioni?</summary><p>Sì. Sanifichiamo uffici, condomini, negozi e abitazioni con prodotti professionali specifici, anche dopo un caso di malattia o prima di riaprire i locali. Ti diciamo prima tempi, prodotti e come preparare gli ambienti.</p></details>
       <details><summary>Portate voi attrezzature e prodotti?</summary><p>Sempre: macchinari industriali e prodotti professionali certificati, scelti per ogni superficie.</p></details>
       <details><summary>Venite anche fuori Milano e Monza?</summary><p>Sì. Copriamo la prima cintura e, su richiesta, organizziamo trasferte fuori zona.</p></details>
     </div>

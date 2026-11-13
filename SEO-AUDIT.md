@@ -1,6 +1,6 @@
 # SEO-AUDIT — imiservicepulizie.it
 
-Data: 13 novembre 2026 · Stato: **Fase 1 (audit) e Fase 2 (piano) completate, in attesa di approvazione**
+Data: 13 novembre 2026 · Stato: **Fasi 1–4 completate per tutto ciò che non dipende da informazioni mancanti** (pagine servizio, FAQ nuove, orari e scheda Google in attesa)
 
 ## Contesto
 
@@ -191,15 +191,60 @@ Caricarlo *anche* su YouTube conviene comunque: compare nella ricerca video e su
 
 ---
 
-## FASE 3 — Implementazione
-_In attesa di approvazione._
+## FASE 3 — Implementazione (fatto)
 
-## FASE 4 — Verifica
-_In attesa._
+Piano approvato il 13/11/2026. Commit separati per area (PR #38 e #39, unite):
+
+| Area | Fatto |
+|---|---|
+| Tecnico | `vercel.json`: redirect 308 di `www.imiservicepulizie.com` (home e pagine interne) → `.it`, `cleanUrls` (`/privacy`, `/cookie`, `/note-legali`; i vecchi `.html` fanno 308), `trailingSlash: false`, `/index` → `/`. `404.html` in italiano con link ai servizi e `noindex`. `.vercelignore` per `docs/`, `README.md`, `SEO-AUDIT.md`. Sitemap con URL canoniche e `lastmod`. `<main>` in home, width/height sui loghi, area di tocco 24×24 sui pallini del carosello |
+| Rendering | Le 6 schede servizi, "Per chi lavoriamo" (tutte e 3 le risposte, quelle chiuse con `hidden`) e i comuni sono nell'HTML; il JS aggiunge solo canvas e animazioni. Aspetto invariato |
+| Meta | Title, description, H1, H2 e Open Graph come da piano (Gruppo 3). Immagini della prima schermata per l'apertura rifatte |
+| Schema | `@graph` in home: WebSite, WebPage, ImageObject, HomeAndConstructionBusiness (via, logo, comuni serviti come in pagina, P.IVA, anno), 6 Service, FAQPage (le 4 FAQ visibili), VideoObject. Pagine legali: WebPage + BreadcrumbList. Tolto "sanificazione" dai nomi dei servizi perché non compare nei testi visibili |
+| Performance | Ridisegno solo del servizio la cui foto è arrivata; canvas delle schede preparati solo vicino allo schermo (max 1,5×); livelli dell'hero creati quando servono; gocce iniziali calcolate a risoluzione ridotta. Profilo CPU: `draw` ~1.000 ms → ~0, apertura ~770 → ~420 ms |
+| Accessibilità | Verde `#168F48` → `#12793D` (5,5:1 su bianco). Pulsanti dei servizi "non ancora puliti" da opacità .4 a .65 (contrasto 2,6 → 5,6:1) |
+
+## FASE 4 — Verifica (fatto, sul sito in produzione)
+
+**HTML grezzo** (`curl` con user agent Googlebot, senza JavaScript):
+
+| URL | Title | Description | Canonical | H1 | Parole | JSON-LD |
+|---|---|---|---|---|---|---|
+| / | 53 car. | 158 car. | https://imiservicepulizie.it/ | 1 | 675 (prima 299) | WebSite, WebPage, ImageObject, HomeAndConstructionBusiness, 6× Service, FAQPage, VideoObject |
+| /note-legali | 25 | 142 | …/note-legali | 1 | 582 | WebPage, BreadcrumbList |
+| /privacy | 21 | 139 | …/privacy | 1 | 1084 | WebPage, BreadcrumbList |
+| /cookie | 27 | 122 | …/cookie | 1 | 601 | WebPage, BreadcrumbList |
+
+**Redirect e risposte:** `www.imiservicepulizie.it`, `imiservicepulizie.com`, `www.imiservicepulizie.com` (anche `/cookie`) → 308 verso `https://imiservicepulizie.it/…`; `/privacy.html` → 308 `/privacy`; `/index.html` → 308 `/`; pagina inesistente → 404 con pagina in italiano e `noindex`; `README.md`, `SEO-AUDIT.md`, `docs/…` → 404; sitemap e robots → 200.
+**JSON-LD:** sintassi valida su tutte le pagine, campi principali presenti, `@id` coerenti. **Link interni:** nessuno rotto. **Errori JS:** nessuno (telefono e computer).
+
+**Lighthouse mobile, produzione (home):**
+
+| | Performance | Accessibility | Best Practices | SEO | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|
+| Prima | 77 | 92 | 100 | 100 | 1,8 s | 1.030 ms | 0 |
+| Dopo (2 misure) | **90–91** | **100** | 100 | 100 | 1,7–2,3 s | **340–370 ms** | 0 |
+| Privacy (dopo) | 100 | 100 | 100 | 100 | 1,1 s | 20 ms | 0 |
+
+Il TBT residuo (~350 ms) è l'apertura con le gocce: per scendere sotto 200 ms bisognerebbe spostare il calcolo in un worker o mostrarla solo alla prima visita (cambia l'esperienza: da decidere).
+
+## Aggiornamento 13/11 sera
+
+- Decisioni: **344 770 1121 anche sulla scheda Google** (accordo del 20% aggiornato: contano anche i contatti da Maps), **aperti H24**, **sanificazioni sì**.
+- Aggiunti: FAQ "Fate anche sanificazioni?" (visibile e in FAQPage), Service "Sanificazione ambienti", `openingHoursSpecification` H24 tutti i giorni.
+
+## Cosa resta
+
+| Cosa | Serve da te |
+|---|---|
+| 6 pagine servizio (Gruppo 7) | Cosa include ogni servizio, frequenze e tempi tipici, tipo di clienti, eventuali prezzi indicativi |
+| FAQ da 4 a 8–10 (Gruppo 9) | Risposte vere su costi indicativi, tempi, fattura, assicurazione RC |
+| `sameAs`, `geo` | Link della scheda Google verificata (e social) |
+| Apertura più leggera | Decidere se mostrarla solo alla prima visita |
 
 ## Checklist manuale (da fare tu)
 - [x] Google Search Console: proprietà di dominio verificata (13/11/2026)
-- [ ] Search Console → Sitemap → invia `https://imiservicepulizie.it/sitemap.xml`
+- [x] Search Console → Sitemap → inviata `https://imiservicepulizie.it/sitemap.xml` (il file risponde 200 come XML; se resta "Impossibile recuperare" dopo 2–3 giorni, rimuovila e inviala di nuovo)
 - [ ] Search Console → Controllo URL → `https://imiservicepulizie.it/` → "Richiedi indicizzazione"
 - [ ] Google Business Profile: verificata, con nome, indirizzo e telefono **identici** al sito
 - [ ] Bing Webmaster Tools: accedi con Google e "Importa da Google Search Console" (1 minuto, porta anche ChatGPT/Copilot, che usano Bing)
