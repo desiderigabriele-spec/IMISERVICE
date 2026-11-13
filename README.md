@@ -38,7 +38,7 @@ In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.
 
 ## Da completare
 
-Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`. Telefono e WhatsApp sono il numero riservato al sito, 344 770 1121 (non va usato su altri canali, serve a riconoscere i clienti arrivati dal sito); manca ancora l'email.
+Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`. Telefono e WhatsApp sono il numero riservato al sito, 344 770 1121 (non va usato su altri canali, serve a riconoscere i clienti arrivati dal sito). Email unica: info@imiservicepulizie.it; i messaggi partiti dal sito hanno "(dal sito)" nell'oggetto.
 
 Poi:
 1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` (serve a Google).
