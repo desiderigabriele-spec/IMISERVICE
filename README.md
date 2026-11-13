@@ -35,7 +35,6 @@ Logo "IMI ✦ service. / PULIZIE": il simbolo col tergivetro; sulla prima riga "
 | `docs/brand/vecchio-logo/` | il logo precedente "IMI Service", conservato |
 
 In `assets/img/` ci sono anche `apple-touch-icon.png`, `icon-32.png`, `icon-192.png` e `og-image.png` (anteprima 1200×630 dei link condivisi su WhatsApp e social, con il nuovo logo).
-Quando il sito avrà il dominio definitivo, aggiorna l'indirizzo di `og:image`.
 
 ## Da completare
 
@@ -43,7 +42,7 @@ Tutti i contatti si cambiano in **un solo file**: `assets/js/config.js`. Telefon
 
 Poi:
 1. Aggiorna telefono ed email anche nel blocco `application/ld+json` di `index.html` (serve a Google).
-2. Se il dominio non è `www.imiservice.it`, sostituiscilo nei tag `canonical` e `og:url`.
+2. Dominio: **imiservicepulizie.it** (principale). `www.imiservicepulizie.it`, `imiservicepulizie.com` e `www.imiservicepulizie.com` rimandano lì (redirect 308 su Vercel). DNS su Register.it: record A `@` → `216.198.79.1` (e `64.29.17.1`), CNAME `www` → `8777df89f44ded9f.vercel-dns-017.com.`, per entrambi i domini.
 3. Completa `privacy.html`.
 
 ## Video di presentazione
