@@ -47,7 +47,7 @@ Poi:
 
 ## Video di presentazione
 
-La pagina usa `assets/video/presentazione.mp4` (1080×1080, 81 s, 16 MB): parte muto in automatico, con i comandi che compaiono toccando il video, come su YouTube (pausa, avanti/indietro di 10 secondi, barra di avanzamento, audio, schermo intero). Copertina: `assets/video/copertina.jpg`.
+La pagina usa `assets/video/presentazione.mp4` (1080×1080, 81 s, 16 MB): parte muto quando arriva sullo schermo (non si scarica all'apertura della pagina, `preload="none"`), con i comandi che compaiono toccando il video, come su YouTube (pausa, avanti/indietro di 10 secondi, barra di avanzamento, audio, schermo intero). Copertina: `assets/video/copertina.jpg`.
 
 Il video è montato dagli spezzoni di Stefano: sfondo sfocato in base alla profondità, colori corretti, voce isolata con ElevenLabs e rifinita (equalizzazione, compressione, un filo di ambiente), musica di sottofondo ("Acoustic Corporate Business Background" di Alex Morgan, Pixabay) e sottotitoli.
 
@@ -58,3 +58,10 @@ python3 -m http.server 8000
 ```
 
 Poi apri http://localhost:8000 (serve un server: aprendo il file direttamente i moduli JS non si caricano).
+
+## Velocità
+
+- Foto dei servizi in WebP (`assets/img/servizi/*.webp`, ~560 KB in tutto) e copertina del video in WebP.
+- Ordine di caricamento: prima foto (uffici) e immagini dell'apertura → le altre foto della prima schermata → le foto "prima" (solo vicino ai servizi o quando le altre sono arrivate). Il furgone si scarica solo vicino alla sezione Zone.
+- Se le immagini dell'apertura non arrivano entro 1,8 s, l'apertura si salta.
+- `vercel.json`: cache di una settimana per `assets/` (se si sostituisce un file tenendo lo stesso nome, chi è già passato può vedere la vecchia versione fino a 7 giorni: meglio cambiare nome al file).
