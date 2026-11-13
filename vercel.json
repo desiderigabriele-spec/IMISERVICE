@@ -3,21 +3,42 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.imiservicepulizie.com"
+        }
+      ],
+      "destination": "https://imiservicepulizie.it/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.imiservicepulizie.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.imiservicepulizie.com"
+        }
+      ],
       "destination": "https://imiservicepulizie.it/:path*",
       "permanent": true
     },
-    { "source": "/index", "destination": "/", "permanent": true }
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=2592000" }]
-    },
-    {
-      "source": "/404",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=2592000"
+        }
+      ]
     }
   ]
 }
