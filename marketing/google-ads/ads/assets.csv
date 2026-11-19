@@ -1,0 +1,16 @@
+Asset type,Campaign,Text / Header / Phone,Description 1 / Values / Country,Description 2,Final URL
+Sitelink,<Account-level>,Pulizia Uffici,Anche di sera e di notte,Calendario fisso concordato,https://imiservicepulizie.it/#svc-uffici
+Sitelink,<Account-level>,Pulizie Condominiali,"Scale, androni e ascensori",Passaggi settimanali fissi,https://imiservicepulizie.it/#svc-condomini
+Sitelink,<Account-level>,Fine Cantiere,Casa pronta da abitare,"Polvere, calce e vernice via",https://imiservicepulizie.it/#svc-cantiere
+Sitelink,<Account-level>,Preventivo Gratuito,Rispondi a 3 domande,Ti contattiamo noi,https://imiservicepulizie.it/#preventivo
+Sitelink,<Account-level>,Domande Frequenti,"Orari, prezzi e sopralluogo",Tutte le risposte,https://imiservicepulizie.it/#faq
+Sitelink,<Account-level>,Zone Servite,"Sesto, Monza, Cinisello","Cologno, Bresso e Milano",https://imiservicepulizie.it/#zone
+Callout,<Account-level>,Dal 2008,,,
+Callout,<Account-level>,Sopralluogo Gratuito,,,
+Callout,<Account-level>,Preventivo Scritto,,,
+Callout,<Account-level>,Anche di Notte e Festivi,,,
+Callout,<Account-level>,Fattura Regolare,,,
+Callout,<Account-level>,Rispondiamo su WhatsApp,,,
+Callout,<Account-level>,Calendario Fisso,,,
+Structured snippet,<Account-level>,Servizi,Pulizia uffici; Pulizie condominiali; Fine cantiere; Sgomberi; Vetrate; Pavimenti; Sanificazione,,
+Call,<Account-level>,+39 344 770 1121,IT,,
