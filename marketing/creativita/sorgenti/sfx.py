@@ -69,13 +69,15 @@ def track(dur, events):
         s = FX[name](**(kw[0] if kw else {})); i = int(at * SR); out[i:i + len(s)] += s[:len(out) - i]
     return out
 
-SPOT15 = [(0.0, 'whoosh', {'d': .45, 'peak': .2}), (0.8, 'squeegee'), (2.12, 'pop'),
-          (3.05, 'whoosh'), (4.0, 'squeegee'), (5.32, 'pop'),
-          (6.38, 'cut'), (6.55, 'pop', {'f1': 1200, 'f2': 600}), (7.38, 'cut'), (7.55, 'pop', {'f1': 1200, 'f2': 600}),
-          (8.38, 'cut'), (8.55, 'pop', {'f1': 1200, 'f2': 600}),
-          (9.25, 'whoosh', {'d': .6}), (10.3, 'thud'), (11.85, 'whoosh'), (12.75, 'pop', {'f1': 800, 'f2': 300}), (13.1, 'sparkle')]
-BUMPER6 = [(0.0, 'whoosh', {'d': .45, 'peak': .2}), (0.8, 'squeegee'), (2.12, 'pop'), (2.85, 'whoosh'),
-           (3.75, 'pop', {'f1': 800, 'f2': 300}), (4.1, 'sparkle')]
+B = 0.5  # battito a 120 BPM: tutti gli effetti cadono sui battiti
+SQ = {'d': 3 * B}
+SPOT15 = [(0.0, 'whoosh', {'d': .4, 'peak': .2}), (B, 'squeegee', SQ), (4 * B + .03, 'pop'),
+          (6 * B - .15, 'whoosh'), (7 * B, 'squeegee', SQ), (10 * B + .03, 'pop'),
+          (12 * B - .02, 'cut'), (12 * B, 'pop', {'f1': 1200, 'f2': 600}), (14 * B - .02, 'cut'), (14 * B, 'pop', {'f1': 1200, 'f2': 600}),
+          (16 * B - .02, 'cut'), (16 * B, 'pop', {'f1': 1200, 'f2': 600}),
+          (18 * B - .25, 'whoosh', {'d': .5}), (20 * B, 'thud'), (24 * B - .15, 'whoosh'), (25 * B, 'pop', {'f1': 800, 'f2': 300}), (26 * B, 'sparkle')]
+BUMPER6 = [(0.0, 'whoosh', {'d': .4, 'peak': .2}), (B, 'squeegee', SQ), (4 * B + .03, 'pop'), (6 * B - .15, 'whoosh'),
+           (7 * B, 'pop', {'f1': 800, 'f2': 300}), (8 * B, 'sparkle')]
 
 if __name__ == '__main__':
     for name, f in FX.items(): write(f'sfx/{name}.wav', f())
