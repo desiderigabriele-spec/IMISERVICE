@@ -6,6 +6,7 @@
 // Motore delle creatività IMI Service: disegna la scena al tempo t (secondi) per il formato W×H.
 const NAVY = '#0E1A2B', CREAM = '#F6F3EC', YEL = '#FFD23C', GREEN = '#12793D', MUTED = '#5B6474';
 const P = new URLSearchParams(location.search);
+const B = +P.get('beat') || 0.5;   // durata di un battito (120 BPM)
 const W = +P.get('w') || 1080, H = +P.get('h') || 1920, MODE = P.get('mode') || 'spot15', CONCEPT = P.get('concept') || 'uffici';
 const c = document.getElementById('c'); c.width = W; c.height = H; const g = c.getContext('2d');
 const V = H / W > 1.3 ? 'v' : (W / H > 1.3 ? 'h' : 's');   // verticale, orizzontale, quadrato
@@ -99,20 +100,20 @@ function band(t) { // banda inferiore del verticale (logo)
 // ---------------------------------------------------------------- scene
 function sceneWipe(t, key, a, b) {           // t locale 0..3.2
   const L = layout(); g.fillStyle = NAVY; g.fillRect(0, 0, W, H);
-  wipeScene(key, t, L.px, L.py, L.pw, L.ph, .8, 2.1);
-  const fadeIn = ease(t / .4), swap = t > 2.15;
-  caption(swap ? b : a, swap ? ease((t - 2.15) / .3) : fadeIn, swap ? b.length - 1 : -1);
+  wipeScene(key, t, L.px, L.py, L.pw, L.ph, B, 4 * B);
+  const fadeIn = ease(t / .4), swap = t > 4 * B + .03;
+  caption(swap ? b : a, swap ? ease((t - 4 * B - .03) / .25) : fadeIn, swap ? b.length - 1 : -1);
   band(t);
 }
 function sceneCuts(t) {                     // 0..3.0, tre foto e tre etichette
-  const L = layout(), keys = ['vetrate', 'pavimenti', 'cantiere'], i = Math.min(2, Math.floor(t)), lt = t - i;
+  const L = layout(), keys = ['vetrate', 'pavimenti', 'cantiere'], i = Math.min(2, Math.floor(t / (2 * B))), lt = t - i * 2 * B;
   g.fillStyle = NAVY; g.fillRect(0, 0, W, H);
   cover(IMG[keys[i]], L.px, L.py, L.pw, L.ph, 1.08 - .05 * lt);
   if (lt < .12) { g.fillStyle = `rgba(255,255,255,${.5 * (1 - lt / .12)})`; g.fillRect(L.px, L.py, L.pw, L.ph); }  // flash di taglio
   const chips = ['Anche di sera e di notte', 'Sopralluogo gratuito', 'Preventivo scritto'];
   if (V === 'v') { g.fillStyle = NAVY; g.fillRect(0, 0, W, L.py); title(['Vetri, pavimenti,', 'fine cantiere.'], W / 2, 190 * S, 86, '#fff', 1, 1, 'center'); }
   const x0 = V === 'h' ? 80 * S : 60 * S; let y0 = V === 'v' ? L.py + L.ph - 330 * S : H - 330 * S;
-  for (let k = 0; k <= i; k++) { const a = k < i ? 1 : easeOut((lt - .15) / .3); chip(chips[k], x0, y0 + k * 100 * S, a); }
+  for (let k = 0; k <= i; k++) { const a = k < i ? 1 : easeOut(lt / .22); chip(chips[k], x0, y0 + k * 100 * S, a); }
   band(t);
 }
 function sceneBrand(t) {                    // 0..2.6
@@ -123,8 +124,8 @@ function sceneBrand(t) {                    // 0..2.6
   const lines = V === 'h' ? ['Impresa di pulizie', 'a Sesto San Giovanni'] : ['Impresa di pulizie', 'a Sesto', 'San Giovanni'];
   const y = V === 'v' ? 640 * S : (V === 's' ? 330 * S : 300 * S);
   const end = title(lines, cx, y, V === 'h' ? 86 : 84, '#fff', a, lines.length - 1, 'center');
-  stamp(cx, end + 150 * S, S * 1.15, (t - .7) / .25);
-  font(34, 700); g.fillStyle = 'rgba(246,243,236,' + ease((t - 1.2) / .4) + ')'; g.textAlign = 'center';
+  stamp(cx, end + 150 * S, S * 1.15, (t - 2 * B + .25) / .25);
+  font(34, 700); g.fillStyle = 'rgba(246,243,236,' + ease((t - 3 * B) / .4) + ')'; g.textAlign = 'center';
   const list = 'Uffici · Condomini · Fine cantiere · Sgomberi · Vetrate · Pavimenti';
   wrap(list, W - 140 * S).forEach((l, i) => g.fillText(l, cx, end + 330 * S + i * 48 * S));
 }
@@ -137,23 +138,23 @@ function sceneEnd(t, short) {              // chiusura
   let y = y0 + lh + (V === 'h' ? 70 : 110) * S;
   y = title(['Sopralluogo gratuito,', 'preventivo scritto.'], cx, y, V === 'h' ? 56 : 62, NAVY, ease((t - .25) / .35), 1, 'center');
   // pulsante WhatsApp
-  const ba = easeOut((t - .6) / .35), bw = (V === 'h' ? 760 : 860) * S, bh = 130 * S, bx = cx - bw / 2, by = y + 40 * S + (1 - ba) * 30 * S;
+  const ba = easeOut((t - B) / .3), bw = (V === 'h' ? 760 : 860) * S, bh = 130 * S, bx = cx - bw / 2, by = y + 40 * S + (1 - ba) * 30 * S;
   g.globalAlpha = clamp(ba); rr(bx, by, bw, bh, bh / 2); g.fillStyle = GREEN; g.fill();
   font(46, 800); g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('WhatsApp 344 770 1121', cx, by + bh / 2 + 2);
-  g.globalAlpha = clamp(ease((t - .9) / .3)); font(38, 700); g.fillStyle = NAVY; g.textBaseline = 'alphabetic';
+  g.globalAlpha = clamp(ease((t - 2 * B) / .3)); font(38, 700); g.fillStyle = NAVY; g.textBaseline = 'alphabetic';
   g.fillText('imiservicepulizie.it', cx, by + bh + 90 * S);
   font(30, 600); g.fillStyle = MUTED; g.fillText('Sesto San Giovanni · Milano · Monza', cx, by + bh + 145 * S); g.globalAlpha = 1;
   // scintilla sul logo
-  const sp = (t - 1.1) / .5; if (sp > 0 && sp < 1) { const sx = cx + lw * .12, sy = y0 + lh * .3, r = 40 * S * Math.sin(sp * Math.PI);
+  const sp = (t - 2 * B) / .5; if (sp > 0 && sp < 1) { const sx = cx + lw * .12, sy = y0 + lh * .3, r = 40 * S * Math.sin(sp * Math.PI);
     g.save(); g.translate(sx, sy); g.rotate(sp); g.fillStyle = YEL; g.beginPath(); for (let k = 0; k < 8; k++) { const rad = k % 2 ? r * .25 : r, an = k * Math.PI / 4; g.lineTo(Math.cos(an) * rad, Math.sin(an) * rad); } g.fill(); g.restore(); }
 }
 
 // ---------------------------------------------------------------- montaggi
 const SPOTS = {
-  spot15: [[3.2, t => sceneWipe(t, 'uffici', ['Il tuo ufficio,', 'ogni mattina…'], ['…pulito prima', 'che arrivi tu.'])],
-           [3.2, t => sceneWipe(t, 'condomini', ['Scale e androni', 'del condominio…'], ['…in ordine, con', 'calendario fisso.'])],
-           [3.0, sceneCuts], [2.6, sceneBrand], [3.0, t => sceneEnd(t)]],
-  spot6:  [[3.0, t => sceneWipe(t, CONCEPT, CONCEPT === 'condomini' ? ['Scale e androni…'] : ['Il tuo ufficio…'], CONCEPT === 'condomini' ? ['…sempre in ordine.'] : ['…pulito ogni mattina.'])], [3.0, t => sceneEnd(t, true)]],
+  spot15: [[6 * B, t => sceneWipe(t, 'uffici', ['Il tuo ufficio,', 'ogni mattina…'], ['…pulito prima', 'che arrivi tu.'])],
+           [6 * B, t => sceneWipe(t, 'condomini', ['Scale e androni', 'del condominio…'], ['…in ordine, con', 'calendario fisso.'])],
+           [6 * B, sceneCuts], [6 * B, sceneBrand], [6 * B, t => sceneEnd(t)]],
+  spot6:  [[6 * B, t => sceneWipe(t, CONCEPT, CONCEPT === 'condomini' ? ['Scale e androni…'] : ['Il tuo ufficio…'], CONCEPT === 'condomini' ? ['…sempre in ordine.'] : ['…pulito ogni mattina.'])], [6 * B, t => sceneEnd(t, true)]],
 };
 window.duration = () => SPOTS[MODE].reduce((s, x) => s + x[0], 0);
 window.draw = t => { const sc = SPOTS[MODE]; let acc = 0; for (let i = 0; i < sc.length; i++) { const [d, fn] = sc[i]; if (t < acc + d || i === sc.length - 1) { fn(Math.max(0, t - acc)); return; } acc += d; } };
