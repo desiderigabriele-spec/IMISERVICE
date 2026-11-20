@@ -9,8 +9,15 @@ Non pubblicate sul sito (cartella `marketing` esclusa in `.vercelignore`).
 | `spot15-quadrato-1x1.mp4` | 1080×1080, 15 s | feed Facebook/Instagram, Demand Gen |
 | `spot15-orizzontale-16x9.mp4` | 1920×1080, 15 s | YouTube, Performance Max |
 | `bumper6-uffici-*.mp4`, `bumper6-condomini-*.mp4` | 16:9 e 9:16, 6 s | annunci bumper YouTube, Storie |
+| `notte15-*.mp4` (3 formati) | 15 s | **"Il turno di notte"**: ufficio al buio, orologio 21:00 → 08:00, alle 8 è tutto pulito. Per uffici |
+| `condominio15-*.mp4` (3 formati) | 15 s | **"Amministri un condominio?"**: lista che si spunta (scale, androni, ascensori…). Per amministratori |
+| `motivi15-*.mp4` (3 formati) | 15 s | **"Tre motivi"**: sopralluogo gratuito, preventivo scritto, anche di sera e di notte. Per chi confronta |
 
-Musica: **"Groovy Moves" di Pumpupthemind** (Pixabay, https://pixabay.com/music/upbeat-groovy-moves-346818/), 120 BPM, dal secondo 9,997 del brano (primo tempo forte con il groove pieno). Licenza: Pixabay Content License, da riconfermare sulla pagina del brano. Montaggio a tempo: 5 scene da 6 battiti (3 s); passate del tergivetro, tagli, etichette, timbro e scintilla cadono sui battiti. La musica si abbassa leggermente quando suonano gli effetti. Volume finale −14 LUFS (adatto a YouTube e social).
+Quale video usare, per chi e come alternarli: vedi **`STRATEGIA-CREATIVA.md`**.
+
+Dopo ogni passata del tergivetro la superficie "pulita" è più viva e luminosa, con una scia di scintille e un riflesso di luce che attraversa l'immagine: si capisce a colpo d'occhio che è stata pulita.
+
+Musica: **"Groovy Moves" di Pumpupthemind** (Pixabay, https://pixabay.com/music/upbeat-groovy-moves-346818/), 120 BPM, dal secondo 9,997 del brano (primo tempo forte con il groove pieno) per spot15 e bumper; i nuovi video usano altri punti del brano (notte15 dal 45,74 s, condominio15 dal 59,75 s, motivi15 dal 17,99 s) così non suonano tutti uguali. Licenza: Pixabay Content License, da riconfermare sulla pagina del brano. Montaggio a tempo: 5 scene da 6 battiti (3 s); passate del tergivetro, tagli, etichette, timbro e scintilla cadono sui battiti. La musica si abbassa leggermente quando suonano gli effetti. Volume finale −14 LUFS (adatto a YouTube e social).
 
 Montaggio dello spot da 15 s (tempi a 120 BPM):
 1. 0–3 s: ufficio, passata del tergivetro IMI ("Il tuo ufficio, ogni mattina… pulito prima che arrivi tu.");
@@ -26,7 +33,7 @@ Montaggio dello spot da 15 s (tempi a 120 BPM):
 Le foto sono immagini illustrative, generate per il sito, non lavori reali: non usarle come "prima/dopo" di un cliente vero. Appena ci sono foto reali di lavori e squadra, si sostituiscono.
 
 ## Effetti sonori
-Sintetizzati da `sorgenti/sfx.py` (nessun campione esterno, nessuna licenza da gestire): passata "gratificante" (fruscio morbido + arpeggio a campanello Eb-G-Bb sui battiti, intonato al brano, e "ding" finale col luccichio), fruscio di transizione, pop delle etichette, colpo del timbro, scintilla. `effetti-sonori/sfx-spot15.wav` e `sfx-bumper6.wav` sono le tracce complete, da mixare con la musica.
+Sintetizzati da `sorgenti/sfx.py` (nessun campione esterno, nessuna licenza da gestire): passata "gratificante" (fruscio morbido + arpeggio a campanello Eb-G-Bb sui battiti, intonato al brano, e "ding" finale col luccichio), fruscio di transizione, pop delle etichette, colpo del timbro, scintilla. Ticchettio d'orologio (notte), spunta a due note (condominio). `effetti-sonori/sfx-*.wav` sono le tracce complete, da mixare con la musica.
 
 ## Rigenerare
-In `sorgenti/`: `engine.html` disegna le scene; `render.js` registra i video; `stills.js` le immagini; `sfx.py` gli effetti; `mix.sh` unisce musica ed effetti (serve il file MP3 del brano). Servono le foto originali 1536×1024 in una cartella `src/` accanto a `engine.html` (non nel repository).
+In `sorgenti/`: `engine.html` disegna le scene; `render.js` registra i video; `stills.js` le immagini; `sfx.py` gli effetti; `mix.sh` e `mix2.sh` uniscono musica ed effetti (serve il file MP3 del brano). Servono le foto originali 1536×1024 in una cartella `src/` accanto a `engine.html` (non nel repository).

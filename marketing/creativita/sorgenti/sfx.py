@@ -45,7 +45,7 @@ def bell(f, d=.9, peak=1.0):
     e = np.exp(-tt * 4.2); e[:int(.006 * SR)] *= np.linspace(0, 1, int(.006 * SR))
     return x * e * peak
 
-def wipe(d=1.5, peak=.42):
+def wipe(d=1.5, peak=.42, step=None):
     """passata gratificante: fruscio morbido + arpeggio sulle note del brano (mi bemolle: Eb-G-Bb) + ding finale col luccichio"""
     n = int((d + 1.0) * SR); out = np.zeros(n); tt = t_(d); k = tt / d
     speed = np.sin(np.pi * k) ** 2
@@ -53,11 +53,22 @@ def wipe(d=1.5, peak=.42):
     out[:len(tt)] += swish
     notes = [1244.5, 1568.0, 1864.7]                        # Eb6, G6, Bb6: una nota per battito
     for i, f in enumerate(notes):
-        b = bell(f, .9, .32 + .06 * i); st = int(i * d / 3 * SR); out[st:st + len(b)] += b[:n - st]
+        b = bell(f, .9, .32 + .06 * i); st = int(i * (step or d / 3) * SR); out[st:st + len(b)] += b[:n - st]
     ding = bell(2489.0, 1.0, .55) + .4 * bell(3729.3, 1.0, .5)  # Eb7 + Bb7 a fine passata
     st = int(d * SR); out[st:st + len(ding)] += ding[:n - st]
     air = bandpass(rng.standard_normal(int(.8 * SR)), 7000, 12000) * np.exp(-t_(.8) * 6) * .12   # luccichio
     out[st:st + len(air)] += air[:n - st]
+    return norm(out, peak)
+
+def tick(peak=.16):
+    """ticchettio d'orologio, morbido"""
+    tt = t_(.06); x = bandpass(rng.standard_normal(len(tt)), 2500, 6000) * np.exp(-tt * 90) + .4 * np.sin(2 * np.pi * 1900 * tt) * np.exp(-tt * 70)
+    return norm(x, peak)
+
+def check(peak=.3):
+    """spunta: due note brevi che salgono (Bb6 -> Eb7)"""
+    a = bell(1864.7, .25, 1.0)[:int(.25 * SR)]; b = bell(2489.0, .35, 1.0)
+    out = np.zeros(int(.45 * SR)); out[:len(a)] += a * .7; st = int(.07 * SR); out[st:st + len(b)] += b[:len(out) - st]
     return norm(out, peak)
 
 def pop(f1=950, f2=380, d=.09, peak=.4):
@@ -79,7 +90,7 @@ def sparkle(peak=.28):
 def cut(peak=.3):
     return norm(whoosh(.22, 1500, 6000, 1) + np.pad(pop(1800, 900, .05, .5), (0, int(.22 * SR) - int(.05 * SR))), peak)
 
-FX = {'whoosh': whoosh, 'squeegee': squeegee, 'wipe': wipe, 'pop': pop, 'thud': thud, 'sparkle': sparkle, 'cut': cut}
+FX = {'whoosh': whoosh, 'squeegee': squeegee, 'wipe': wipe, 'tick': tick, 'check': check, 'pop': pop, 'thud': thud, 'sparkle': sparkle, 'cut': cut}
 
 def write(path, x):
     x = np.clip(x, -1, 1); st = np.stack([x, x], 1)
@@ -102,7 +113,16 @@ SPOT15 = [(0.0, 'whoosh', {'d': .4, 'peak': .2}), (B, 'wipe', SQ),
 BUMPER6 = [(0.0, 'whoosh', {'d': .4, 'peak': .2}), (B, 'wipe', SQ), (6 * B - .15, 'whoosh'),
            (7 * B, 'pop', {'f1': 800, 'f2': 300}), (8 * B, 'sparkle')]
 
+END = [(24 * B - .15, 'whoosh'), (25 * B, 'pop', {'f1': 800, 'f2': 300}), (26 * B, 'sparkle')]
+NOTTE15 = [(0.0, 'whoosh', {'d': .5, 'peak': .15})] + [(6 * B + i * B, 'tick') for i in range(14)] + \
+          [(7 * B, 'wipe', {'d': 8 * B, 'step': 2 * B}), (20 * B - .15, 'whoosh', {'d': .45, 'peak': .3}), (20 * B, 'sparkle', {'peak': .38})] + END
+COND15 = [(0.0, 'whoosh', {'d': .4, 'peak': .2}), (6 * B, 'wipe', SQ)] + [(6 * B + 2 * B * i, 'check') for i in range(6)] + \
+         [(18 * B - .15, 'whoosh', {'d': .5}), (20 * B, 'thud')] + END
+MOTIVI15 = [(0.0, 'whoosh', {'d': .4, 'peak': .2})] + [(i * B - .02, 'cut', {'peak': .18}) for i in range(1, 6)] + \
+           [(6 * B * k, 'thud', {'peak': .45}) for k in (1, 2, 3)] + [(6 * B * k + B, 'pop', {'f1': 1100, 'f2': 500, 'peak': .25}) for k in (1, 2, 3)] + END
+
 if __name__ == '__main__':
     for name, f in FX.items(): write(f'sfx/{name}.wav', f())
     write('out/sfx-spot15.wav', track(15, SPOT15)); write('out/sfx-bumper6.wav', track(6, BUMPER6))
+    write('out/sfx-notte15.wav', track(15, NOTTE15)); write('out/sfx-condominio15.wav', track(15, COND15)); write('out/sfx-motivi15.wav', track(15, MOTIVI15))
     print('ok')
