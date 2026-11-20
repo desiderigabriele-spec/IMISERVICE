@@ -26,7 +26,7 @@ Montaggio dello spot da 15 s (tempi a 120 BPM):
 Le foto sono immagini illustrative, generate per il sito, non lavori reali: non usarle come "prima/dopo" di un cliente vero. Appena ci sono foto reali di lavori e squadra, si sostituiscono.
 
 ## Effetti sonori
-Sintetizzati da `sorgenti/sfx.py` (nessun campione esterno, nessuna licenza da gestire): tergivetro, fruscio, pop, colpo del timbro, scintilla. `effetti-sonori/sfx-spot15.wav` e `sfx-bumper6.wav` sono le tracce complete, da mixare con la musica.
+Sintetizzati da `sorgenti/sfx.py` (nessun campione esterno, nessuna licenza da gestire): passata "gratificante" (fruscio morbido + arpeggio a campanello Eb-G-Bb sui battiti, intonato al brano, e "ding" finale col luccichio), fruscio di transizione, pop delle etichette, colpo del timbro, scintilla. `effetti-sonori/sfx-spot15.wav` e `sfx-bumper6.wav` sono le tracce complete, da mixare con la musica.
 
 ## Rigenerare
 In `sorgenti/`: `engine.html` disegna le scene; `render.js` registra i video; `stills.js` le immagini; `sfx.py` gli effetti; `mix.sh` unisce musica ed effetti (serve il file MP3 del brano). Servono le foto originali 1536×1024 in una cartella `src/` accanto a `engine.html` (non nel repository).
