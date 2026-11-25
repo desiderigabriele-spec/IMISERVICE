@@ -4,8 +4,8 @@
  * Banner piccolo in basso: "Rifiuta" e "Accetta" con lo stesso peso, "Personalizza" per scegliere per categoria.
  * La scelta resta salvata nel browser per 6 mesi (poi il banner si ripresenta), e si cambia dal link "Preferenze cookie".
  *
- * Oggi il sito non usa cookie. Se in futuro si aggiungono statistiche o pubblicità, i loro script vanno scritti così,
- * e partono SOLO dopo il consenso alla categoria:
+ * Marketing: il tag Google (Google Ads) è gestito da misura.js, che ascolta l'evento "imi-consenso".
+ * Altri script di statistiche o pubblicità vanno scritti così, e partono SOLO dopo il consenso alla categoria:
  *   <script type="text/plain" data-consenso="statistiche" src="https://..."></script>
  *   <script type="text/plain" data-consenso="marketing"> ...codice... </script>
  * (e vanno descritti nella cookie policy, cookie.html)
@@ -68,7 +68,7 @@
     box.innerHTML = `<button class="x" type="button" aria-label="Chiudi e rifiuta">×</button>
       <p>Usiamo solo strumenti tecnici necessari. Statistiche e pubblicità restano spente finché non le accetti. <a href="/cookie">Cookie policy</a></p>
       <div class="cats">${CAT.map(c => `<label><b>${c.t}</b><small>${c.d}</small><input type="checkbox" data-k="${c.k}" ${c.fisso || v[c.k] ? 'checked' : ''} ${c.fisso ? 'disabled' : ''}></label>`).join('')}
-        <p class="nota">Al momento il sito non usa strumenti di statistica o pubblicità.</p></div>
+        <p class="nota">Marketing: tag di Google Ads, per sapere quali annunci portano richieste. Statistiche: oggi nessuno strumento attivo.</p></div>
       <div class="b"><button type="button" class="no">Rifiuta</button><button type="button" class="ok">Accetta</button></div>
       <button type="button" class="pers">Personalizza</button>`;
     if (dettaglio) box.classList.add('det');
