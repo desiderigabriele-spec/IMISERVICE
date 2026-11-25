@@ -17,5 +17,5 @@ window.IMI_CONFIG = {
   // Tag Google (Google Ads): parte solo con il consenso "Marketing" (vedi misura.js)
   googleTag: 'GTM-NGMGNLPK',
   // Snippet evento della conversione "Contatti" in Google Ads, es. 'AW-123456789/AbCdEfGh' (vuoto = solo evento "contatto")
-  adsConversione: ''
+  adsConversione: 'AW-18595507068/Z5RhCK_qsL8dEPzWg6NF'
 };
