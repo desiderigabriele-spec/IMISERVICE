@@ -45,6 +45,6 @@
     const metodo = /^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(h) ? 'whatsapp' : h.startsWith('tel:') ? 'telefono' : h.startsWith('mailto:') ? 'email' : '';
     if (!metodo) return;
     gtag('event', 'contatto', { metodo });
-    if (CFG.adsConversione) gtag('event', 'conversion', { send_to: CFG.adsConversione });
+    if (CFG.adsConversione) gtag('event', 'conversion', { send_to: CFG.adsConversione, value: 1.0, currency: 'EUR' });
   }, true);
 })();
