@@ -13,5 +13,9 @@ window.IMI_CONFIG = {
   // Numero WhatsApp (solo cifre, con prefisso 39, senza + e senza spazi)
   whatsapp: '393447701121',
   email: 'info@imiservicepulizie.it',
-  piva: '06179360968'
+  piva: '06179360968',
+  // Tag Google (Google Ads): parte solo con il consenso "Marketing" (vedi misura.js)
+  googleTag: 'GTM-NGMGNLPK',
+  // Snippet evento della conversione "Contatti" in Google Ads, es. 'AW-123456789/AbCdEfGh' (vuoto = solo evento "contatto")
+  adsConversione: ''
 };
