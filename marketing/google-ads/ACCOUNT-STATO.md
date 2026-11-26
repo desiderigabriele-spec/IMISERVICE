@@ -6,7 +6,7 @@ Aggiornato al 26/11/2026. Account **989-692-4484** ("IMI Service"), nell'account
 
 | Campagna | ID | Tipo | Budget/giorno | Offerta | Stato |
 |---|---|---|---|---|---|
-| IMI \| PMax \| Uffici e condomini \| Nord Milano | 24549071000 | Performance Max | 10,00 € | Massimizza le conversioni | attiva |
+| IMI \| PMax \| Uffici e condomini \| Nord Milano | 24549071000 | Performance Max | 5,00 € | Massimizza le conversioni | attiva |
 | IMI \| Search \| Uffici e condomini \| Nord Milano | 24544205976 | Rete di ricerca | 5,00 € | Massimizza i clic | in pausa fino alle prime conversioni (decisione del 26/11) |
 
 **Campagna di ricerca:**
