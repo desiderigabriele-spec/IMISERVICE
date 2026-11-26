@@ -607,20 +607,32 @@ section { scroll-margin-top: 72px; }
 .zmore { font-weight: 600; color: var(--muted); }
 .zmore a { color: var(--navy); font-weight: 800; }
 
-/* Chat preventivo */
-.chat { background: #ECE5DD; border-radius: 22px; overflow: hidden; box-shadow: 0 22px 40px -26px rgba(14,26,43,.6); }
-.chat .head { background: var(--navy); color: #fff; display: flex; gap: 12px; align-items: center; padding: 12px 14px; }
-.chat .head img { width: 46px; height: 46px; border-radius: 50%; object-fit: contain; background: #fff; padding: 7px; border: 2px solid var(--yellow); }
-.chat .head b { display: block; }
-.chat .head span { font-size: 13px; color: #9fe0b5; font-weight: 600; }
-.msgs { display: flex; flex-direction: column; gap: 9px; padding: 14px 12px; min-height: 300px; }
-.bub { max-width: 84%; padding: 10px 13px; border-radius: 4px 16px 16px 16px; background: #fff; font-weight: 600; font-size: 15px; animation: pop .25s ease-out; }
-.bub.me { align-self: flex-end; background: #DCF8C6; border-radius: 16px 4px 16px 16px; }
-@keyframes pop { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
-.opts { display: flex; flex-wrap: wrap; gap: 7px; justify-content: flex-end; }
-.opts button { background: #fff; border: 2px solid var(--green); color: var(--green); font: 800 14px var(--font); padding: 9px 13px; border-radius: 999px; cursor: pointer; }
-.chat .foot { padding: 0 12px 14px; display: grid; gap: 8px; }
-.chat .foot small { text-align: center; color: #555; font-weight: 600; }
+/* Preventivo a passi */
+.pv-trust { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13.5px; font-weight: 700; color: var(--muted); }
+.pv-trust li { display: flex; align-items: center; gap: 6px; }
+.pv-trust li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.pv { background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 22px 40px -30px rgba(14,26,43,.55); }
+.pv-prog { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--muted); }
+.pv-bar { height: 5px; border-radius: 9px; background: var(--line); overflow: hidden; }
+.pv-bar i { display: block; height: 100%; background: var(--navy); transition: width .35s ease; }
+.pv-q { font-size: 20px; font-weight: 800; margin: 0; }
+.pv-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.pv-opts.one { grid-template-columns: 1fr; }
+.pv-opt { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; text-align: left; padding: 13px; border-radius: 16px; border: 1.5px solid var(--line); background: #fff; font: 800 15px var(--font); color: var(--navy); cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
+.pv-opts.one .pv-opt { flex-direction: row; align-items: center; }
+.pv-opt svg { width: 24px; height: 24px; flex: none; }
+.pv-opt:hover { border-color: var(--navy); }
+.pv-opt.sel { background: var(--navy); border-color: var(--navy); color: #fff; }
+.pv-opt.sel svg { color: var(--yellow); }
+.pv-back { align-self: flex-start; background: none; border: 0; padding: 4px 0; font: 700 14px var(--font); color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.pv-sum { margin: 0; display: grid; }
+.pv-sum div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.pv-sum dt { color: var(--muted); font-weight: 700; }
+.pv-sum dd { margin: 0; font-weight: 800; text-align: right; }
+.pv .btn { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.pv .btn svg { width: 22px; height: 22px; flex: none; }
+.pv-note { margin: 0; text-align: center; font-size: 13px; font-weight: 600; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .pv-bar i, .pv-opt { transition: none; } }
 
 /* FAQ */
 .faq { display: grid; gap: 8px; }
@@ -726,7 +738,7 @@ section { scroll-margin-top: 72px; }
   #zone .kicker { margin-top: 120px; }
   #zone .zres .btn { justify-self: start; padding: 0 28px; }
   /* preventivo e domande: titolo a sinistra, contenuto a destra */
-  .chat { max-width: 620px; }
+  .pv, .pv-trust { max-width: 620px; }
   /* fine pagina */
   .close { margin-top: 110px; }
   .close .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 64px; row-gap: 16px; padding-block: 72px; align-items: center; }
@@ -892,14 +904,8 @@ section { scroll-margin-top: 72px; }
   <div class="wrap">
     <p class="kicker">Preventivo</p>
     <h2>Rispondi a 3 domande: <span class="hl">il preventivo te lo prepariamo noi.</span></h2>
-    <div class="chat">
-      <div class="head"><img src="assets/img/logo/simbolo.svg" alt="" width="46" height="46"><div><b>IMI Service</b><span>● ti rispondiamo noi, di persona</span></div></div>
-      <div class="msgs" id="msgs" aria-live="polite"></div>
-      <div class="foot" id="foot" hidden>
-        <a class="btn btn-w" id="waLink" href="#preventivo">Continua su WhatsApp</a>
-        <small>Il messaggio è già scritto: devi solo inviarlo</small>
-      </div>
-    </div>
+    <ul class="pv-trust"><li>Sopralluogo gratuito</li><li>Preventivo scritto</li><li>Dal 2008</li><li>Fattura regolare</li></ul>
+    <div class="pv" id="pv" aria-live="polite"></div>
   </div>
 </section>
 
@@ -1329,26 +1335,47 @@ section { scroll-margin-top: 72px; }
   }
   addEventListener('scroll', () => requestAnimationFrame(drive), { passive: true }); addEventListener('resize', drive); drive();
 
-  /* ---------- 6. Chat preventivo ---------- */
-  const msgs = document.getElementById('msgs'), foot = document.getElementById('foot'), wa = document.getElementById('waLink');
-  const Q = [
-    { q: 'Ciao! Cosa dobbiamo pulire?', o: SERVICES.map(s => s.name) },
-    { q: 'In che zona?', o: ['Sesto San Giovanni', 'Milano', 'Monza', 'Altro comune'] },
-    { q: 'Quando ti serve?', o: ['Il prima possibile', 'Entro un mese', 'Sto valutando'] },
+  /* ---------- 6. Preventivo a passi ---------- */
+  const pv = document.getElementById('pv');
+  const PI = {
+    uffici: '<path d="M4 21V5l8-2v18M12 8h8v13M8 8v.01M8 12v.01M8 16v.01M16 12v.01M16 16v.01M2 21h20"/>',
+    condomini: '<path d="M3 21V9l9-6 9 6v12M9 21v-6h6v6M7 11h.01M17 11h.01"/>',
+    cantiere: '<path d="M4 20h16M6 20v-6l6-4 6 4v6M10 10V4h4v6"/>',
+    sgomberi: '<path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/>',
+    vetrate: '<path d="M4 4h16v16H4zM12 4v16M4 12h16"/>',
+    pavimenti: '<path d="M12 3l9 5-9 5-9-5zM3 12.5l9 5 9-5M3 16.5l9 5 9-5"/>',
+    pin: '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    wa: '<path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.5c.3 2.6 2.4 5.3 5.5 6.3l1.3-1.4-2-1-1 .9c-1-.5-2-1.4-2.6-2.6l.9-1-1-2z"/>'
+  };
+  const pico = k => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${PI[k] || PI.uffici}</svg>`;
+  const PQ = [
+    { k: 'Servizio', q: 'Cosa dobbiamo pulire?', o: SERVICES.map(s => [s.name, s.k]) },
+    { k: 'Zona', q: 'In che zona?', o: [['Sesto San Giovanni', 'pin'], ['Milano', 'pin'], ['Monza', 'pin'], ['Altro comune', 'pin']] },
+    { k: 'Tempi', q: 'Quando ti serve?', o: [['Il prima possibile', 'clock'], ['Entro un mese', 'clock'], ['Sto valutando', 'clock']] },
   ];
-  const ans = [];
-  const say = (t, me) => { const b = document.createElement('div'); b.className = 'bub' + (me ? ' me' : ''); b.textContent = t; msgs.appendChild(b); };
-  function ask(i) {
-    if (i === Q.length) {
-      say(`Perfetto. Riepilogo: ${ans[0]}, ${ans[1]}, ${ans[2].toLowerCase()}.`);
-      wa.href = waLinkTo(`Ciao IMI Service, vorrei un sopralluogo gratuito. Servizio: ${ans[0]}. Zona: ${ans[1]}. Tempi: ${ans[2]}.`); wa.target = '_blank'; wa.rel = 'noopener';
-      foot.hidden = false; return;
+  let pstep = 0; const pans = [];
+  function prender() {
+    if (pstep === PQ.length) {
+      const href = waLinkTo(`Ciao IMI Service, vorrei un sopralluogo gratuito. Servizio: ${pans[0]}. Zona: ${pans[1]}. Tempi: ${pans[2]}.`);
+      pv.innerHTML = `<div class="pv-prog"><span>Riepilogo</span><span>3 di 3</span></div><div class="pv-bar"><i style="width:100%"></i></div>
+        <p class="pv-q">Controlla e invia</p>
+        <dl class="pv-sum">${PQ.map((q, i) => `<div><dt>${q.k}</dt><dd>${pans[i]}</dd></div>`).join('')}</dl>
+        <a class="btn btn-w" href="${href}" target="_blank" rel="noopener">${pico('wa')} Invia su WhatsApp</a>
+        <p class="pv-note">Il messaggio è già scritto: devi solo inviarlo. Ti rispondiamo noi, di persona.</p>
+        <button class="pv-back" type="button">← Modifica le risposte</button>`;
+      pv.querySelector('.pv-back').onclick = () => { pstep = PQ.length - 1; prender(); };
+      return;
     }
-    say(Q[i].q); const o = document.createElement('div'); o.className = 'opts';
-    Q[i].o.forEach(t => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.addEventListener('click', () => { o.remove(); ans.push(t); say(t, true); setTimeout(() => ask(i + 1), 350); }); o.appendChild(b); });
-    msgs.appendChild(o);
+    const q = PQ[pstep];
+    pv.innerHTML = `<div class="pv-prog"><span>Domanda ${pstep + 1} di ${PQ.length}</span><span>${q.k}</span></div><div class="pv-bar"><i style="width:${pstep / PQ.length * 100 + 8}%"></i></div>
+      <p class="pv-q">${q.q}</p>
+      <div class="pv-opts${pstep ? ' one' : ''}">${q.o.map(([t, ic]) => `<button type="button" class="pv-opt${pans[pstep] === t ? ' sel' : ''}" data-v="${t}">${pico(ic)}${t}</button>`).join('')}</div>
+      ${pstep ? '<button class="pv-back" type="button">← Indietro</button>' : ''}`;
+    pv.querySelectorAll('.pv-opt').forEach(b => b.onclick = () => { pans[pstep] = b.dataset.v; b.classList.add('sel'); setTimeout(() => { pstep++; prender(); }, 180); });
+    const bk = pv.querySelector('.pv-back'); if (bk) bk.onclick = () => { pstep--; prender(); };
   }
-  ask(0);
+  prender();
 })();
 </script>
 </body>
