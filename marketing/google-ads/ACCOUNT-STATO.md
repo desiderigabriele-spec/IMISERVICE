@@ -1,13 +1,13 @@
 # Stato dell'account Google Ads di IMI Service
 
-Aggiornato al 25/11/2026. Account **989-692-4484** ("IMI Service"), nell'account amministratore Desideri&Code. Il profilo pagamenti è intestato a IMI.
+Aggiornato al 26/11/2026. Account **989-692-4484** ("IMI Service"), nell'account amministratore Desideri&Code. Il profilo pagamenti è intestato a IMI.
 
 ## Campagne
 
 | Campagna | ID | Tipo | Budget/giorno | Offerta | Stato |
 |---|---|---|---|---|---|
-| IMI \| PMax \| Uffici e condomini \| Nord Milano | 24549071000 | Performance Max | 4,75 € | Massimizza le conversioni | attiva |
-| IMI \| Search \| Uffici e condomini \| Nord Milano | 24544205976 | Rete di ricerca | 5,00 € | Massimizza i clic, CPC massimo 2,50 € (da confermare) | in pausa |
+| IMI \| PMax \| Uffici e condomini \| Nord Milano | 24549071000 | Performance Max | 5,00 € | Massimizza le conversioni | attiva |
+| IMI \| Search \| Uffici e condomini \| Nord Milano | 24544205976 | Rete di ricerca | 5,00 € | Massimizza i clic | in pausa fino alle prime conversioni (decisione del 26/11) |
 
 **Campagna di ricerca:**
 - 3 gruppi di annunci: Pulizia uffici (199602403582), Pulizie condomini (199602501782), Impresa di pulizie (205292356951);
@@ -16,7 +16,12 @@ Aggiornato al 25/11/2026. Account **989-692-4484** ("IMI Service"), nell'account
 - 6 sitelink, 7 callout, snippet "Service catalog" e numero di chiamata;
 - 6 comuni (Sesto, Cinisello, Cologno, Bresso, Monza, Brugherio), lingue italiano e arabo, lun–sab 7–21.
 
-**PMax:** 43 negative di campagna, stessi 6 comuni.
+**PMax:**
+- 43 parole escluse di campagna; stessi 6 comuni, opzione "Presenza".
+- 6 sitelink, 7 callout, snippet e chiamata.
+- Linee guida del brand: nome IMI Service, 5 loghi.
+- Gruppo "Condomini" (6777772994) e gruppo "Uffici" (6778167156), ciascuno con 15 titoli, 5 titoli lunghi, 5 descrizioni, 20 immagini e 10 video.
+- I prima/dopo sono stati rifatti senza il cerchietto con le frecce: Google lo considerava un "layout fuorviante".
 
 **Conversione:** "Contatto", `AW-18595507068/Z5RhCK_qsL8dEPzWg6NF`. Scatta al clic su WhatsApp, Chiama o Email, solo con il consenso Marketing (`assets/js/misura.js`). Tag Google: `GTM-NGMGNLPK`.
 
