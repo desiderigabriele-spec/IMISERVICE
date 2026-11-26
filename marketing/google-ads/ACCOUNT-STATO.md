@@ -25,6 +25,13 @@ Aggiornato al 26/11/2026. Account **989-692-4484** ("IMI Service"), nell'account
 
 **Conversione:** "Contatto", `AW-18595507068/Z5RhCK_qsL8dEPzWg6NF`. Scatta al clic su WhatsApp, Chiama o Email, solo con il consenso Marketing (`assets/js/misura.js`). Tag Google: `GTM-NGMGNLPK`.
 
+**Google Analytics:**
+- Account "IMI Service", proprietà imiservicepulizie.it.
+- Stream ID 16422288142, misurazione `G-V21M676MHH`, tag Google `GTM-5JPLVWKP`.
+- Parte solo con il consenso "Statistiche".
+- Collegato all'account Google Ads 989-692-4484.
+- Da impostare: Google Signals disattivato, conservazione dei dati 14 mesi.
+
 ## Volumi reali (Keyword Planner, 6 comuni, italiano, media degli ultimi 12 mesi)
 
 | Ricerche/mese | Concorrenza | CPC in cima alla pagina (€) | Parola chiave |
