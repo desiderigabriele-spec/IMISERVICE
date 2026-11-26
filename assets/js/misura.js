@@ -1,8 +1,9 @@
 /*
- * MISURAZIONE ANNUNCI (Google Ads) – IMI SERVICE
+ * MISURAZIONE (Google Ads e Google Analytics) – IMI SERVICE
  * --------------------------------------------------------------
- * Consent Mode v2 in modalità "base": finché la persona non accetta la categoria "Marketing" nel banner
- * (consenso.js), il tag Google NON viene scaricato e non parte nessuna richiesta verso Google.
+ * Consent Mode v2 in modalità "base": ogni tag Google viene scaricato SOLO dopo il consenso alla sua categoria
+ * nel banner (consenso.js): Google Analytics con "Statistiche", Google Ads con "Marketing".
+ * Senza consenso non parte nessuna richiesta verso Google.
  * Con il consenso: si scarica il tag, il consenso viene aggiornato a "granted" e i clic su WhatsApp,
  * Chiama ed Email diventano conversioni.
  *
@@ -13,7 +14,7 @@
  */
 (() => {
   const CFG = window.IMI_CONFIG || {};
-  const ID = CFG.googleTag;
+  const ID = CFG.googleTag, GA = CFG.analyticsTag;
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
@@ -22,29 +23,28 @@
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('set', 'ads_data_redaction', true);
 
-  let caricato = false, marketing = false;
+  const caricati = {};
+  const carica = id => { if (!id || caricati[id]) return; caricati[id] = 1; const t = document.createElement('script'); t.async = true; t.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(id); document.head.appendChild(t); };
+  let marketing = false, statistiche = false, js = false;
   function aggiorna(v) {
-    marketing = !!(v && v.marketing);
-    const s = marketing ? 'granted' : 'denied';
-    gtag('consent', 'update', { ad_storage: s, ad_user_data: s, ad_personalization: s, analytics_storage: v && v.statistiche ? 'granted' : 'denied' });
-    if (marketing && ID && !caricato) {
-      caricato = true;
-      const t = document.createElement('script'); t.async = true; t.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(ID);
-      document.head.appendChild(t);
-      gtag('js', new Date());
-    }
+    marketing = !!(v && v.marketing); statistiche = !!(v && v.statistiche);
+    const m = marketing ? 'granted' : 'denied';
+    gtag('consent', 'update', { ad_storage: m, ad_user_data: m, ad_personalization: m, analytics_storage: statistiche ? 'granted' : 'denied' });
+    if ((marketing && ID) || (statistiche && GA)) { if (!js) { js = true; gtag('js', new Date()); } }
+    if (marketing) carica(ID);
+    if (statistiche) carica(GA);
   }
   document.addEventListener('imi-consenso', e => aggiorna(e.detail));
   if (window.IMI_CONSENSO) aggiorna(window.IMI_CONSENSO);
 
-  // conversioni: clic su WhatsApp, telefono, email (solo con consenso marketing)
+  // clic su WhatsApp, telefono, email: evento "contatto" (con un consenso), conversione Ads (solo con Marketing)
   document.addEventListener('click', e => {
-    if (!marketing) return;
+    if (!marketing && !statistiche) return;
     const a = e.target.closest('a[href]'); if (!a) return;
     const h = a.getAttribute('href') || '';
     const metodo = /^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(h) ? 'whatsapp' : h.startsWith('tel:') ? 'telefono' : h.startsWith('mailto:') ? 'email' : '';
     if (!metodo) return;
     gtag('event', 'contatto', { metodo });
-    if (CFG.adsConversione) gtag('event', 'conversion', { send_to: CFG.adsConversione, value: 1.0, currency: 'EUR' });
+    if (marketing && CFG.adsConversione) gtag('event', 'conversion', { send_to: CFG.adsConversione, value: 1.0, currency: 'EUR' });
   }, true);
 })();
