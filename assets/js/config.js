@@ -18,6 +18,8 @@ window.IMI_CONFIG = {
   googleTag: 'GTM-NGMGNLPK',
   // Tag Google di Google Analytics: parte solo con il consenso "Statistiche" (vedi misura.js)
   analyticsTag: 'GTM-5JPLVWKP',
+  // Microsoft Clarity (registrazioni anonime e mappe di calore): parte solo con il consenso "Statistiche"
+  clarityId: 'zjq05l4eqa',
   // Snippet evento della conversione "Contatti" in Google Ads, es. 'AW-123456789/AbCdEfGh' (vuoto = solo evento "contatto")
   adsConversione: 'AW-18595507068/Z5RhCK_qsL8dEPzWg6NF'
 };

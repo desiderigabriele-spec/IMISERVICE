@@ -68,7 +68,7 @@
     box.innerHTML = `<button class="x" type="button" aria-label="Chiudi e rifiuta">×</button>
       <p>Usiamo solo strumenti tecnici necessari. Statistiche e pubblicità restano spente finché non le accetti. <a href="/cookie">Cookie policy</a></p>
       <div class="cats">${CAT.map(c => `<label><b>${c.t}</b><small>${c.d}</small><input type="checkbox" data-k="${c.k}" ${c.fisso || v[c.k] ? 'checked' : ''} ${c.fisso ? 'disabled' : ''}></label>`).join('')}
-        <p class="nota">Statistiche: Google Analytics, per contare le visite. Marketing: Google Ads, per sapere quali annunci portano richieste.</p></div>
+        <p class="nota">Statistiche: Google Analytics e Microsoft Clarity, per contare le visite e capire come si usa il sito. Marketing: Google Ads, per sapere quali annunci portano richieste.</p></div>
       <div class="b"><button type="button" class="no">Rifiuta</button><button type="button" class="ok">Accetta</button></div>
       <button type="button" class="pers">Personalizza</button>`;
     if (dettaglio) box.classList.add('det');
