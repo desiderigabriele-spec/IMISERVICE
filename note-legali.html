@@ -2,6 +2,19 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
+  <!-- Tag Google (Google Ads + Google Analytics) con Consent Mode v2 avanzato: senza consenso nessun cookie,
+       solo segnali anonimi; la scelta del banner la aggiorna assets/js/misura.js. ID anche in assets/js/config.js -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){var c={};try{var v=JSON.parse(localStorage.getItem('imi-consenso'));if(v&&v.v===1&&Date.now()-v.data<15552e6)c=v;}catch(e){}
+      var m=c.marketing?'granted':'denied',s=c.statistiche?'granted':'denied';
+      gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:s,wait_for_update:500});})();
+    gtag('set','ads_data_redaction',true);
+    gtag('js', new Date());
+  </script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NGMGNLPK"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5JPLVWKP"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Note legali | IMI Service</title>
   <meta name="description" content="Note legali del sito di IMI Service, impresa di pulizie a Sesto San Giovanni: dati dell'impresa, contenuti, immagini, proprietà intellettuale.">
@@ -11,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/legale.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://imiservicepulizie.it/note-legali#pagina", "url": "https://imiservicepulizie.it/note-legali", "name": "Note legali | IMI Service", "description": "Note legali del sito di IMI Service, impresa di pulizie a Sesto San Giovanni: dati dell'impresa, contenuti, immagini, proprietà intellettuale.", "inLanguage": "it-IT", "dateModified": "2026-11-25", "isPartOf": {"@id": "https://imiservicepulizie.it/#sito"}, "publisher": {"@id": "https://imiservicepulizie.it/#impresa"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://imiservicepulizie.it/"}, {"@type": "ListItem", "position": 2, "name": "Note legali", "item": "https://imiservicepulizie.it/note-legali"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://imiservicepulizie.it/note-legali#pagina", "url": "https://imiservicepulizie.it/note-legali", "name": "Note legali | IMI Service", "description": "Note legali del sito di IMI Service, impresa di pulizie a Sesto San Giovanni: dati dell'impresa, contenuti, immagini, proprietà intellettuale.", "inLanguage": "it-IT", "dateModified": "2026-11-27", "isPartOf": {"@id": "https://imiservicepulizie.it/#sito"}, "publisher": {"@id": "https://imiservicepulizie.it/#impresa"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://imiservicepulizie.it/"}, {"@type": "ListItem", "position": 2, "name": "Note legali", "item": "https://imiservicepulizie.it/note-legali"}]}]}</script>
   <script src="assets/js/consenso.js" defer></script>
 </head>
 <body>
@@ -23,7 +36,7 @@
   <p class="kicker">Informazioni legali</p>
   <h1>Note legali</h1>
   <p class="lead">Chi siamo, a che cosa servono le informazioni del sito e come si possono usare i suoi contenuti.</p>
-  <p class="upd">Ultimo aggiornamento: 25 novembre 2026</p>
+  <p class="upd">Ultimo aggiornamento: 27 novembre 2026</p>
   <div class="box"><dl>
     <dt>Impresa</dt><dd>IMI Service, ditta individuale</dd>
     <dt>Sede</dt><dd>Via Bergomi 25, 20099 Sesto San Giovanni (MI)</dd>
@@ -63,7 +76,7 @@
   <p>Il sito è ospitato da Vercel Inc. (Stati Uniti). I nomi a dominio e la casella email sono gestiti tramite Register.it S.p.A. (Italia).</p>
 
   <h2 id="privacy">8. Privacy e cookie</h2>
-  <p>Il trattamento dei dati personali è descritto nell'<a href="/privacy">informativa privacy</a>. Il sito usa solo strumenti tecnici e, se li accetti, Google Analytics e Microsoft Clarity per le statistiche e Google Ads per misurare gli annunci: i dettagli sono nella <a href="/cookie">cookie policy</a>.</p>
+  <p>Il trattamento dei dati personali è descritto nell'<a href="/privacy">informativa privacy</a>. Il sito usa cookie tecnici e, se li accetti, i cookie di Google Analytics e Microsoft Clarity per le statistiche e di Google Ads per misurare gli annunci; senza consenso Google riceve solo segnali tecnici senza cookie: i dettagli sono nella <a href="/cookie">cookie policy</a>.</p>
 
   <h2 id="legge">9. Legge applicabile</h2>
   <p>Queste note e l'uso del sito sono regolati dalla legge italiana. Per le controversie con i consumatori è competente il foro del luogo di residenza o domicilio del consumatore, come previsto dal Codice del consumo.</p>

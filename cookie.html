@@ -2,6 +2,19 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
+  <!-- Tag Google (Google Ads + Google Analytics) con Consent Mode v2 avanzato: senza consenso nessun cookie,
+       solo segnali anonimi; la scelta del banner la aggiorna assets/js/misura.js. ID anche in assets/js/config.js -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){var c={};try{var v=JSON.parse(localStorage.getItem('imi-consenso'));if(v&&v.v===1&&Date.now()-v.data<15552e6)c=v;}catch(e){}
+      var m=c.marketing?'granted':'denied',s=c.statistiche?'granted':'denied';
+      gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:s,wait_for_update:500});})();
+    gtag('set','ads_data_redaction',true);
+    gtag('js', new Date());
+  </script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NGMGNLPK"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5JPLVWKP"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cookie policy | IMI Service</title>
   <meta name="description" content="Cookie policy del sito di IMI Service: quali strumenti usa il sito, come funziona il banner e come cambiare le tue scelte.">
@@ -11,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin.woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/legale.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://imiservicepulizie.it/cookie#pagina", "url": "https://imiservicepulizie.it/cookie", "name": "Cookie policy | IMI Service", "description": "Cookie policy del sito di IMI Service: quali strumenti usa il sito, come funziona il banner e come cambiare le tue scelte.", "inLanguage": "it-IT", "dateModified": "2026-11-25", "isPartOf": {"@id": "https://imiservicepulizie.it/#sito"}, "publisher": {"@id": "https://imiservicepulizie.it/#impresa"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://imiservicepulizie.it/"}, {"@type": "ListItem", "position": 2, "name": "Cookie policy", "item": "https://imiservicepulizie.it/cookie"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://imiservicepulizie.it/cookie#pagina", "url": "https://imiservicepulizie.it/cookie", "name": "Cookie policy | IMI Service", "description": "Cookie policy del sito di IMI Service: quali strumenti usa il sito, come funziona il banner e come cambiare le tue scelte.", "inLanguage": "it-IT", "dateModified": "2026-11-27", "isPartOf": {"@id": "https://imiservicepulizie.it/#sito"}, "publisher": {"@id": "https://imiservicepulizie.it/#impresa"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://imiservicepulizie.it/"}, {"@type": "ListItem", "position": 2, "name": "Cookie policy", "item": "https://imiservicepulizie.it/cookie"}]}]}</script>
   <script src="assets/js/consenso.js" defer></script>
 </head>
 <body>
@@ -22,18 +35,18 @@
 <main>
   <p class="kicker">Cookie policy</p>
   <h1>Cookie policy</h1>
-  <p class="lead">Breve e semplice: il sito usa solo strumenti tecnici. Google Analytics e Microsoft Clarity (statistiche) e Google Ads (annunci) partono solo se li accetti nel banner.</p>
-  <p class="upd">Ultimo aggiornamento: 25 novembre 2026</p>
+  <p class="lead">Breve e semplice: i cookie di statistica (Google Analytics, Microsoft Clarity) e pubblicità (Google Ads) si attivano solo se li accetti nel banner. Senza consenso Google riceve solo segnali tecnici senza cookie.</p>
+  <p class="upd">Ultimo aggiornamento: 27 novembre 2026</p>
   <nav class="toc" aria-label="Indice"><ol><li><a href="#cosa">Che cosa sono i cookie</a></li><li><a href="#nostri">Che cosa usa questo sito</a></li><li><a href="#banner">Il banner e le tue scelte</a></li><li><a href="#cache">Memoria del browser</a></li><li><a href="#esterni">Servizi esterni</a></li><li><a href="#server">Dati tecnici di navigazione</a></li><li><a href="#modifiche">Modifiche</a></li></ol></nav>
 
   <h2 id="cosa">1. Che cosa sono i cookie</h2>
   <p>I cookie sono piccoli file di testo che un sito può salvare sul tuo dispositivo per ricordare informazioni, per esempio le preferenze o le visite precedenti. Strumenti simili sono il "local storage" del browser, i pixel e gli identificatori di dispositivo.</p>
 
   <h2 id="nostri">2. Che cosa usa questo sito</h2>
-  <p>Il sito di IMI Service usa <b>solo strumenti tecnici</b> e, <b>solo se li accetti</b>, questi strumenti:</p>
+  <p>Il sito di IMI Service usa cookie tecnici e, <b>solo se li accetti</b>, i cookie di questi strumenti. Google Ads e Google Analytics usano la <b>modalità di consenso di Google</b> (Consent Mode): senza il tuo consenso non salvano cookie e inviano solo segnali tecnici senza identificativi.</p>
   <ul>
-    <li><b>Google Ads (Google Ireland Limited)</b>, categoria Marketing: ci dice quali annunci portano richieste, cioè quando chi arriva da un annuncio tocca WhatsApp, Chiama o Email. Usa cookie come <code>_gcl_au</code> e <code>_gcl_aw</code>, con durata fino a 90 giorni, e Google può usare propri cookie sui suoi domini. Senza il tuo consenso il tag <b>non viene nemmeno caricato</b>. Come Google usa questi dati: <a href="https://policies.google.com/technologies/ads?hl=it" rel="noopener">policies.google.com</a>;</li>
-    <li><b>Google Analytics (Google Ireland Limited)</b>, categoria Statistiche: conta in forma aggregata le visite e le pagine lette, per capire come migliorare il sito. Usa i cookie <code>_ga</code> e <code>_ga_*</code>, con durata fino a 2 anni; i dati restano in Analytics per 14 mesi, Google Signals è disattivato e i dati non sono condivisi con Google per altri scopi. Senza il tuo consenso il tag <b>non viene caricato</b>;</li>
+    <li><b>Google Ads (Google Ireland Limited)</b>, categoria Marketing: ci dice quali annunci portano richieste, cioè quando chi arriva da un annuncio tocca WhatsApp, Chiama o Email. Usa cookie come <code>_gcl_au</code> e <code>_gcl_aw</code>, con durata fino a 90 giorni, e Google può usare propri cookie sui suoi domini. Senza il tuo consenso il tag funziona in <b>modalità senza cookie</b>: non salva né legge cookie e invia a Google solo segnali tecnici senza identificativi (per esempio pagina visitata, ora, tipo di browser e se è stato toccato un pulsante di contatto), che Google usa in forma aggregata per stimare quante richieste arrivano dagli annunci. Come Google usa questi dati: <a href="https://policies.google.com/technologies/ads?hl=it" rel="noopener">policies.google.com</a>;</li>
+    <li><b>Google Analytics (Google Ireland Limited)</b>, categoria Statistiche: conta in forma aggregata le visite e le pagine lette, per capire come migliorare il sito. Usa i cookie <code>_ga</code> e <code>_ga_*</code>, con durata fino a 2 anni; i dati restano in Analytics per 14 mesi, Google Signals è disattivato e i dati non sono condivisi con Google per altri scopi. Senza il tuo consenso funziona in <b>modalità senza cookie</b>, con soli segnali tecnici senza identificativi;</li>
     <li><b>Microsoft Clarity (Microsoft Ireland Operations Limited)</b>, categoria Statistiche: registra in forma anonima come si naviga nella pagina (scorrimento, clic, movimenti) e crea mappe di calore, per capire cosa migliorare. <b>Tutto il testo della pagina e quello che scrivi è mascherato</b> e non viene registrato. Usa i cookie <code>_clck</code> (fino a 1 anno) e <code>_clsk</code> (1 giorno). Informativa di Microsoft: <a href="https://privacy.microsoft.com/it-it/privacystatement" rel="noopener">privacy.microsoft.com</a>. Senza il tuo consenso non viene caricato;</li>
     <li>niente pixel di altri servizi (come Meta);</li>
     <li>niente contenuti di altri siti incorporati nella pagina: il video, le immagini e il carattere tipografico sono tutti caricati dal nostro sito, senza collegamenti a Google, YouTube o altri servizi;</li>
@@ -47,13 +60,13 @@
     <thead><tr><th>Categoria</th><th>A cosa serve</th><th>Stato</th></tr></thead>
     <tbody>
       <tr><td data-l="Categoria">Necessari</td><td data-l="A cosa serve">Far funzionare il sito e ricordare la tua scelta sui cookie</td><td data-l="Stato">Sempre attivi, non richiedono consenso</td></tr>
-      <tr><td data-l="Categoria">Statistiche</td><td data-l="A cosa serve">Contare in forma aggregata le visite e le pagine lette</td><td data-l="Stato">Solo con il tuo consenso: Google Analytics, Microsoft Clarity</td></tr>
-      <tr><td data-l="Categoria">Marketing</td><td data-l="A cosa serve">Misurare le pubblicità e mostrare annunci pertinenti</td><td data-l="Stato">Solo con il tuo consenso: Google Ads</td></tr>
+      <tr><td data-l="Categoria">Statistiche</td><td data-l="A cosa serve">Contare in forma aggregata le visite e le pagine lette</td><td data-l="Stato">Cookie solo con il tuo consenso: Google Analytics, Microsoft Clarity (senza consenso Clarity non si carica)</td></tr>
+      <tr><td data-l="Categoria">Marketing</td><td data-l="A cosa serve">Misurare le pubblicità e mostrare annunci pertinenti</td><td data-l="Stato">Cookie solo con il tuo consenso: Google Ads</td></tr>
     </tbody>
   </table>
   <p>Chiudere il banner con la "×" equivale a rifiutare. Se rifiuti, il sito funziona esattamente allo stesso modo.</p>
   <p>La tua scelta resta salvata nel browser (nella memoria locale, con il nome <code>imi-consenso</code>) per <b>6 mesi</b>, poi il banner ti viene riproposto. Puoi cambiarla in qualsiasi momento: <a href="/cookie" data-cookie-pref>apri le preferenze cookie</a> (il link è anche in fondo a ogni pagina). Puoi anche cancellarla dalle impostazioni del browser.</p>
-  <p>Se revochi il consenso, Google Analytics, Microsoft Clarity e Google Ads smettono di funzionare dalla pagina successiva. Se in futuro attiveremo altri strumenti, li elencheremo in questa pagina con il nome del fornitore, e partiranno solo per chi ha dato il consenso.</p>
+  <p>Se revochi il consenso, Google Analytics e Google Ads smettono subito di usare cookie e Microsoft Clarity non si carica più dalla pagina successiva. Se in futuro attiveremo altri strumenti, li elencheremo in questa pagina con il nome del fornitore, e partiranno solo per chi ha dato il consenso.</p>
 
   <h2 id="cache">4. Memoria del browser</h2>
   <p>Per caricare le pagine più velocemente, il tuo browser può conservare una copia di immagini e file del sito (la cosiddetta cache). Non si tratta di cookie e non contiene informazioni su di te; puoi cancellarla in qualsiasi momento dalle impostazioni del browser.</p>

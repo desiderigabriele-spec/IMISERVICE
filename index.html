@@ -2,6 +2,19 @@
 <html lang="it">
 <head>
   <meta charset="utf-8">
+  <!-- Tag Google (Google Ads + Google Analytics) con Consent Mode v2 avanzato: senza consenso nessun cookie,
+       solo segnali anonimi; la scelta del banner la aggiorna assets/js/misura.js. ID anche in assets/js/config.js -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function(){var c={};try{var v=JSON.parse(localStorage.getItem('imi-consenso'));if(v&&v.v===1&&Date.now()-v.data<15552e6)c=v;}catch(e){}
+      var m=c.marketing?'granted':'denied',s=c.statistiche?'granted':'denied';
+      gtag('consent','default',{ad_storage:m,ad_user_data:m,ad_personalization:m,analytics_storage:s,wait_for_update:500});})();
+    gtag('set','ads_data_redaction',true);
+    gtag('js', new Date());
+  </script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NGMGNLPK"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5JPLVWKP"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Impresa di pulizie a Sesto San Giovanni | IMI Service</title>
   <meta name="description" content="Impresa di pulizie a Sesto San Giovanni dal 2008: uffici, condomini, fine cantiere, sgomberi e vetrate a Milano e Monza. Anche di notte. Sopralluogo gratuito.">

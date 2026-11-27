@@ -14,9 +14,9 @@ window.IMI_CONFIG = {
   whatsapp: '393447701121',
   email: 'info@imiservicepulizie.it',
   piva: '06179360968',
-  // Tag Google (Google Ads): parte solo con il consenso "Marketing" (vedi misura.js)
+  // Tag Google (Google Ads): caricato nell'<head> delle pagine con Consent Mode avanzato (qui solo come promemoria)
   googleTag: 'GTM-NGMGNLPK',
-  // Tag Google di Google Analytics: parte solo con il consenso "Statistiche" (vedi misura.js)
+  // Tag Google di Google Analytics: caricato nell'<head> delle pagine con Consent Mode avanzato (qui solo come promemoria)
   analyticsTag: 'GTM-5JPLVWKP',
   // Microsoft Clarity (registrazioni anonime e mappe di calore): parte solo con il consenso "Statistiche"
   clarityId: 'zjq05l4eqa',
