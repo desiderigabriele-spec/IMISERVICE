@@ -648,6 +648,32 @@ section { scroll-margin-top: 72px; }
 .pv-note { margin: 0; text-align: center; font-size: 13px; font-weight: 600; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .pv-bar i, .pv-opt { transition: none; } }
 
+/* Recensioni Google */
+.rv-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.rv-g { width: 44px; height: 44px; border-radius: 12px; background: #fff; border: 1.5px solid var(--line); display: grid; place-items: center; flex: none; }
+.rv-g svg { width: 26px; height: 26px; }
+.rv-score { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rv-num { font-size: 32px; font-weight: 800; line-height: 1; }
+.rv-stars { color: #E8A400; letter-spacing: 2px; font-size: 18px; line-height: 1; }
+.rv-count { width: 100%; font-size: 14px; font-weight: 700; color: var(--muted); }
+.rv-list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(270px, 84%); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; margin-bottom: 16px; }
+.rv-card { scroll-snap-align: start; background: var(--paper); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.rv-top { display: flex; align-items: center; gap: 10px; }
+.rv-av { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 800; display: grid; place-items: center; flex: none; }
+.rv-who { display: flex; flex-direction: column; min-width: 0; }
+.rv-name { font-weight: 800; color: var(--navy); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+a.rv-name:hover { text-decoration: underline; }
+.rv-when { font-size: 13px; font-weight: 600; color: var(--muted); }
+.rv-text { font-weight: 600; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.rv-text.open { -webkit-line-clamp: unset; display: block; }
+.rv-more { align-self: flex-start; background: none; border: 0; padding: 0; font: 700 14px var(--font); color: var(--navy); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.rv-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.rv-actions .btn { flex: 1 1 220px; }
+.rv-btn-o { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+.rv-note { margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.rv { min-width: 0; }
+@media (min-width: 1000px) { .rv-list { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-columns: unset; overflow: visible; } }
+
 /* FAQ */
 .faq { display: grid; gap: 8px; }
 .faq details { background: var(--paper); border: 1.5px solid var(--line); border-radius: 16px; padding: 0 16px; }
@@ -914,6 +940,19 @@ section { scroll-margin-top: 72px; }
   </div>
 </section>
 
+<section class="sec" id="recensioni" hidden>
+  <div class="wrap">
+    <p class="kicker">Recensioni</p>
+    <h2>Cosa dicono di noi <span class="hl">i clienti su Google.</span></h2>
+    <div class="rv">
+      <div class="rv-head" id="rvHead"></div>
+      <div class="rv-list" id="rvList"></div>
+      <div class="rv-actions"><a class="btn btn-d" id="rvAll" href="#" target="_blank" rel="noopener">Leggi tutte su Google</a><a class="btn rv-btn-o" id="rvWrite" href="https://g.page/r/CQdiDPs7QafsEBM/review" target="_blank" rel="noopener">Lascia una recensione</a></div>
+      <p class="rv-note">Recensioni pubblicate dai clienti su Google, mostrate senza modifiche e aggiornate in automatico.</p>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="preventivo">
   <div class="wrap">
     <p class="kicker">Preventivo</p>
@@ -955,6 +994,7 @@ section { scroll-margin-top: 72px; }
       <a data-cfg="tel" href="#">Telefono</a>
       <a data-cfg="wa" href="#">WhatsApp</a>
       <a data-cfg="mail" href="#">Email</a>
+      <a href="https://g.page/r/CQdiDPs7QafsEBM/review" target="_blank" rel="noopener">Lascia una recensione</a>
     </div>
     <small>IMI Service · Via Bergomi 25, 20099 Sesto San Giovanni (MI) · <span data-cfg="piva">P. IVA</span> · REA MI-1877404</small>
     <nav class="legal" aria-label="Informazioni legali"><a href="/note-legali">Note legali</a><a href="/privacy">Privacy</a><a href="/cookie">Cookie</a><a href="/cookie" data-cookie-pref>Preferenze cookie</a></nav>
@@ -970,6 +1010,7 @@ section { scroll-margin-top: 72px; }
 <script src="assets/js/config.js"></script>
 <script src="assets/js/misura.js" defer></script>
 <script src="assets/js/consenso.js" defer></script>
+<script src="assets/js/recensioni.js" defer></script>
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
